@@ -61,7 +61,7 @@
         <div class="row">
             <div class="col-lg-12 mb-2 d-flex justify-content-center">
                 <button type="submit" ref="submit" class="btn btn-lg btn-primary text-white me-3 rounded-3">{{ $buttonText }}</button>
-                <a class="btn btn-lg btn-secondary rounded-3" href="{{ Session::get('aplicatieReturnUrl') }}">Renunță</a>
+                <a class="btn btn-lg btn-secondary rounded-3" href="{{ Session::get('actualizareReturnUrl') }}">Renunță</a>
             </div>
         </div>
     </div>
