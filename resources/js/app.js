@@ -36,23 +36,27 @@ import { createApp } from 'vue';
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
-const app = createApp({});
+// const app = createApp({});
 
 // import ExampleComponent from './components/ExampleComponent.vue';
 // app.component('example-component', ExampleComponent);
 
 import VueDatepickerNext from './components/DatePicker.vue';
-
-app.component('vue-datepicker-next', VueDatepickerNext);
-
-if (document.getElementById('app') != null) {
-    app.mount('#app');
-}
+import VueTinyMCE from './components/TinyMCE.vue';
 
 
 // App pentru DatePicker
-const datePicker = createApp({});
-datePicker.component('vue-datepicker-next', VueDatepickerNext);
 if (document.getElementById('datePicker') != null) {
+    const datePicker = createApp({});
+
+    datePicker.component('vue-datepicker-next', VueDatepickerNext);
     datePicker.mount('#datePicker');
+}
+
+// App pentru TinyMCE
+if (document.getElementById('TinyMCE') != null) {
+    const TinyMCE = createApp({});
+
+    TinyMCE.component('tinymce-vue', VueTinyMCE);
+    TinyMCE.mount('#TinyMCE');
 }

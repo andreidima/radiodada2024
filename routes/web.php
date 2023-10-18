@@ -23,5 +23,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::view('/acasa', 'acasa');
 
     Route::resource('/apps/aplicatii', App\Http\Controllers\Apps\AplicatieController::class)->parameters(['aplicatii' => 'aplicatie']);
-    // Route::resource('/aplicatii', App\Http\Controllers\Apps\AplicatieController::class)->parameters(['aplicatii' => 'aplicatie']);
+    Route::resource('/apps/actualizari', App\Http\Controllers\Apps\ActualizareController::class)->parameters(['actualizari' => 'actualizare']);
 });
