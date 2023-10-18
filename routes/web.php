@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\AplicatieController;
+// use App\Http\Controllers\Apps\AppsAplicatieController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,5 +22,6 @@ Route::redirect('/', '/acasa');
 Route::group(['middleware' => 'auth'], function () {
     Route::view('/acasa', 'acasa');
 
-    Route::resource('/aplicatii', AplicatieController::class)->parameters(['aplicatii' => 'aplicatie']);
+    Route::resource('/apps/aplicatii', App\Http\Controllers\Apps\AplicatieController::class)->parameters(['aplicatii' => 'aplicatie']);
+    // Route::resource('/aplicatii', App\Http\Controllers\Apps\AplicatieController::class)->parameters(['aplicatii' => 'aplicatie']);
 });

@@ -35,7 +35,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item me-3">
-                            <a class="nav-link active" aria-current="page" href="/aplicatii">
+                            <a class="nav-link active" aria-current="page" href="/apps/aplicatii">
                                 <i class="fa-solid fa-bars me-1"></i>Aplicații
                             </a>
                         </li>

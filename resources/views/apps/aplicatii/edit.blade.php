@@ -19,7 +19,7 @@
                     <form  class="needs-validation" novalidate method="POST" action="{{ $aplicatie->path() }}">
                         @method('PATCH')
 
-                                @include ('aplicatii.form', [
+                                @include ('apps.aplicatii.form', [
                                     'buttonText' => 'Modifică Aplicația'
                                 ])
 

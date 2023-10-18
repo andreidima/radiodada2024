@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Apps;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Aplicatie;
+use App\Models\Apps\Aplicatie;
 use Carbon\Carbon;
 
 class AplicatieController extends Controller
@@ -29,7 +30,7 @@ class AplicatieController extends Controller
 
         $aplicatii = $query->simplePaginate(50);
 
-        return view('aplicatii.index', compact('aplicatii', 'searchNume'));
+        return view('apps.aplicatii.index', compact('aplicatii', 'searchNume'));
     }
 
     /**
@@ -41,7 +42,7 @@ class AplicatieController extends Controller
     {
         $request->session()->get('aplicatieReturnUrl') ?? $request->session()->put('aplicatieReturnUrl', url()->previous());
 
-        return view('aplicatii.create');
+        return view('apps.aplicatii.create');
     }
 
     /**
@@ -67,7 +68,7 @@ class AplicatieController extends Controller
     {
         $request->session()->get('aplicatieReturnUrl') ?? $request->session()->put('aplicatieReturnUrl', url()->previous());
 
-        return view('aplicatii.show', compact('aplicatie'));
+        return view('apps.aplicatii.show', compact('aplicatie'));
     }
 
     /**
@@ -80,7 +81,7 @@ class AplicatieController extends Controller
     {
         $request->session()->get('aplicatieReturnUrl') ?? $request->session()->put('aplicatieReturnUrl', url()->previous());
 
-        return view('aplicatii.edit', compact('aplicatie'));
+        return view('apps.aplicatii.edit', compact('aplicatie'));
     }
 
     /**

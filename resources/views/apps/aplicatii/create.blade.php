@@ -16,10 +16,10 @@
                 <div class="card-body py-2 border border-secondary"
                     style="border-radius: 0px 0px 40px 40px;"
                 >
-                    <form  class="needs-validation" novalidate method="POST" action="/aplicatii">
+                    <form  class="needs-validation" novalidate method="POST" action="/apps/aplicatii">
 
-                                @include ('aplicatii.form', [
-                                    'aplicatie' => new App\Models\Aplicatie,
+                                @include ('apps.aplicatii.form', [
+                                    'aplicatie' => new App\Models\Apps\Aplicatie,
                                     'buttonText' => 'Adaugă Aplicație'
                                 ])
                     </form>
