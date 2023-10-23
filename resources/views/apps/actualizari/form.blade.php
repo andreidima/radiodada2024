@@ -12,7 +12,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-lg-7 mb-4">
+            <div class="col-lg-6 mb-4">
                 <label for="nume" class="mb-0 ps-3">Nume<span class="text-danger">*</span></label>
                 <input
                     type="text"
@@ -20,7 +20,7 @@
                     name="nume"
                     value="{{ old('nume', $actualizare->nume) }}">
             </div>
-            <div class="col-lg-1 mb-4">
+            <div class="col-lg-2 mb-4">
                 <label for="pret" class="mb-0 ps-3">Preț<span class="text-danger">*</span></label>
                 <input
                     type="text"

@@ -55,7 +55,7 @@ class AplicatieController extends Controller
     {
         $aplicatie = Aplicatie::create($this->validateRequest($request));
 
-        return redirect($request->session()->get('aplicatieReturnUrl') ?? ('/aplicatii'))->with('status', 'Aplicație „' . $aplicatie->nume . '” a fost adăugată cu succes!');
+        return redirect($request->session()->get('aplicatieReturnUrl') ?? ('/app/aplicatii'))->with('status', 'Aplicație „' . $aplicatie->nume . '” a fost adăugată cu succes!');
     }
 
     /**
@@ -95,7 +95,7 @@ class AplicatieController extends Controller
     {
         $aplicatie->update($this->validateRequest($request));
 
-        return redirect($request->session()->get('aplicatieReturnUrl') ?? ('/aplicatii'))->with('status', 'Aplicația „' . $aplicatie->nume . '” a fost modificată cu succes!');
+        return redirect($request->session()->get('aplicatieReturnUrl') ?? ('/apps/aplicatii'))->with('status', 'Aplicația „' . $aplicatie->nume . '” a fost modificată cu succes!');
     }
 
     /**

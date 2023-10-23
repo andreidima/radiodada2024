@@ -58,7 +58,7 @@ class ActualizareController extends Controller
     {
         $actualizare = Actualizare::create($this->validateRequest($request));
 
-        return redirect($request->session()->get('actualizareReturnUrl') ?? ('/actualizari'))->with('status', 'Actualizarea „' . $actualizare->nume . '” a fost adăugată cu succes!');
+        return redirect($request->session()->get('actualizareReturnUrl') ?? ('/apps/actualizari'))->with('status', 'Actualizarea „' . $actualizare->nume . '” a fost adăugată cu succes!');
     }
 
     /**
@@ -100,7 +100,7 @@ class ActualizareController extends Controller
     {
         $actualizare->update($this->validateRequest($request));
 
-        return redirect($request->session()->get('actualizareReturnUrl') ?? ('/actualizari'))->with('status', 'Actualizarea „' . $actualizare->nume . '” a fost modificată cu succes!');
+        return redirect($request->session()->get('actualizareReturnUrl') ?? ('/apps/actualizari'))->with('status', 'Actualizarea „' . $actualizare->nume . '” a fost modificată cu succes!');
     }
 
     /**
