@@ -42,13 +42,19 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
                                     <a class="dropdown-item" href="/apps/aplicatii">
-                                        Aplicații
+                                        <i class="fa-solid fa-bars me-1"></i>Aplicații
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <a class="dropdown-item" href="/apps/actualizari">
-                                        Actualizări
+                                        <i class="fa-solid fa-pen-to-square me-1"></i>Actualizări
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="/apps/pontaje">
+                                        <i class="fa-solid fa-clock me-1"></i>Pontaje
                                     </a>
                                 </li>
                             </ul>

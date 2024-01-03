@@ -21,18 +21,19 @@ class PontajController extends Controller
     {
         $request->session()->forget('pontajReturnUrl');
 
-        // $searchNume = $request->searchNume;
+        $searchAplicatie = $request->searchAplicatie;
+        $searchActualizare = $request->searchActualizare;
 
-        $query = Pontaj::
-            // when($searchNume, function ($query, $searchNume) {
-            //     return $query->where('nume', $searchNume);
+        $query = Pontaj::with('actualizare.aplicatie')
+            // when($searchActualizare, function ($query, $searchActualizare) {
+            //     return $query->where('nume', $searchActualizare);
             // })
             // ->orderBy('id', 'desc');
-            latest();
+            ->latest();
 
         $pontaje = $query->simplePaginate(50);
 
-        return view('apps.pontaje.index', compact('pontaje'));
+        return view('apps.pontaje.index', compact('pontaje', 'searchAplicatie', 'searchActualizare'));
     }
 
     /**
@@ -44,9 +45,10 @@ class PontajController extends Controller
     {
         $request->session()->get('pontajReturnUrl') ?? $request->session()->put('pontajReturnUrl', url()->previous());
 
-        $actualizari = Actualizare::select('id', 'nume')->get();
+        $aplicatii = Aplicatie::select('id', 'nume')->orderBy('nume')->get();
+        $actualizari = Actualizare::select('id', 'nume')->orderBy('nume')->get();
 
-        return view('apps.pontaje.create', compact('actualizari'));
+        return view('apps.pontaje.create', compact('aplicatii', 'actualizari'));
     }
 
     /**
@@ -114,7 +116,7 @@ class PontajController extends Controller
     {
         $pontaj->delete();
 
-        return back()->with('status', 'Pontajul pentru actualizareav„' . ($pontaj->actualizare->nume ?? '') . '” a fost șters cu succes!');
+        return back()->with('status', 'Pontajul pentru actualizarea „' . ($pontaj->actualizare->nume ?? '') . '” a fost șters cu succes!');
     }
 
     /**

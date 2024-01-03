@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Apps\AplicatieController;
+use App\Http\Controllers\Apps\ActualizareController;
+use App\Http\Controllers\Apps\PontajController;
+
 // use App\Http\Controllers\Apps\AppsAplicatieController;
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +26,7 @@ Route::redirect('/', '/acasa');
 Route::group(['middleware' => 'auth'], function () {
     Route::view('/acasa', 'acasa');
 
-    Route::resource('/apps/aplicatii', App\Http\Controllers\Apps\AplicatieController::class)->parameters(['aplicatii' => 'aplicatie']);
-    Route::resource('/apps/actualizari', App\Http\Controllers\Apps\ActualizareController::class)->parameters(['actualizari' => 'actualizare']);
+    Route::resource('/apps/aplicatii', AplicatieController::class)->parameters(['aplicatii' => 'aplicatie']);
+    Route::resource('/apps/actualizari', ActualizareController::class)->parameters(['actualizari' => 'actualizare']);
+    Route::resource('/apps/pontaje', PontajController::class)->parameters(['pontaje' => 'pontaj']);
 });
