@@ -1,5 +1,9 @@
 @extends ('layouts.app')
 
+@php
+    use \Carbon\Carbon;
+@endphp
+
 @section('content')
 <div class="mx-3 px-3 card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
@@ -68,6 +72,12 @@
                                 <td class="">
                                     {{ $pontaj->actualizare->nume ?? '' }}
                                 </td>
+                                <td class="">
+                                    {{ $pontaj->data ? Carbon::parse($pontaj->data)->isoFormat('DD.MM.YYYY') : '' }}
+                                </td>
+                                <td class="">
+                                    {{ $pontaj->timp ? Carbon::parse($pontaj->timp)->isoFormat('HH:mm') : '' }}
+                                </td>
                                 <td>
                                     <div class="d-flex justify-content-end">
                                         <a href="{{ $pontaj->path() }}" class="flex me-1">
@@ -110,7 +120,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white" id="exampleModalLabel">Pontaj: <b>{{ $pontaj->actualizare->aplicatie->nume }} / {{ $pontaj->actualizare->nume }}</b></h5>
+                    <h5 class="modal-title text-white" id="exampleModalLabel">Pontaj: <b>{{ $pontaj->actualizare->aplicatie->nume ?? '' }} / {{ $pontaj->actualizare->nume ?? '' }}</b></h5>
                     <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="text-align:left;">

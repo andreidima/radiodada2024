@@ -20,18 +20,23 @@ class ActualizareController extends Controller
     {
         $request->session()->forget('actualizareReturnUrl');
 
-        $searchNume = $request->searchNume;
+        $searchAplicatie = $request->searchAplicatie;
+        $searchActualizare = $request->string('searchActualizare');
 
         $query = Actualizare::
-            when($searchNume, function ($query, $searchNume) {
-                return $query->where('nume', $searchNume);
+            when($searchAplicatie, function ($query, $searchAplicatie) {
+                $query->whereHas('aplicatie', function ($query) use ($searchAplicatie) {
+                    $query->where('nume', 'like', '%' . $searchAplicatie . '%');
+                });
             })
-            ->orderBy('id', 'desc');
-            // ->latest();
+            ->when($searchActualizare, function ($query, $searchActualizare) {
+                $query->where('nume', 'like', '%' . $searchActualizare . '%');
+            })
+            ->latest();
 
         $actualizari = $query->simplePaginate(50);
 
-        return view('apps.actualizari.index', compact('actualizari', 'searchNume'));
+        return view('apps.actualizari.index', compact('actualizari', 'searchAplicatie', 'searchActualizare'));
     }
 
     /**
@@ -41,11 +46,16 @@ class ActualizareController extends Controller
      */
     public function create(Request $request)
     {
-        $request->session()->get('actualizareReturnUrl') ?? $request->session()->put('actualizareReturnUrl', url()->previous());
+        $actualizare = new Actualizare;
+
+        // Daca se adauga din pontaj, se precompletezea id-ul aplicatiei
+        $actualizare->aplicatie_id = $request->session()->get('pontajRequest.aplicatie_id', '');
 
         $aplicatii = Aplicatie::select('id', 'nume')->get();
 
-        return view('apps.actualizari.create', compact('aplicatii'));
+        $request->session()->get('actualizareReturnUrl') ?? $request->session()->put('actualizareReturnUrl', url()->previous());
+
+        return view('apps.actualizari.create', compact('actualizare', 'aplicatii'));
     }
 
     /**
@@ -57,6 +67,11 @@ class ActualizareController extends Controller
     public function store(Request $request)
     {
         $actualizare = Actualizare::create($this->validateRequest($request));
+
+        // Daca actualizarea a fost adaugata din formularul Pontaj, se trimite in sesiune, pentru a fi folosita in Pontaj
+        if ($request->session()->exists('pontajRequest')) {
+            $pontajRequest = $request->session()->put('pontajRequest.actualizare_id', $actualizare->id);
+        }
 
         return redirect($request->session()->get('actualizareReturnUrl') ?? ('/apps/actualizari'))->with('status', 'Actualizarea „' . $actualizare->nume . '” a fost adăugată cu succes!');
     }
@@ -147,5 +162,14 @@ class ActualizareController extends Controller
                 // 'tara_id.required' => 'Câmpul țara este obligatoriu'
             ]
         );
+    }
+
+    public function axios(Request $request)
+    {
+        $actualizari = Actualizare::where('aplicatie_id', ($request->aplicatie_id))->get();
+
+        return response()->json([
+            'actualizari' => $actualizari,
+        ]);
     }
 }

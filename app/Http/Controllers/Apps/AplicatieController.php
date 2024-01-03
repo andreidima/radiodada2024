@@ -20,13 +20,12 @@ class AplicatieController extends Controller
         $request->session()->forget('aplicatieReturnUrl');
 
         $searchNume = $request->searchNume;
-// dd($request->request);
+
         $query = Aplicatie::
             when($searchNume, function ($query, $searchNume) {
                 return $query->where('nume', $searchNume);
             })
-            ->orderBy('id', 'desc');
-            // ->latest();
+            ->latest();
 
         $aplicatii = $query->simplePaginate(50);
 
@@ -55,7 +54,12 @@ class AplicatieController extends Controller
     {
         $aplicatie = Aplicatie::create($this->validateRequest($request));
 
-        return redirect($request->session()->get('aplicatieReturnUrl') ?? ('/app/aplicatii'))->with('status', 'Aplicație „' . $aplicatie->nume . '” a fost adăugată cu succes!');
+        // Daca aplicatia a fost adaugata din formularul Pontaj, se trimite in sesiune, pentru a fi folosita in Pontaj
+        if ($request->session()->exists('pontajRequest')) {
+            $pontajRequest = $request->session()->put('pontajRequest.aplicatie_id', $aplicatie->id);
+        }
+
+        return redirect($request->session()->get('aplicatieReturnUrl') ?? ('/app/aplicatii'))->with('status', 'Aplicația „' . $aplicatie->nume . '” a fost adăugată cu succes!');
     }
 
     /**
@@ -106,6 +110,10 @@ class AplicatieController extends Controller
      */
     public function destroy(Request $request, Aplicatie $aplicatie)
     {
+        dd($aplicatie->pontaje, $aplicatie->actualizari);
+        dd($aplicatie->actualizari->pontaje);
+        $aplicatie->actualizari->pontaje->delete();
+        dd('stop');
         $aplicatie->delete();
 
         return back()->with('status', 'Aplicația „' . $aplicatie->nume . '” a fost ștearsă cu succes!');

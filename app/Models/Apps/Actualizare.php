@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Actualizare extends Model
 {
@@ -27,5 +28,15 @@ class Actualizare extends Model
     public function aplicatie(): BelongsTo
     {
         return $this->belongsTo(Aplicatie::class, 'aplicatie_id');
+    }
+
+    /**
+     * Get all of the pontaje for the Actualizare
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pontaje(): HasMany
+    {
+        return $this->hasMany(Pontaj::class, 'actualizare_id');
     }
 }

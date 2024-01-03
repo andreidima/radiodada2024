@@ -27,6 +27,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::view('/acasa', 'acasa');
 
     Route::resource('/apps/aplicatii', AplicatieController::class)->parameters(['aplicatii' => 'aplicatie']);
+
+    Route::get('/apps/actualizari/axios', [ActualizareController::class, 'axios']);
     Route::resource('/apps/actualizari', ActualizareController::class)->parameters(['actualizari' => 'actualizare']);
+
+    Route::post('/apps/pontaje/adauga-resursa/{resursa}', [PontajController::class, 'adaugaResursa']);
     Route::resource('/apps/pontaje', PontajController::class)->parameters(['pontaje' => 'pontaj']);
 });

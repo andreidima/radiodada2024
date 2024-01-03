@@ -19,7 +19,7 @@
                     <form  class="needs-validation" novalidate method="POST" action="/apps/actualizari">
 
                                 @include ('apps.actualizari.form', [
-                                    'actualizare' => new App\Models\Apps\Actualizare,
+                                    // 'actualizare' => new App\Models\Apps\Actualizare,
                                     'buttonText' => 'Adaugă Actualizare'
                                 ])
                     </form>

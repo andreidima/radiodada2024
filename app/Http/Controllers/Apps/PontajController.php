@@ -25,10 +25,18 @@ class PontajController extends Controller
         $searchActualizare = $request->searchActualizare;
 
         $query = Pontaj::with('actualizare.aplicatie')
-            // when($searchActualizare, function ($query, $searchActualizare) {
-            //     return $query->where('nume', $searchActualizare);
-            // })
-            // ->orderBy('id', 'desc');
+            ->when($searchAplicatie, function ($query, $searchAplicatie) {
+                $query->whereHas('actualizare', function ($query) use ($searchAplicatie) {
+                    $query->whereHas('aplicatie', function ($query) use ($searchAplicatie) {
+                        $query->where('nume', 'like', '%' . $searchAplicatie . '%');
+                    });
+                });
+            })
+            ->when($searchActualizare, function ($query, $searchActualizare) {
+                $query->whereHas('actualizare', function ($query) use ($searchActualizare) {
+                    $query->where('nume', 'like', '%' . $searchActualizare . '%');
+                });
+            })
             ->latest();
 
         $pontaje = $query->simplePaginate(50);
@@ -43,12 +51,17 @@ class PontajController extends Controller
      */
     public function create(Request $request)
     {
-        $request->session()->get('pontajReturnUrl') ?? $request->session()->put('pontajReturnUrl', url()->previous());
+        $pontaj = new Pontaj;
+
+        // Daca a fost adaugata o aplicatie din pontaj, se revine in formularul pontaj si campurile trebuie sa se recompleteze automat
+        $pontaj->fill($request->session()->pull('pontajRequest', []));
 
         $aplicatii = Aplicatie::select('id', 'nume')->orderBy('nume')->get();
         $actualizari = Actualizare::select('id', 'nume')->orderBy('nume')->get();
 
-        return view('apps.pontaje.create', compact('aplicatii', 'actualizari'));
+        $request->session()->get('pontajReturnUrl') ?? $request->session()->put('pontajReturnUrl', url()->previous());
+
+        return view('apps.pontaje.create', compact('pontaj', 'aplicatii', 'actualizari'));
     }
 
     /**
@@ -145,5 +158,22 @@ class PontajController extends Controller
                 // 'tara_id.required' => 'Câmpul țara este obligatoriu'
             ]
         );
+    }
+
+    public function adaugaResursa(Request $request, $resursa = null)
+    {
+        $request->session()->put('pontajRequest', $request->all());
+
+        switch($resursa){
+            case 'aplicatie':
+                $request->session()->put('aplicatieReturnUrl', url()->previous());
+                return redirect('/apps/aplicatii/adauga');
+                break;
+            case 'actualizare':
+                $request->session()->put('actualizareReturnUrl', url()->previous());
+                return redirect('/apps/actualizari/adauga');
+                break;
+        }
+
     }
 }
