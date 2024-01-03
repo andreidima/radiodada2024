@@ -51,6 +51,8 @@
                             <th class="text-white culoare2">#</th>
                             <th class="text-white culoare2">Aplicație</th>
                             <th class="text-white culoare2">Actualizare</th>
+                            <th class="text-white culoare2">Preț</th>
+                            <th class="text-white culoare2">Factura</th>
                             <th class="text-white culoare2 text-end">Acțiuni</th>
                         </tr>
                     </thead>
@@ -65,6 +67,12 @@
                                 </td>
                                 <td class="">
                                     {{ $actualizare->nume }}
+                                </td>
+                                <td class="">
+                                    {{ $actualizare->pret }}
+                                </td>
+                                <td class="">
+                                    {{ $actualizare->factura->path() }}
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-end">

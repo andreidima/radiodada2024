@@ -39,4 +39,14 @@ class Actualizare extends Model
     {
         return $this->hasMany(Pontaj::class, 'actualizare_id');
     }
+
+    /**
+     * Get the factura that owns the Actualizare
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function factura(): BelongsTo
+    {
+        return $this->belongsTo(Factura::class, 'factura_id');
+    }
 }

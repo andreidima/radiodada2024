@@ -110,10 +110,8 @@ class AplicatieController extends Controller
      */
     public function destroy(Request $request, Aplicatie $aplicatie)
     {
-        dd($aplicatie->pontaje, $aplicatie->actualizari);
-        dd($aplicatie->actualizari->pontaje);
-        $aplicatie->actualizari->pontaje->delete();
-        dd('stop');
+        $aplicatie->pontaje()->delete();
+        $aplicatie->actualizari()->delete();
         $aplicatie->delete();
 
         return back()->with('status', 'Aplicația „' . $aplicatie->nume . '” a fost ștearsă cu succes!');
