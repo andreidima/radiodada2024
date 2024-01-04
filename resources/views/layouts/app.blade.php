@@ -57,6 +57,12 @@
                                         <i class="fa-solid fa-clock me-1"></i>Pontaje
                                     </a>
                                 </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="/apps/facturi">
+                                        <i class="fa-solid fa-file-invoice me-1"></i>Factura
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Apps\AplicatieController;
 use App\Http\Controllers\Apps\ActualizareController;
 use App\Http\Controllers\Apps\PontajController;
+use App\Http\Controllers\Apps\FacturaController;
 
 // use App\Http\Controllers\Apps\AppsAplicatieController;
 /*
@@ -33,4 +34,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/apps/pontaje/adauga-resursa/{resursa}', [PontajController::class, 'adaugaResursa']);
     Route::resource('/apps/pontaje', PontajController::class)->parameters(['pontaje' => 'pontaj']);
+
+    Route::resource('/apps/facturi', FacturaController::class)->parameters(['facturi' => 'factura']);
 });
