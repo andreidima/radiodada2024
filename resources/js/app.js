@@ -93,7 +93,6 @@ const apps = createApp({
     },
     watch: {
         aplicatie_id: function () {
-            console.log(this.aplicatie_id);
             this.actualizare_id = '';
             this.actualizare_nume = '';
             this.actualizari = [];
@@ -162,6 +161,106 @@ const apps = createApp({
 apps.directive("clickOut", clickOutside);
 if (document.getElementById('apps') != null) {
     apps.mount('#apps');
+}
+
+// Formular factura
+const facturaForm = createApp({
+    el: '#facturaForm',
+    data() {
+        return {
+            aplicatie_id: ((typeof aplicatieIdVechi !== 'undefined') ? aplicatieIdVechi : ''),
+            aplicatie_nume: '',
+            aplicatii: ((typeof aplicatii !== 'undefined') ? aplicatii : []),
+            aplicatiiListaAutocomplete: [],
+
+            actualizari: ((typeof actualizari !== 'undefined') ? actualizari : []),
+            actualizariVechi: ((typeof actualizariVechi !== 'undefined') ? actualizariVechi : []),
+            actualizariNefacturate: [],
+            actualizariAdaugateLaFactura: [],
+        }
+    },
+    watch: {
+        aplicatie_id: function () {
+            this.refacereListeActualizari();
+        },
+    },
+    created: function () {
+        if (this.aplicatie_id) {
+            for (var i = 0; i < this.aplicatii.length; i++) {
+                if (this.aplicatii[i].id == this.aplicatie_id) {
+                    this.aplicatie_nume = this.aplicatii[i].nume;
+                    break;
+                }
+            }
+            this.refacereListeActualizari();
+            if (this.actualizariVechi){
+                // se incarca lista actualizariAdaugateLaFactura cu actualizariVechi
+                // for (var i = 0; i < this.actualizariNefacturate.length; i++) {
+                //     for (var j = 0; j < this.actualizariVechi.length; j++) {
+                //         if (this.actualizariNefacturate[i].id == this.actualizariVechi[j].id) {
+                //             this.actualizariAdaugateLaFactura.push(this.actualizariNefacturate[i]);
+                //             break;
+                //         }
+                //     }
+                // }
+                for (var i = this.actualizariNefacturate.length - 1; i >= 0; i--) {
+                    for (var j = 0; j < this.actualizariVechi.length; j++) {
+                        console.log(this.actualizariNefacturate[i].id, this.actualizariVechi[j].id);
+                    //     if (this.actualizariNefacturate[i].id == this.actualizariVechi[j].id) {
+                    //         this.actualizariAdaugateLaFactura.push(this.actualizariNefacturate[i]);
+                    //         this.actualizariNefacturate.splice(i, 1);
+                    //         break;
+                        }
+                    // }
+                }
+
+
+
+
+                // se curata lista actualizariNefacturate de actualizariVechi
+                // for (var i = 0; i < this.actualizariNefacturate.length; i++) {
+                //     for (var j = 0; j < this.actualizariVechi.length; j++) {
+                //         if (this.actualizariNefacturate[i].id == this.actualizariVechi[j].id) {
+                //             this.actualizariAdaugateLaFactura.push(this.actualizariNefacturate[i]);
+                //             break;
+                //         }
+                //     }
+                // }
+
+
+
+            }
+        }
+    },
+    methods: {
+        autocompleteAplicatii() {
+            this.aplicatiiListaAutocomplete = [];
+            for (var i = 0; i < this.aplicatii.length; i++) {
+                if (this.aplicatii[i].nume) {
+                    if (this.aplicatii[i].nume.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(this.aplicatie_nume.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))) {
+                        this.aplicatiiListaAutocomplete.push(this.aplicatii[i]);
+                    }
+                }
+            }
+        },
+        refacereListeActualizari() {
+            this.actualizariNefacturate = [];
+            this.actualizariAdaugateLaFactura = [];
+
+            if (this.aplicatie_id) {
+                for (var i = 0; i < this.actualizari.length; i++) {
+                    if (this.actualizari[i].aplicatie_id == this.aplicatie_id) {
+                        this.actualizariNefacturate.push(this.actualizari[i]);
+                    }
+                }
+            }
+        }
+    }
+});
+facturaForm.directive("clickOut", clickOutside);
+facturaForm.component('vue-datepicker-next', VueDatepickerNext);
+if (document.getElementById('facturaForm') != null) {
+    facturaForm.mount('#facturaForm');
 }
 
 

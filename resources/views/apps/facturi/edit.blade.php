@@ -7,7 +7,7 @@
             <div class="shadow-lg" style="border-radius: 40px 40px 40px 40px;">
                 <div class="border border-secondary p-2 culoare2" style="border-radius: 40px 40px 0px 0px;">
                     <span class="badge text-light fs-5">
-                        <i class="fa-solid fa-bars me-1"></i>Modificare Aplicație
+                        <i class="fa-solid fa-file-invoice me-1"></i>Modificare factură
                     </span>
                 </div>
 
@@ -16,11 +16,11 @@
                 <div class="card-body py-2 border border-secondary"
                     style="border-radius: 0px 0px 40px 40px;"
                 >
-                    <form  class="needs-validation" novalidate method="POST" action="{{ $aplicatie->path() }}">
+                    <form  class="needs-validation" novalidate method="POST" action="{{ $factura->path() }}">
                         @method('PATCH')
 
-                                @include ('apps.aplicatii.form', [
-                                    'buttonText' => 'Modifică Aplicația'
+                                @include ('apps.facturi.form', [
+                                    'buttonText' => 'Modifică factura'
                                 ])
 
                     </form>

@@ -1,39 +1,144 @@
 @csrf
 
-<div class="row mb-0 px-3 d-flex border-radius: 0px 0px 40px 40px">
+<script type="application/javascript">
+    aplicatii = {!! json_encode($aplicatii) !!}
+    aplicatieIdVechi = {!! json_encode(old('aplicatie_id', ($factura->aplicatie_id ?? "")) ?? "") !!}
+    actualizari = {!! json_encode($actualizari) !!}
+    actualizariVechi = {!! json_encode(old('actualizariAdaugateLaFactura')) !!}
+</script>
+
+<div class="row mb-0 px-3 d-flex border-radius: 0px 0px 40px 40px" id="facturaForm">
     <div class="col-lg-12 px-4 py-2 mb-0">
         <div class="row mb-0 justify-content-center">
-            <div class="col-lg-6 mb-4">
-                <label for="nume" class="mb-0 ps-3">Nume<span class="text-danger">*</span></label>
-                <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('nume') ? 'is-invalid' : '' }}"
-                    name="nume"
-                    value="{{ old('nume', $aplicatie->nume) }}">
+            <div class="col-lg-2 mb-4 text-center">
+                <label for="data" class="mb-0 ps-0">Data<span class="text-danger">*</span></label>
+                <vue-datepicker-next
+                    data-veche="{{ old('data', $factura->data ?? \Carbon\Carbon::today()) }}"
+                    nume-camp-db="data"
+                    tip="date"
+                    value-type="YYYY-MM-DD"
+                    format="DD.MM.YYYY"
+                    :latime="{ width: '125px' }"
+                ></vue-datepicker-next>
             </div>
-            <div class="col-lg-6 mb-4">
-                <label for="local_url" class="mb-0 ps-3">Local url</label>
+            <div class="col-lg-4 mb-4" style="position:relative;" v-click-out="() => aplicatiiListaAutocomplete = ''">
+                <label for="aplicatie_id" class="mb-0 ps-3">Aplicație<span class="text-danger">*</span></label>
                 <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('local_url') ? 'is-invalid' : '' }}"
-                    name="local_url"
-                    value="{{ old('local_url', $aplicatie->local_url) }}">
+                    type="hidden"
+                    v-model="aplicatie_id"
+                    name="aplicatie_id">
+
+                <div v-on:focus="autocompleteAplicatii();" class="input-group">
+                    <div class="input-group-prepend d-flex align-items-center">
+                        <span v-if="!aplicatie_id" class="input-group-text" id="aplicatie_nume">?</span>
+                        <span v-if="aplicatie_id" class="input-group-text bg-success text-white" id="aplicatie_nume"><i class="fa-solid fa-check"></i></span>
+                    </div>
+                    <input
+                        type="text"
+                        v-model="aplicatie_nume"
+                        v-on:focus="autocompleteAplicatii();"
+                        v-on:keyup="autocompleteAplicatii(); this.aplicatie_id = '';"
+                        class="form-control bg-white rounded-3 {{ $errors->has('aplicatie_nume') ? 'is-invalid' : '' }}"
+                        name="aplicatie_nume"
+                        placeholder=""
+                        autocomplete="off"
+                        aria-describedby="aplicatie_nume"
+                        required>
+                    <div class="input-group-prepend d-flex align-items-center">
+                        <span v-if="aplicatie_id" class="input-group-text text-danger" id="aplicatie_nume" v-on:click="aplicatie_id = null; aplicatie_nume = '';"><i class="fa-solid fa-xmark"></i></span>
+                    </div>
+                    <div class="input-group-prepend ms-2 d-flex align-items-center">
+                        <button type="submit" ref="submit" formaction="/apps/pontaje/adauga-resursa/aplicatie" class="btn btn-success text-white rounded-3 py-0 px-2"
+                            style="font-size: 30px; line-height: 1.2;" title="Adaugă aplicatie nouă">+</button>
+                    </div>
+                </div>
+                <div v-cloak v-if="aplicatiiListaAutocomplete && aplicatiiListaAutocomplete.length" class="panel-footer">
+                    <div class="list-group" style="max-height: 130px; overflow:auto;">
+                        <button class="list-group-item list-group-item list-group-item-action py-0"
+                            v-for="aplicatie in aplicatiiListaAutocomplete"
+                            v-on:click="
+                                aplicatie_id = aplicatie.id;
+                                aplicatie_nume = aplicatie.nume;
+
+                                aplicatiiListaAutocomplete = ''
+                            ">
+                                @{{ aplicatie.nume }}
+                        </button>
+                    </div>
+                </div>
+                <small v-if="!aplicatie_id" class="ps-3">* Selectați o aplicație</small>
+                <small v-else class="ps-3 text-success">* Ați selectat aplicația</small>
             </div>
-            <div class="col-lg-6 mb-4">
-                <label for="online_url" class="mb-0 ps-3">Online url</label>
-                <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('online_url') ? 'is-invalid' : '' }}"
-                    name="online_url"
-                    value="{{ old('online_url', $aplicatie->online_url) }}">
+        </div>
+    </div>
+    <div class="col-lg-12 px-4 py-2 mb-0">
+        <div class="row justify-content-center">
+            <div class="col-lg-4 mb-4 px-2">
+                <div class="rounded-3 bg-warning bg-gradient bg-opacity-25">
+                    <p class="m-0 ps-3">Actualizări nefacturate</p>
+                    <div v-cloak class="panel-footer" v-if="actualizariNefacturate && actualizariNefacturate.length">
+                        <div class="list-group" style="max-height: 130px; overflow:auto;">
+                            <button type="button" class="list-group-item list-group-item list-group-item-action py-0 bg-warning text-dark d-flex justify-content-between align-items-center"
+                                v-for="(actualizare, index) in actualizariNefacturate"
+                                v-on:click="
+                                    this.actualizariNefacturate.splice(index, 1);
+
+                                    this.actualizariAdaugateLaFactura.push(actualizare);
+
+                                    this.actualizariAdaugateLaFactura.sort((a, b) => {
+                                        let fa = a.nume.toLowerCase(),
+                                            fb = b.nume.toLowerCase();
+
+                                        if (fa < fb) {
+                                            return -1;
+                                        }
+                                        if (fa > fb) {
+                                            return 1;
+                                        }
+                                        return 0;
+                                    });
+                                ">
+                                    @{{ index + 1 }}. @{{ actualizare.nume }} <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-6 mb-4">
-                <label for="github_url" class="mb-0 ps-3">Github url</label>
-                <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('github_url') ? 'is-invalid' : '' }}"
-                    name="github_url"
-                    value="{{ old('github_url', $aplicatie->github_url) }}">
+            <div class="col-lg-4 mb-4 px-2">
+                <div class="rounded-3 bg-success bg-gradient bg-opacity-25">
+                    <p class="m-0 ps-3">Actualizări adăugate la factură</p>
+                    <div v-cloak class="panel-footer" v-if="actualizariAdaugateLaFactura && actualizariAdaugateLaFactura.length">
+                        <div class="list-group" style="max-height: 130px; overflow:auto;">
+                            <button type="button" class="list-group-item list-group-item list-group-item-action py-0 bg-success text-white"
+                                v-for="(actualizare, index) in actualizariAdaugateLaFactura"
+                                v-on:click="
+                                    this.actualizariNefacturate.push(actualizare);
+
+                                    this.actualizariNefacturate.sort((a, b) => {
+                                        let fa = a.nume.toLowerCase(),
+                                            fb = b.nume.toLowerCase();
+
+                                        if (fa < fb) {
+                                            return -1;
+                                        }
+                                        if (fa > fb) {
+                                            return 1;
+                                        }
+                                        return 0;
+                                    });
+
+                                    this.actualizariAdaugateLaFactura.splice(index, 1);
+                                ">
+                                    <input
+                                        type="hidden"
+                                        name="actualizariAdaugateLaFactura[]"
+                                        v-model="actualizariAdaugateLaFactura[index].id"
+                                        >
+                                    <i class="fa-solid fa-arrow-left"></i> @{{ index + 1 }}. @{{ actualizare.nume }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

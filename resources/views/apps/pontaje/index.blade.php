@@ -56,7 +56,7 @@
                             <th class="text-white culoare2">Aplicație</th>
                             <th class="text-white culoare2">Actualizare</th>
                             <th class="text-white culoare2">Data</th>
-                            <th class="text-white culoare2">Timp</th>
+                            <th class="text-white culoare2">Durata</th>
                             <th class="text-white culoare2 text-end">Acțiuni</th>
                         </tr>
                     </thead>
@@ -76,7 +76,7 @@
                                     {{ $pontaj->data ? Carbon::parse($pontaj->data)->isoFormat('DD.MM.YYYY') : '' }}
                                 </td>
                                 <td class="">
-                                    {{ $pontaj->timp ? Carbon::parse($pontaj->timp)->isoFormat('HH:mm') : '' }}
+                                    {{ $pontaj->durata ? Carbon::parse($pontaj->durata)->isoFormat('HH:mm') : '' }}
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-end">

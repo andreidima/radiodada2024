@@ -72,6 +72,7 @@ class PontajController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $pontaj = Pontaj::create($this->validateRequest($request));
 
         return redirect($request->session()->get('pontajReturnUrl') ?? ('/app/pontaje'))->with('status', 'Pontajul pentru actualizarea „' . ($pontaj->actualizare->nume ?? '') . '” a fost adăugat cu succes!');
@@ -152,7 +153,7 @@ class PontajController extends Controller
             [
                 'actualizare_id' => 'required',
                 'data' => 'required|max:200',
-                'timp' => 'nullable',
+                'durata' => 'required',
             ],
             [
                 // 'tara_id.required' => 'Câmpul țara este obligatoriu'

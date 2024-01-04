@@ -1,13 +1,17 @@
 @extends ('layouts.app')
 
+@php
+    use \Carbon\Carbon;
+@endphp
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="shadow-lg" style="border-radius: 40px 40px 40px 40px;">
                 <div class="culoare2 border border-secondary p-2" style="border-radius: 40px 40px 0px 0px;">
                     <span class="badge text-light fs-5">
-                        <i class="fa-solid fa-bars me-1"></i>Actualizări / {{ $actualizare->nume }}
+                        <i class="fa-solid fa-clock me-1"></i>Pontaj
                     </span>
                 </div>
 
@@ -22,42 +26,34 @@
                         >
                             <tr>
                                 <td class="pe-4">
-                                    Aplicatie
+                                    Aplicație
                                 </td>
                                 <td>
-                                    {{ $actualizare->aplicatie->nume ?? ''}}
+                                    {{ $pontaj->actualizare->aplicatie->nume ?? ''}}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Nume
+                                    Actualizare
                                 </td>
                                 <td>
-                                    {{ $actualizare->nume }}
+                                    {{ $pontaj->actualizare->nume ?? ''}}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Descriere
+                                    Data
                                 </td>
                                 <td>
-                                    {!! $actualizare->descriere !!}
+                                    {{ $pontaj->data ? Carbon::parse($pontaj->data)->isoFormat('DD.MM.YYYY') : '' }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Observații pentru client
+                                    Durata
                                 </td>
                                 <td>
-                                    {!! $actualizare->observatii_pentru_client !!}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="pe-4">
-                                    Observații personale
-                                </td>
-                                <td>
-                                    {!! $actualizare->observatii_personale !!}
+                                    {{ $pontaj->durata ? Carbon::parse($pontaj->durata)->isoFormat('HH:mm') : '' }}
                                 </td>
                             </tr>
                         </table>
@@ -65,7 +61,7 @@
 
                     <div class="form-row mb-2 px-2">
                         <div class="col-lg-12 d-flex justify-content-center">
-                            <a class="btn btn-secondary text-white rounded-3" href="{{ Session::get('aplicatieReturnUrl') }}">Înapoi</a>
+                            <a class="btn btn-secondary text-white rounded-3" href="{{ Session::get('pontajReturnUrl') }}">Înapoi</a>
                         </div>
                     </div>
 

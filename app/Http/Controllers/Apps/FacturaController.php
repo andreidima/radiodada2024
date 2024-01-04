@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Apps;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Apps\Factura;
 use Carbon\Carbon;
+use App\Models\Apps\Aplicatie;
+use App\Models\Apps\Actualizare;
+use App\Models\Apps\Factura;
 
 class FacturaController extends Controller
 {
@@ -23,7 +25,7 @@ class FacturaController extends Controller
 
         $facturi = Factura::
             // when($searchNume, function ($query, $searchNume) {
-            //     return $query->where('nume', $searchNume);
+            //     return $query->where('numar', $searchNume);
             // })
             latest()
             ->simplePaginate(50);
@@ -40,7 +42,15 @@ class FacturaController extends Controller
     {
         $request->session()->get('facturaReturnUrl') ?? $request->session()->put('facturaReturnUrl', url()->previous());
 
-        return view('apps.facturi.create');
+        $actualizari = Actualizare::select('id', 'aplicatie_id', 'nume')
+            ->where('pret', '<>', NULL)
+            ->where('factura_id', null)
+            ->orderBy('nume')
+            ->get();
+
+        $aplicatii = Aplicatie::select('id', 'nume')->whereIn('id' , $actualizari->pluck('aplicatie_id'))->get();
+
+        return view('apps.facturi.create', compact('aplicatii', 'actualizari'));
     }
 
     /**
@@ -51,9 +61,14 @@ class FacturaController extends Controller
      */
     public function store(Request $request)
     {
-        $factura = Factura::create($this->validateRequest($request));
+        // dd($request->request);
+        $this->validateRequest($request);
+        $factura = Factura::make($this->validateRequest($request));
+        $factura->seria = "APP";
+        $factura->numar = (Factura::select('numar')->where('seria', "APP")->latest()->first()->numar ?? 0) + 1;
+        $factura->save();
 
-        return redirect($request->session()->get('facturaReturnUrl') ?? ('/app/facturi'))->with('status', 'Factura „' . $factura->nume . '” a fost adăugată cu succes!');
+        return redirect($request->session()->get('facturaReturnUrl') ?? ('/app/facturi'))->with('status', 'Factura „' . $factura->numar . '” a fost adăugată cu succes!');
     }
 
     /**
@@ -93,7 +108,7 @@ class FacturaController extends Controller
     {
         $factura->update($this->validateRequest($request));
 
-        return redirect($request->session()->get('facturaReturnUrl') ?? ('/apps/facturi'))->with('status', 'Factura „' . $factura->nume . '” a fost modificată cu succes!');
+        return redirect($request->session()->get('facturaReturnUrl') ?? ('/apps/facturi'))->with('status', 'Factura „' . $factura->numar . '” a fost modificată cu succes!');
     }
 
     /**
@@ -106,7 +121,7 @@ class FacturaController extends Controller
     {
         $factura->delete();
 
-        return back()->with('status', 'Factura „' . $factura->nume . '” a fost ștearsă cu succes!');
+        return back()->with('status', 'Factura „' . $factura->numar . '” a fost ștearsă cu succes!');
     }
 
     /**
@@ -127,8 +142,9 @@ class FacturaController extends Controller
 
         return $request->validate(
             [
-                'data' => '',
-                'seria' => 'nullable|max:10',
+                'data' => 'required',
+                'actualizariAdaugateLaFactura' => 'required',
+                // 'seria' => 'nullable|max:10',
                 // 'numar' => 'nullable|max:200',
                 // 'github_url' => 'nullable|max:200',
             ],

@@ -129,10 +129,10 @@
                 ></vue-datepicker-next>
             </div>
             <div class="col-lg-2 mb-4 text-center">
-                <label for="timp" class="mb-0 ps-0">Timp<span class="text-danger">*</span></label>
+                <label for="durata" class="mb-0 ps-0">Durata<span class="text-danger">*</span></label>
                 <vue-datepicker-next
-                    data-veche="{{ old('timp', $pontaj->timp ?? 0) }}"
-                    nume-camp-db="timp"
+                    data-veche="{{ old('durata', $pontaj->durata) }}"
+                    nume-camp-db="durata"
                     tip="time"
                     value-type="HH:mm"
                     format="HH:mm"

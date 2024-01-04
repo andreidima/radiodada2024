@@ -50,6 +50,9 @@
                     <thead class="text-white rounded">
                         <tr class="thead-danger" style="padding:2rem">
                             <th class="text-white culoare2">#</th>
+                            <th class="text-white culoare2">Seria</th>
+                            <th class="text-white culoare2">Număr</th>
+                            <th class="text-white culoare2">Data</th>
                             <th class="text-white culoare2">Aplicație</th>
                             <th class="text-white culoare2">Actualizări</th>
                             <th class="text-white culoare2 text-end">Acțiuni</th>
@@ -62,7 +65,21 @@
                                     {{ ($facturi ->currentpage()-1) * $facturi ->perpage() + $loop->index + 1 }}
                                 </td>
                                 <td class="">
-                                    {{ $factura->nume ?? '' }}
+                                    {{ $factura->seria }}
+                                </td>
+                                <td class="">
+                                    {{ $factura->numar }}
+                                </td>
+                                <td class="">
+                                    {{ $factura->data ? Carbon::parse($factura->data)->isoFormat('DD.MM.YYYY') : '' }}
+                                </td>
+                                <td class="">
+                                    {{ $factura->actualizari->first()->nume ?? '' }}
+                                </td>
+                                <td class="">
+                                    @foreach ($factura->actualizari as $actualizare)
+                                        {{ $actualizare->nume }}
+                                    @endforeach
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-end">
