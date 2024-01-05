@@ -2,9 +2,9 @@
 
 <script type="application/javascript">
     aplicatii = {!! json_encode($aplicatii) !!}
-    aplicatieIdVechi = {!! json_encode(old('aplicatie_id', ($factura->aplicatie_id ?? "")) ?? "") !!}
+    aplicatieIdVechi = {!! json_encode(old('aplicatie_id', ($factura->actualizari->first()->aplicatie_id ?? "")) ?? "") !!}
     actualizari = {!! json_encode($actualizari) !!}
-    actualizariVechi = {!! json_encode(old('actualizariAdaugateLaFactura')) !!}
+    actualizariVechi = {!! json_encode(old('actualizariAdaugateLaFactura', $factura->actualizari)) !!}
 </script>
 
 <div class="row mb-0 px-3 d-flex border-radius: 0px 0px 40px 40px" id="facturaForm">
@@ -39,7 +39,7 @@
                         v-on:focus="autocompleteAplicatii();"
                         v-on:keyup="autocompleteAplicatii(); aplicatie_id = '';"
                         class="form-control bg-white rounded-3 {{ $errors->has('aplicatie_nume') ? 'is-invalid' : '' }}"
-                        name="aplicatie_nume"
+                        {{-- name="aplicatie_nume" --}}
                         placeholder=""
                         autocomplete="off"
                         aria-describedby="aplicatie_nume"
@@ -108,7 +108,7 @@
                                 ">
                                     <input
                                         type="hidden"
-                                        name="actualizariAdaugateLaFactura[]"
+                                        :name="'actualizariAdaugateLaFactura[' + index + '][id]'"
                                         v-model="actualizariAdaugateLaFactura[index].id"
                                         >
                                     <i class="fa-solid fa-arrow-left"></i> @{{ index + 1 }}. @{{ actualizare.nume }}
@@ -124,7 +124,7 @@
         <div class="row">
             <div class="col-lg-12 mb-2 d-flex justify-content-center">
                 <button type="submit" ref="submit" class="btn btn-lg btn-primary text-white me-3 rounded-3">{{ $buttonText }}</button>
-                <a class="btn btn-lg btn-secondary rounded-3" href="{{ Session::get('aplicatieReturnUrl') }}">Renunță</a>
+                <a class="btn btn-lg btn-secondary rounded-3" href="{{ Session::get('facturaReturnUrl') }}">Renunță</a>
             </div>
         </div>
     </div>

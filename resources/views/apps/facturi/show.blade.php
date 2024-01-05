@@ -7,7 +7,7 @@
             <div class="shadow-lg" style="border-radius: 40px 40px 40px 40px;">
                 <div class="culoare2 border border-secondary p-2" style="border-radius: 40px 40px 0px 0px;">
                     <span class="badge text-light fs-5">
-                        <i class="fa-solid fa-bars me-1"></i>Aplicații / {{ $aplicatie->nume }}
+                        <i class="fa-solid fa-file-invoice me-1"></i>Facturi / {{ $factura->seria }} {{ $factura->numar }}
                     </span>
                 </div>
 
@@ -22,34 +22,45 @@
                         >
                             <tr>
                                 <td class="pe-4">
-                                    Aplicatie
+                                    Seria
                                 </td>
                                 <td>
-                                    {{ $aplicatie->nume }}
+                                    {{ $factura->seria }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Local url
+                                    Număr
                                 </td>
                                 <td>
-                                    {{ $aplicatie->local_url }}
+                                    {{ $factura->numar }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Online url
+                                    Data
                                 </td>
                                 <td>
-                                    {{ $aplicatie->online_url }}
+                                    {{ $factura->data ?? \Carbon\Carbon::parse($factura->data)->isoFormat('DD.MM.YYYY') }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Github url
+                                    Aplicație
                                 </td>
                                 <td>
-                                    {{ $aplicatie->github_url }}
+                                    {{ $factura->actualizari->first()->aplicatie->nume ?? '' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    Actualizări
+                                </td>
+                                <td>
+                                    @foreach ($factura->actualizari as $actualizare)
+                                        {{ $actualizare->nume }}
+                                        <br>
+                                    @endforeach
                                 </td>
                             </tr>
                         </table>
@@ -57,7 +68,7 @@
 
                     <div class="form-row mb-2 px-2">
                         <div class="col-lg-12 d-flex justify-content-center">
-                            <a class="btn btn-secondary text-white rounded-3" href="{{ Session::get('aplicatieReturnUrl') }}">Înapoi</a>
+                            <a class="btn btn-secondary text-white rounded-3" href="{{ Session::get('facturaReturnUrl') }}">Înapoi</a>
                         </div>
                     </div>
 

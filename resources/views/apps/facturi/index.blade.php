@@ -74,11 +74,12 @@
                                     {{ $factura->data ? Carbon::parse($factura->data)->isoFormat('DD.MM.YYYY') : '' }}
                                 </td>
                                 <td class="">
-                                    {{ $factura->actualizari->first()->nume ?? '' }}
+                                    {{ $factura->actualizari->first()->aplicatie->nume ?? '' }}
                                 </td>
                                 <td class="">
                                     @foreach ($factura->actualizari as $actualizare)
                                         {{ $actualizare->nume }}
+                                        <br>
                                     @endforeach
                                 </td>
                                 <td>

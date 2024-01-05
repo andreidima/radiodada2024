@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/apps/actualizari/axios', [ActualizareController::class, 'axios']);
     Route::resource('/apps/actualizari', ActualizareController::class)->parameters(['actualizari' => 'actualizare']);
 
+
+    Route::get('/apps/pontaje/{pontaj}/inchide', [PontajController::class, 'inchide']);
     Route::post('/apps/pontaje/adauga-resursa/{resursa}', [PontajController::class, 'adaugaResursa']);
     Route::resource('/apps/pontaje', PontajController::class)->parameters(['pontaje' => 'pontaj']);
 

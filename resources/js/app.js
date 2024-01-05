@@ -196,8 +196,7 @@ const facturaForm = createApp({
             if (this.actualizariVechi){
                 for (var i = this.actualizariNefacturate.length - 1; i >= 0; i--) {
                     for (var j = 0; j < this.actualizariVechi.length; j++) {
-                        console.log(i, this.actualizariNefacturate[i].id, j, this.actualizariVechi[j]);
-                        if (this.actualizariNefacturate[i].id == this.actualizariVechi[j]) {
+                        if (this.actualizariNefacturate[i].id == this.actualizariVechi[j].id) {
                             this.actualizariAdaugateLaFactura.push(this.actualizariNefacturate[i]);
                             this.actualizariNefacturate.splice(i, 1);
                             break;

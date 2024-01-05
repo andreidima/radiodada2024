@@ -53,14 +53,14 @@
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="/apps/pontaje">
+                                    <a class="dropdown-item" href="/apps/pontaje?searchData={{ Carbon\Carbon::now()->toDateString(); }}">
                                         <i class="fa-solid fa-clock me-1"></i>Pontaje
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <a class="dropdown-item" href="/apps/facturi">
-                                        <i class="fa-solid fa-file-invoice me-1"></i>Factura
+                                        <i class="fa-solid fa-file-invoice me-1"></i>Facturi
                                     </a>
                                 </li>
                             </ul>

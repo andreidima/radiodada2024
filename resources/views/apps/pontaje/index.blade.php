@@ -16,11 +16,22 @@
                 <form class="needs-validation" novalidate method="GET" action="{{ url()->current()  }}">
                     @csrf
                     <div class="row mb-1 custom-search-form justify-content-center">
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <input type="text" class="form-control rounded-3" id="searchAplicatie" name="searchAplicatie" placeholder="Aplicație" value="{{ $searchAplicatie }}">
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <input type="text" class="form-control rounded-3" id="searchActualizare" name="searchActualizare" placeholder="Actualizare" value="{{ $searchActualizare }}">
+                        </div>
+                        <div class="col-lg-4 d-flex align-items-center" id="datePicker">
+                            Data:&nbsp;
+                            <vue-datepicker-next
+                                data-veche="{{ $searchData }}"
+                                nume-camp-db="searchData"
+                                tip="date"
+                                value-type="YYYY-MM-DD"
+                                format="DD.MM.YYYY"
+                                :latime="{ width: '125px' }"
+                            ></vue-datepicker-next>
                         </div>
                     </div>
                     <div class="row custom-search-form justify-content-center">
@@ -56,7 +67,18 @@
                             <th class="text-white culoare2">Aplicație</th>
                             <th class="text-white culoare2">Actualizare</th>
                             <th class="text-white culoare2">Data</th>
-                            <th class="text-white culoare2">Durata</th>
+                            <th class="text-white culoare2">
+                                Durata
+                                @if ($searchData)
+                                    @php
+                                        $durataTotala = Carbon::today();
+                                        foreach ($pontaje as $pontaj){
+                                            $durataTotala->addMinutes(Carbon::parse($pontaj->inceput)->diffinMinutes(Carbon::parse($pontaj->sfarsit ?? Carbon::now())));
+                                        }
+                                    @endphp
+                                    ({{ Carbon::parse($durataTotala)->isoFormat('HH:mm') }})
+                                @endif
+                            </th>
                             <th class="text-white culoare2 text-end">Acțiuni</th>
                         </tr>
                     </thead>
@@ -73,10 +95,20 @@
                                     {{ $pontaj->actualizare->nume ?? '' }}
                                 </td>
                                 <td class="">
-                                    {{ $pontaj->data ? Carbon::parse($pontaj->data)->isoFormat('DD.MM.YYYY') : '' }}
+                                    {{ $pontaj->inceput ? Carbon::parse($pontaj->inceput)->isoFormat('DD.MM.YYYY HH:mm') : '' }}
+                                    -
+                                    @if ($pontaj->sfarsit)
+                                        {{ $pontaj->sfarsit ? Carbon::parse($pontaj->sfarsit)->isoFormat('HH:mm') : '' }}
+                                    @else
+                                        <a href="{{ $pontaj->path() }}/inchide-pontaj" class="flex">
+                                            <span class="badge bg-warning text-dark">Închide</span>
+                                        </a>
+                                    @endif
                                 </td>
-                                <td class="">
-                                    {{ $pontaj->durata ? Carbon::parse($pontaj->durata)->isoFormat('HH:mm') : '' }}
+                                <td>
+                                    @if ($pontaj->inceput && $pontaj->sfarsit)
+                                        {{ Carbon::parse($pontaj->inceput)->diff(Carbon::parse($pontaj->sfarsit))->format('%H:%I') }}
+                                    @endif
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-end">

@@ -23,6 +23,7 @@ class PontajController extends Controller
 
         $searchAplicatie = $request->searchAplicatie;
         $searchActualizare = $request->searchActualizare;
+        $searchData = $request->searchData;
 
         $query = Pontaj::with('actualizare.aplicatie')
             ->when($searchAplicatie, function ($query, $searchAplicatie) {
@@ -37,11 +38,14 @@ class PontajController extends Controller
                     $query->where('nume', 'like', '%' . $searchActualizare . '%');
                 });
             })
+            ->when($searchData, function ($query, $searchData) {
+                $query->whereDate('inceput', $searchData . '%');
+            })
             ->latest();
 
         $pontaje = $query->simplePaginate(50);
 
-        return view('apps.pontaje.index', compact('pontaje', 'searchAplicatie', 'searchActualizare'));
+        return view('apps.pontaje.index', compact('pontaje', 'searchAplicatie', 'searchActualizare', 'searchData'));
     }
 
     /**
@@ -99,11 +103,12 @@ class PontajController extends Controller
      */
     public function edit(Request $request, Pontaj $pontaj)
     {
+        $aplicatii = Aplicatie::select('id', 'nume')->orderBy('nume')->get();
+        $actualizari = Actualizare::select('id', 'nume')->orderBy('nume')->get();
+
         $request->session()->get('pontajReturnUrl') ?? $request->session()->put('pontajReturnUrl', url()->previous());
 
-        $actualizari = Actualizare::select('id', 'nume')->get();
-
-        return view('apps.pontaje.edit', compact('pontaj', 'actualizari'));
+        return view('apps.pontaje.edit', compact('pontaj', 'aplicatii', 'actualizari'));
     }
 
     /**
@@ -152,8 +157,8 @@ class PontajController extends Controller
         return $request->validate(
             [
                 'actualizare_id' => 'required',
-                'data' => 'required|max:200',
-                'durata' => 'required',
+                'inceput' => '',
+                'sfarsit' => '',
             ],
             [
                 // 'tara_id.required' => 'Câmpul țara este obligatoriu'

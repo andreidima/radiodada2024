@@ -6,7 +6,7 @@
 
 <script type="application/javascript">
     aplicatii = {!! json_encode($aplicatii) !!}
-    aplicatieIdVechi = {!! json_encode(old('aplicatie_id', ($pontaj->aplicatie_id ?? "")) ?? "") !!}
+    aplicatieIdVechi = {!! json_encode(old('aplicatie_id', ($pontaj->actualizare->aplicatie_id ?? "")) ?? "") !!}
     actualizareIdVechi = {!! json_encode(old('actualizare_id', ($pontaj->actualizare_id ?? "")) ?? "") !!}
 </script>
 
@@ -63,8 +63,8 @@
                         </button>
                     </div>
                 </div>
-                <small v-if="!aplicatie_id" class="ps-3">* Selectați o aplicație</small>
-                <small v-else class="ps-3 text-success">* Ați selectat aplicația</small>
+                {{-- <small v-if="!aplicatie_id" class="ps-3">* Selectați o aplicație</small>
+                <small v-else class="ps-3 text-success">* Ați selectat aplicația</small> --}}
             </div>
             <div class="col-lg-4 mb-4" style="position:relative;" v-click-out="() => actualizariListaAutocomplete = ''">
                 <label for="actualizare_id" class="mb-0 ps-3">Actualizare<span class="text-danger">*</span></label>
@@ -112,32 +112,31 @@
                         </button>
                     </div>
                 </div>
-                <small v-if="!actualizare_id" class="ps-3">* Selectați o actualizare</small>
-                <small v-else class="ps-3 text-success">* Ați selectat actualizarea</small>
+                {{-- <small v-if="!actualizare_id" class="ps-3">* Selectați o actualizare</small>
+                <small v-else class="ps-3 text-success">* Ați selectat actualizarea</small> --}}
             </div>
         </div>
         <div class="row justify-content-center" id="datePicker">
             <div class="col-lg-2 mb-4 text-center">
-                <label for="data" class="mb-0 ps-0">Data<span class="text-danger">*</span></label>
+                <label for="inceput" class="mb-0 ps-0">Început<span class="text-danger">*</span></label>
                 <vue-datepicker-next
-                    data-veche="{{ old('data', $pontaj->data ?? Carbon::today()) }}"
-                    nume-camp-db="data"
-                    tip="date"
-                    value-type="YYYY-MM-DD"
-                    format="DD.MM.YYYY"
-                    :latime="{ width: '125px' }"
+                    data-veche="{{ old('inceput', $pontaj->inceput ?? Carbon::now()) }}"
+                    nume-camp-db="inceput"
+                    tip="datetime"
+                    value-type="YYYY-MM-DD HH:mm"
+                    format="DD.MM.YYYY HH:mm"
+                    :latime="{ width: '160px' }"
                 ></vue-datepicker-next>
             </div>
             <div class="col-lg-2 mb-4 text-center">
-                <label for="durata" class="mb-0 ps-0">Durata<span class="text-danger">*</span></label>
+                <label for="sfarsit" class="mb-0 ps-0">Sfârșit</label>
                 <vue-datepicker-next
-                    data-veche="{{ old('durata', $pontaj->durata) }}"
-                    nume-camp-db="durata"
-                    tip="time"
-                    value-type="HH:mm"
-                    format="HH:mm"
-                    :hours="[1,2,3,4,5,6,7,8,9,10,11,12]"
-                    :latime="{ width: '125px' }"
+                    data-veche="{{ old('sfarsit', $pontaj->sfarsit) }}"
+                    nume-camp-db="sfarsit"
+                    tip="datetime"
+                    value-type="YYYY-MM-DD HH:mm"
+                    format="DD.MM.YYYY HH:mm"
+                    :latime="{ width: '160px' }"
                 ></vue-datepicker-next>
             </div>
         </div>
@@ -147,7 +146,7 @@
         <div class="row">
             <div class="col-lg-12 mb-2 d-flex justify-content-center">
                 <button type="submit" ref="submit" class="btn btn-lg btn-primary text-white me-3 rounded-3">{{ $buttonText }}</button>
-                <a class="btn btn-lg btn-secondary rounded-3" href="{{ Session::get('actualizareReturnUrl') }}">Renunță</a>
+                <a class="btn btn-lg btn-secondary rounded-3" href="{{ Session::get('pontajReturnUrl') }}">Renunță</a>
             </div>
         </div>
     </div>

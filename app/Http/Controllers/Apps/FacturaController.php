@@ -61,12 +61,14 @@ class FacturaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->request);
         $this->validateRequest($request);
-        $factura = Factura::make($this->validateRequest($request));
+
+        $factura = Factura::make($request->except('date', 'aplicatie_id', 'actualizariAdaugateLaFactura'));
         $factura->seria = "APP";
         $factura->numar = (Factura::select('numar')->where('seria', "APP")->latest()->first()->numar ?? 0) + 1;
         $factura->save();
+
+        Actualizare::whereIn('id', array_column($request->actualizariAdaugateLaFactura , 'id'))->update(['factura_id' => $factura->id]);
 
         return redirect($request->session()->get('facturaReturnUrl') ?? ('/app/facturi'))->with('status', 'Factura „' . $factura->numar . '” a fost adăugată cu succes!');
     }
@@ -92,9 +94,20 @@ class FacturaController extends Controller
      */
     public function edit(Request $request, Factura $factura)
     {
+        $actualizari = Actualizare::select('id', 'aplicatie_id', 'nume')
+            ->where('pret', '<>', NULL)
+            ->where(function ($query) use ($factura) {
+                $query->where('factura_id', null)
+                    ->orWhere('factura_id', $factura->id);
+            })
+            ->orderBy('nume')
+            ->get();
+
+        $aplicatii = Aplicatie::select('id', 'nume')->whereIn('id' , $actualizari->pluck('aplicatie_id'))->get();
+
         $request->session()->get('facturaReturnUrl') ?? $request->session()->put('facturaReturnUrl', url()->previous());
 
-        return view('apps.facturi.edit', compact('factura'));
+        return view('apps.facturi.edit', compact('factura', 'aplicatii', 'actualizari'));
     }
 
     /**
@@ -106,7 +119,14 @@ class FacturaController extends Controller
      */
     public function update(Request $request, Factura $factura)
     {
-        $factura->update($this->validateRequest($request));
+        $this->validateRequest($request);
+        $factura->update($request->except('date', 'aplicatie_id', 'actualizariAdaugateLaFactura'));
+
+        // Actualizarile ce sunt atasate la factura, dar nu se mai afla acum in request, se scot de la factura
+        Actualizare::where('factura_id', $factura->id)->whereNotIn('id', array_column($request->actualizariAdaugateLaFactura , 'id'))->update(['factura_id' => null]);
+
+        // Actualizarile din request se ataseaza la factura
+        Actualizare::whereIn('id', array_column($request->actualizariAdaugateLaFactura , 'id'))->update(['factura_id' => $factura->id]);
 
         return redirect($request->session()->get('facturaReturnUrl') ?? ('/apps/facturi'))->with('status', 'Factura „' . $factura->numar . '” a fost modificată cu succes!');
     }
@@ -120,6 +140,8 @@ class FacturaController extends Controller
     public function destroy(Request $request, Factura $factura)
     {
         $factura->delete();
+
+        Actualizare::where('factura_id', $factura->id)->update(['factura_id' => null]);
 
         return back()->with('status', 'Factura „' . $factura->numar . '” a fost ștearsă cu succes!');
     }
