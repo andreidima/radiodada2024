@@ -194,41 +194,17 @@ const facturaForm = createApp({
             }
             this.refacereListeActualizari();
             if (this.actualizariVechi){
-                // se incarca lista actualizariAdaugateLaFactura cu actualizariVechi
-                // for (var i = 0; i < this.actualizariNefacturate.length; i++) {
-                //     for (var j = 0; j < this.actualizariVechi.length; j++) {
-                //         if (this.actualizariNefacturate[i].id == this.actualizariVechi[j].id) {
-                //             this.actualizariAdaugateLaFactura.push(this.actualizariNefacturate[i]);
-                //             break;
-                //         }
-                //     }
-                // }
                 for (var i = this.actualizariNefacturate.length - 1; i >= 0; i--) {
                     for (var j = 0; j < this.actualizariVechi.length; j++) {
-                        console.log(this.actualizariNefacturate[i].id, this.actualizariVechi[j].id);
-                    //     if (this.actualizariNefacturate[i].id == this.actualizariVechi[j].id) {
-                    //         this.actualizariAdaugateLaFactura.push(this.actualizariNefacturate[i]);
-                    //         this.actualizariNefacturate.splice(i, 1);
-                    //         break;
+                        console.log(i, this.actualizariNefacturate[i].id, j, this.actualizariVechi[j]);
+                        if (this.actualizariNefacturate[i].id == this.actualizariVechi[j]) {
+                            this.actualizariAdaugateLaFactura.push(this.actualizariNefacturate[i]);
+                            this.actualizariNefacturate.splice(i, 1);
+                            break;
                         }
-                    // }
+                    }
                 }
-
-
-
-
-                // se curata lista actualizariNefacturate de actualizariVechi
-                // for (var i = 0; i < this.actualizariNefacturate.length; i++) {
-                //     for (var j = 0; j < this.actualizariVechi.length; j++) {
-                //         if (this.actualizariNefacturate[i].id == this.actualizariVechi[j].id) {
-                //             this.actualizariAdaugateLaFactura.push(this.actualizariNefacturate[i]);
-                //             break;
-                //         }
-                //     }
-                // }
-
-
-
+                this.actualizariAdaugateLaFactura = this.sortareActualizari(this.actualizariAdaugateLaFactura);
             }
         }
     },
@@ -254,6 +230,38 @@ const facturaForm = createApp({
                     }
                 }
             }
+        },
+        sortareActualizariNefacturate(){
+
+        },
+        sortareActualizariAdaugateLaFactura() {
+            this.actualizariAdaugateLaFactura.sort((a, b) => {
+                let fa = a.nume.toLowerCase(),
+                    fb = b.nume.toLowerCase();
+
+                if (fa < fb) {
+                    return -1;
+                }
+                if (fa > fb) {
+                    return 1;
+                }
+                return 0;
+            });
+        },
+        sortareActualizari(array) {
+            array.sort((a, b) => {
+                let fa = a.nume.toLowerCase(),
+                    fb = b.nume.toLowerCase();
+
+                if (fa < fb) {
+                    return -1;
+                }
+                if (fa > fb) {
+                    return 1;
+                }
+                return 0;
+            });
+            return array;
         }
     }
 });

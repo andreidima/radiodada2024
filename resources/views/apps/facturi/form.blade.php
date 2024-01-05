@@ -37,7 +37,7 @@
                         type="text"
                         v-model="aplicatie_nume"
                         v-on:focus="autocompleteAplicatii();"
-                        v-on:keyup="autocompleteAplicatii(); this.aplicatie_id = '';"
+                        v-on:keyup="autocompleteAplicatii(); aplicatie_id = '';"
                         class="form-control bg-white rounded-3 {{ $errors->has('aplicatie_nume') ? 'is-invalid' : '' }}"
                         name="aplicatie_nume"
                         placeholder=""
@@ -81,22 +81,11 @@
                             <button type="button" class="list-group-item list-group-item list-group-item-action py-0 bg-warning text-dark d-flex justify-content-between align-items-center"
                                 v-for="(actualizare, index) in actualizariNefacturate"
                                 v-on:click="
-                                    this.actualizariNefacturate.splice(index, 1);
+                                    actualizariNefacturate.splice(index, 1);
 
-                                    this.actualizariAdaugateLaFactura.push(actualizare);
+                                    actualizariAdaugateLaFactura.push(actualizare);
+                                    actualizariAdaugateLaFactura = sortareActualizari(actualizariAdaugateLaFactura);
 
-                                    this.actualizariAdaugateLaFactura.sort((a, b) => {
-                                        let fa = a.nume.toLowerCase(),
-                                            fb = b.nume.toLowerCase();
-
-                                        if (fa < fb) {
-                                            return -1;
-                                        }
-                                        if (fa > fb) {
-                                            return 1;
-                                        }
-                                        return 0;
-                                    });
                                 ">
                                     @{{ index + 1 }}. @{{ actualizare.nume }} <i class="fa-solid fa-arrow-right"></i>
                             </button>
@@ -112,22 +101,10 @@
                             <button type="button" class="list-group-item list-group-item list-group-item-action py-0 bg-success text-white"
                                 v-for="(actualizare, index) in actualizariAdaugateLaFactura"
                                 v-on:click="
-                                    this.actualizariNefacturate.push(actualizare);
+                                    actualizariNefacturate.push(actualizare);
+                                    actualizariNefacturate = sortareActualizari(actualizariNefacturate);
 
-                                    this.actualizariNefacturate.sort((a, b) => {
-                                        let fa = a.nume.toLowerCase(),
-                                            fb = b.nume.toLowerCase();
-
-                                        if (fa < fb) {
-                                            return -1;
-                                        }
-                                        if (fa > fb) {
-                                            return 1;
-                                        }
-                                        return 0;
-                                    });
-
-                                    this.actualizariAdaugateLaFactura.splice(index, 1);
+                                    actualizariAdaugateLaFactura.splice(index, 1);
                                 ">
                                     <input
                                         type="hidden"
