@@ -23,6 +23,7 @@ class PontajController extends Controller
 
         $searchAplicatie = $request->searchAplicatie;
         $searchActualizare = $request->searchActualizare;
+        $searchActualizareId = $request->searchActualizareId;
         $searchData = $request->searchData;
 
         $query = Pontaj::with('actualizare.aplicatie')
@@ -38,6 +39,11 @@ class PontajController extends Controller
                     $query->where('nume', 'like', '%' . $searchActualizare . '%');
                 });
             })
+            ->when($searchActualizareId, function ($query, $searchActualizareId) {
+                $query->whereHas('actualizare', function ($query) use ($searchActualizareId) {
+                    $query->where('id', $searchActualizareId);
+                });
+            })
             ->when($searchData, function ($query, $searchData) {
                 $query->whereDate('inceput', $searchData . '%');
             })
@@ -45,7 +51,7 @@ class PontajController extends Controller
 
         $pontaje = $query->simplePaginate(50);
 
-        return view('apps.pontaje.index', compact('pontaje', 'searchAplicatie', 'searchActualizare', 'searchData'));
+        return view('apps.pontaje.index', compact('pontaje', 'searchAplicatie', 'searchActualizare', 'searchActualizareId', 'searchData'));
     }
 
     /**
@@ -57,7 +63,7 @@ class PontajController extends Controller
     {
         $pontaj = new Pontaj;
 
-        // Daca a fost adaugata o aplicatie din pontaj, se revine in formularul pontaj si campurile trebuie sa se recompleteze automat
+        // Daca a fost adaugata o resursa din pontaj, se revine in formularul pontaj si campurile trebuie sa se recompleteze automat
         $pontaj->fill($request->session()->pull('pontajRequest', []));
 
         $aplicatii = Aplicatie::select('id', 'nume')->orderBy('nume')->get();
@@ -103,6 +109,9 @@ class PontajController extends Controller
      */
     public function edit(Request $request, Pontaj $pontaj)
     {
+        // Daca a fost adaugata o resursa din pontaj, se revine in formularul pontaj si campurile trebuie sa se recompleteze automat
+        $pontaj->fill($request->session()->pull('pontajRequest', []));
+
         $aplicatii = Aplicatie::select('id', 'nume')->orderBy('nume')->get();
         $actualizari = Actualizare::select('id', 'nume')->orderBy('nume')->get();
 
@@ -153,15 +162,23 @@ class PontajController extends Controller
         // if ($request->isMethod('post')) {
         //     $request->request->add(['cheie_unica' => uniqid()]);
         // }
-
+// dd(Carbon::parse($request->inceput)->toDateString());
         return $request->validate(
             [
                 'actualizare_id' => 'required',
-                'inceput' => '',
-                'sfarsit' => '',
+                'inceput' => 'required',
+                'sfarsit' => ['nullable',
+                        function ($attribute, $value, $fail) use ($request) {
+                            if ($request->sfarsit && $request->inceput) {
+                                if (Carbon::parse($request->inceput)->toDateString() !== Carbon::parse($request->sfarsit)->toDateString()) {
+                                    $fail('Sfărșit nu poate fi în altă zi față de început');
+                                }
+                            }
+                        },
+                    ]
             ],
             [
-                // 'tara_id.required' => 'Câmpul țara este obligatoriu'
+
             ]
         );
     }
@@ -180,6 +197,39 @@ class PontajController extends Controller
                 return redirect('/apps/actualizari/adauga');
                 break;
         }
+    }
 
+    private function inchidePontaj (){
+        $pontaje = Pontaj::whereNull('sfarsit')->get();
+
+        if ($pontaje->count() > 1) {
+            return ("În acest moment sunt deschise mai multe pontaje. În această situație, pontajele deschise trebuie verificate și închise manual.");
+        } elseif ($pontaje->count() == 1) {
+            $pontaj = $pontaje->first();
+            if (Carbon::parse($pontaj->inceput)->toDateString() !== Carbon::now()->toDateString()){
+                return ("În acest moment există un pontaj deschis, dar nu cu data de astăzi. În acestă situație, pontajul trebuie verificat și închis manual.");
+            }
+            $pontaj->update(['sfarsit' => Carbon::now()]);
+        }
+        return;
+    }
+
+    public function inchide (){
+        // Funcția returnează ceva doar dacă este vreo eroare.
+        if ($mesaj = $this->inchidePontaj()){
+            return back()->with('error', $mesaj);
+        }
+        return back()->with('status', 'Pontajul a fost închis cu succes!');
+    }
+
+    public function deschideNou ($actualizare = null){
+        // Funcția returnează ceva doar dacă este vreo eroare.
+        if ($mesaj = $this->inchidePontaj()){
+            return back()->with('error', $mesaj);
+        }
+
+        Pontaj::create(['actualizare_id' => $actualizare, 'inceput' => Carbon::now()]);
+
+        return back()->with('status', 'Pontajul a fost creat cu succes!');
     }
 }

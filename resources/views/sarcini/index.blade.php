@@ -9,16 +9,20 @@
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
                 <span class="badge culoare1 fs-5">
-                    <i class="fa-solid fa-file-invoice me-1"></i>Facturi
+                    <i class="fa-solid fa-list-check me-1"></i>Sarcini
                 </span>
             </div>
             <div class="col-lg-6">
                 <form class="needs-validation" novalidate method="GET" action="{{ url()->current()  }}">
                     @csrf
                     <div class="row mb-1 custom-search-form justify-content-center">
-                        <div class="col-lg-6">
-                            {{-- <input type="text" class="form-control rounded-3" id="searchNume" name="searchNume" placeholder="Nume" value="{{ $searchNume }}"> --}}
-                        </div>
+                        {{-- <div class="col-lg-4">
+                            <input type="text" class="form-control rounded-3" id="searchAplicatie" name="searchAplicatie" placeholder="Aplicație" value="{{ $searchAplicatie }}">
+                        </div> --}}
+                        {{-- <div class="col-lg-4">
+                            <input type="hidden" class="form-control rounded-3" id="searchActualizareId" name="searchActualizareId" placeholder="Actualizare" value="{{ $searchActualizareId }}">
+                            <input type="text" class="form-control rounded-3" id="searchActualizare" name="searchActualizare" placeholder="Actualizare" value="{{ $searchActualizare }}">
+                        </div> --}}
                     </div>
                     <div class="row custom-search-form justify-content-center">
                         <div class="col-lg-4">
@@ -35,9 +39,9 @@
                 </form>
             </div>
             <div class="col-lg-3 text-end">
-                <a class="btn btn-sm btn-success text-white border border-dark rounded-3 col-md-8" href="{{ url()->current() }}/adauga" role="button">
-                    <i class="fas fa-plus-square text-white me-1"></i>Adaugă factură
-                </a>
+                {{-- <a class="btn btn-sm btn-success text-white border border-dark rounded-3 col-md-8" href="{{ url()->current() }}/adauga" role="button">
+                    <i class="fas fa-plus-square text-white me-1"></i>Adaugă sarcină
+                </a> --}}
             </div>
         </div>
 
@@ -45,61 +49,42 @@
 
             @include ('errors.errors')
 
-            <div class="table-responsive rounded">
+            {{-- <div class="table-responsive rounded">
                 <table class="table table-striped table-hover rounded">
                     <thead class="text-white rounded">
                         <tr class="thead-danger" style="padding:2rem">
                             <th class="text-white culoare2">#</th>
-                            <th class="text-white culoare2">Seria<br>Număr</th>
                             <th class="text-white culoare2">Data</th>
-                            <th class="text-white culoare2">Confirmare<br>client</th>
-                            <th class="text-white culoare2">Confirmare<br>validsoftware</th>
-                            <th class="text-white culoare2">Aplicație</th>
-                            <th class="text-white culoare2">Actualizări</th>
+                            <th class="text-white culoare2">Sarcina</th>
                             <th class="text-white culoare2 text-end">Acțiuni</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($facturi as $factura)
+                        @foreach ($sarcini as $sarcina)
                             <tr>
                                 <td align="">
-                                    {{ ($facturi ->currentpage()-1) * $facturi ->perpage() + $loop->index + 1 }}
+                                    {{ ($sarcini ->currentpage()-1) * $sarcini ->perpage() + $loop->index + 1 }}
                                 </td>
                                 <td class="">
-                                    {{ $factura->seria }}{{ $factura->numar }}
-                                </td>
-                                <td class="">
-                                    {{ $factura->data ? Carbon::parse($factura->data)->isoFormat('DD.MM.YYYY') : '' }}
-                                </td>
-                                <td class="">
-                                    {{ $factura->confirmare_client ? Carbon::parse($factura->confirmare_client)->isoFormat('DD.MM.YYYY') : '' }}
-                                </td>
-                                <td class="">
-                                    {{ $factura->confirmare_validsoftware ? Carbon::parse($factura->confirmare_validsoftware)->isoFormat('DD.MM.YYYY') : '' }}
-                                </td>
-                                <td class="">
-                                    {{ $factura->actualizari->first()->aplicatie->nume ?? '' }}
-                                </td>
-                                <td class="">
-                                    @foreach ($factura->actualizari as $actualizare)
-                                        {{ $actualizare->nume }}
-                                        <br>
-                                    @endforeach
+                                    {{ $sarcina->data ? Carbon::parse($sarcina->data)->isoFormat('DD.MM.YYYY') : '' }}
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-end">
-                                        <a href="{{ $factura->path() }}" class="flex me-1">
+                                        <a href="/apps/pontaje/{{ $sarcina->actualizare->id ?? '' }}/deschide-nou" class="flex me-1">
+                                            <span class="badge bg-warning text-dark">Deschide nou</span>
+                                        </a>
+                                        <a href="{{ $sarcina->path() }}" class="flex me-1">
                                             <span class="badge bg-success">Vizualizează</span>
                                         </a>
-                                        <a href="{{ $factura->path() }}/modifica" class="flex me-1">
+                                        <a href="{{ $sarcina->path() }}/modifica" class="flex me-1">
                                             <span class="badge bg-primary">Modifică</span>
                                         </a>
                                         <div style="flex" class="">
                                             <a
                                                 href="#"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#stergeFactura{{ $factura->id }}"
-                                                title="Șterge Factura"
+                                                data-bs-target="#stergeSarcina{{ $sarcina->id }}"
+                                                title="Șterge Sarcina"
                                                 >
                                                 <span class="badge bg-danger">Șterge</span>
                                             </a>
@@ -107,43 +92,42 @@
                                     </div>
                                 </td>
                             </tr>
-                        @empty
-                        @endforelse
+                        @endforeach
                         </tbody>
                 </table>
-            </div>
+            </div> --}}
 
-                <nav>
+                {{-- <nav>
                     <ul class="pagination justify-content-center">
-                        {{$facturi->appends(Request::except('page'))->links()}}
+                        {{$sarcini->appends(Request::except('page'))->links()}}
                     </ul>
-                </nav>
+                </nav> --}}
         </div>
     </div>
 
-    {{-- Modalele pentru stergere facturi --}}
-    @foreach ($facturi as $factura)
-        <div class="modal fade text-dark" id="stergeFactura{{ $factura->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- Modalele pentru stergere sarcini --}}
+    {{-- @foreach ($sarcini as $sarcina)
+        <div class="modal fade text-dark" id="stergeSarcina{{ $sarcina->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white" id="exampleModalLabel">Factura: <b>{{ $factura->aplicatie->nume ?? '' }} / {{ $factura->data ? Carbon::parse($factura->data)->isoFormat('DD.MM.YYYY') : '' }}</b></h5>
+                    <h5 class="modal-title text-white" id="exampleModalLabel">Sarcina: <b>{{ $sarcina->nume }}</b></h5>
                     <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="text-align:left;">
-                    Ești sigur ca vrei să ștergi factura?
+                    Ești sigur ca vrei să ștergi sarcina?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Renunță</button>
 
-                    <form method="POST" action="{{ $factura->path() }}">
+                    <form method="POST" action="{{ $sarcina->path() }}">
                         @method('DELETE')
                         @csrf
                         <button
                             type="submit"
                             class="btn btn-danger text-white"
                             >
-                            Șterge factura
+                            Șterge sarcina
                         </button>
                     </form>
 
@@ -151,6 +135,6 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @endforeach --}}
 
 @endsection

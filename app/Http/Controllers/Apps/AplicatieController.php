@@ -110,6 +110,10 @@ class AplicatieController extends Controller
      */
     public function destroy(Request $request, Aplicatie $aplicatie)
     {
+        if (($nrFacturi = $aplicatie->actualizari->whereNotNull('factura_id')->count()) > 0) {
+            return back()->with('error', 'Nu puteți șterge aplicația „' . $aplicatie->nume . '” pentru că are deja emise ' . $nrFacturi . ' facturi. Ștergeți mai întâi facturile!');
+        }
+
         $aplicatie->pontaje()->delete();
         $aplicatie->actualizari()->delete();
         $aplicatie->delete();

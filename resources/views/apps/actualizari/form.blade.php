@@ -3,7 +3,7 @@
 <div class="row mb-0 px-3 d-flex border-radius: 0px 0px 40px 40px">
     <div class="col-lg-12 px-4 py-2 mb-0">
         <div class="row mb-0 justify-content-center">
-            <div class="col-lg-4 mb-4">
+            <div class="col-lg-3 mb-4">
                 <label for="aplicatie_id" class="mb-0 ps-3">Aplicație<span class="text-danger">*</span></label>
                 <select name="aplicatie_id" class="form-select bg-white rounded-3 {{ $errors->has('aplicatie_id') ? 'is-invalid' : '' }}">
                     <option selected></option>
@@ -12,7 +12,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-lg-6 mb-4">
+            <div class="col-lg-5 mb-4">
                 <label for="nume" class="mb-0 ps-3">Nume<span class="text-danger">*</span></label>
                 <input
                     type="text"
@@ -27,6 +27,15 @@
                     class="form-control bg-white rounded-3 {{ $errors->has('pret') ? 'is-invalid' : '' }}"
                     name="pret"
                     value="{{ old('pret', $actualizare->pret) }}">
+            </div>
+            <div class="col-lg-2 mb-4">
+                <label for="remunerare" class="mb-0 ps-3">Remunerare<span class="text-danger">*</span></label>
+                <select name="remunerare" class="form-select bg-white rounded-3 {{ $errors->has('remunerare') ? 'is-invalid' : '' }}">
+                    <option selected></option>
+                    <option value="1" {{ ((intval(old('remunerare', $actualizare->remunerare))) === 1) ? 'selected' : '' }}>Factură</option>
+                    <option value="2" {{ ((intval(old('remunerare', $actualizare->remunerare))) === 2) ? 'selected' : '' }}>Mentenanță</option>
+                    <option value="3" {{ ((intval(old('remunerare', $actualizare->remunerare))) === 3) ? 'selected' : '' }}>Pagubă</option>
+                </select>
             </div>
         </div>
         <div class="row mb-0 justify-content-center" id="TinyMCE">

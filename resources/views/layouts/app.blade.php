@@ -34,6 +34,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item me-3">
+                            <a class="nav-link active" aria-current="page" href="/notificari">
+                                <i class="fa-solid fa-envelope me-1"></i>Notificări
+                            </a>
+                        </li>
                         <li class="nav-item me-3 dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-bars me-1"></i>
@@ -53,7 +58,7 @@
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="/apps/pontaje?searchData={{ Carbon\Carbon::now()->toDateString(); }}">
+                                    <a class="dropdown-item" href="/apps/pontaje?searchData={{ \Carbon\Carbon::now()->toDateString(); }}">
                                         <i class="fa-solid fa-clock me-1"></i>Pontaje
                                     </a>
                                 </li>

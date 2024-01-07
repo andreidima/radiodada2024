@@ -20,6 +20,7 @@
                             <input type="text" class="form-control rounded-3" id="searchAplicatie" name="searchAplicatie" placeholder="Aplicație" value="{{ $searchAplicatie }}">
                         </div>
                         <div class="col-lg-4">
+                            <input type="hidden" class="form-control rounded-3" id="searchActualizareId" name="searchActualizareId" placeholder="Actualizare" value="{{ $searchActualizareId }}">
                             <input type="text" class="form-control rounded-3" id="searchActualizare" name="searchActualizare" placeholder="Actualizare" value="{{ $searchActualizare }}">
                         </div>
                         <div class="col-lg-4 d-flex align-items-center" id="datePicker">
@@ -73,10 +74,10 @@
                                     @php
                                         $durataTotala = Carbon::today();
                                         foreach ($pontaje as $pontaj){
-                                            $durataTotala->addMinutes(Carbon::parse($pontaj->inceput)->diffinMinutes(Carbon::parse($pontaj->sfarsit ?? Carbon::now())));
+                                            $durataTotala->addSeconds(Carbon::parse($pontaj->inceput)->diffinSeconds(Carbon::parse($pontaj->sfarsit ?? Carbon::now())));
                                         }
                                     @endphp
-                                    ({{ Carbon::parse($durataTotala)->isoFormat('HH:mm') }})
+                                    ({{ Carbon::today()->diffInHours($durataTotala) }}:{{ Carbon::today()->diff($durataTotala)->format('%I') }})
                                 @endif
                             </th>
                             <th class="text-white culoare2 text-end">Acțiuni</th>
@@ -98,20 +99,26 @@
                                     {{ $pontaj->inceput ? Carbon::parse($pontaj->inceput)->isoFormat('DD.MM.YYYY HH:mm') : '' }}
                                     -
                                     @if ($pontaj->sfarsit)
+                                        @if (Carbon::parse($pontaj->inceput)->toDateString() !== Carbon::parse($pontaj->sfarsit)->toDateString())
+                                            <span class="px-2 rounded-3 bg-danger text-white">{{ Carbon::parse($pontaj->sfarsit)->isoFormat('DD.MM.YYYY') }}</span>
+                                        @endif
                                         {{ $pontaj->sfarsit ? Carbon::parse($pontaj->sfarsit)->isoFormat('HH:mm') : '' }}
                                     @else
-                                        <a href="{{ $pontaj->path() }}/inchide-pontaj" class="flex">
+                                        <a href="/apps/pontaje/inchide" class="flex">
                                             <span class="badge bg-warning text-dark">Închide</span>
                                         </a>
                                     @endif
                                 </td>
                                 <td>
                                     @if ($pontaj->inceput && $pontaj->sfarsit)
-                                        {{ Carbon::parse($pontaj->inceput)->diff(Carbon::parse($pontaj->sfarsit))->format('%H:%I') }}
+                                        {{ Carbon::parse($pontaj->inceput)->diffInHours(Carbon::parse($pontaj->sfarsit)) }}:{{ Carbon::parse($pontaj->inceput)->diff(Carbon::parse($pontaj->sfarsit))->format('%I') }}
                                     @endif
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-end">
+                                        <a href="/apps/pontaje/{{ $pontaj->actualizare->id ?? '' }}/deschide-nou" class="flex me-1">
+                                            <span class="badge bg-warning text-dark">Deschide nou</span>
+                                        </a>
                                         <a href="{{ $pontaj->path() }}" class="flex me-1">
                                             <span class="badge bg-success">Vizualizează</span>
                                         </a>

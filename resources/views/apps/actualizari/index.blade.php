@@ -1,5 +1,9 @@
 @extends ('layouts.app')
 
+@php
+    use \Carbon\Carbon;
+@endphp
+
 @section('content')
 <div class="mx-3 px-3 card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
@@ -51,8 +55,25 @@
                             <th class="text-white culoare2">#</th>
                             <th class="text-white culoare2">Aplicație</th>
                             <th class="text-white culoare2">Actualizare</th>
-                            <th class="text-white culoare2">Preț</th>
-                            <th class="text-white culoare2">Factura</th>
+                            <th class="text-white culoare2 text-end">
+                                Pontaj azi
+                                <br>
+                                @php
+                                    $durataTotala = Carbon::today();
+
+                                    foreach ($actualizari as $actualizare) {
+                                        if ($actualizare->pontajeAziDurata()){
+                                            $durataTotala->addSeconds(Carbon::today()->diffInSeconds($actualizare->pontajeAziDurata()));
+                                        }
+                                    }
+                                @endphp
+                                {{ Carbon::today()->diffInHours($durataTotala) }}:{{ Carbon::today()->diff($durataTotala)->format('%I') }}
+                            </th>
+                            <th class="text-white culoare2 text-end">Pontaj<br>total</th>
+                            <th class="text-white culoare2 text-center">Pontaj<br>start-stop</th>
+                            {{-- <th class="text-white culoare2 text-center">Pontaj<br>stop</th> --}}
+                            <th class="text-white culoare2 text-end">Preț</th>
+                            <th class="text-white culoare2 text-center">Factura<br>emitere</th>
                             <th class="text-white culoare2 text-end">Acțiuni</th>
                         </tr>
                     </thead>
@@ -68,14 +89,74 @@
                                 <td class="">
                                     {{ $actualizare->nume }}
                                 </td>
-                                <td class="">
+                                <td class="text-end">
+                                    <a href="/apps/pontaje?searchActualizareId={{ $actualizare->id }}&searchData={{ \Carbon\Carbon::now()->toDateString(); }}" style="text-decoration: none">
+                                        @if ($actualizare->pontajeAziDurata())
+                                            @if (Carbon::today()->gt($actualizare->pontajeAziDurata()))
+                                                <span class="px-2 rounded-3 bg-danger text-white" title="Actualizarea are pontaje care nu se inchid corect!">
+                                                    Atenție
+                                                </span>
+                                            @else
+                                                {{ Carbon::today()->diffInHours($actualizare->pontajeAziDurata()) }}:{{ Carbon::today()->diff($actualizare->pontajeAziDurata())->format('%I') }}
+                                                <br>
+                                            @endif
+                                        @endif
+                                    </a>
+                                    @foreach ($actualizare->pontajeAziDeschise as $pontaj)
+                                        <a href="/apps/pontaje/inchide" class="flex">
+                                            <span class="badge bg-warning text-dark">
+                                                Deschis
+                                                <br>
+                                                {{ Carbon::parse($pontaj->inceput)->isoFormat ('HH:mm') }}
+                                                <br>
+                                                Închide
+                                            </span>
+                                        </a>
+                                    @endforeach
+                                </td>
+                                <td class="text-end">
+                                    <a href="/apps/pontaje?searchActualizareId={{ $actualizare->id }}" style="text-decoration: none">
+                                        @if ($actualizare->pontajeDurata())
+                                            @if (Carbon::today()->gt($actualizare->pontajeDurata()))
+                                                <span class="px-2 rounded-3 bg-danger text-white" title="Actualizarea are pontaje care nu se inchid corect!">
+                                                    Atenție
+                                                </span>
+                                            @else
+                                                {{ Carbon::today()->diffInHours($actualizare->pontajeDurata()) }}:{{ Carbon::today()->diff($actualizare->pontajeDurata())->format('%I') }}
+                                            @endif
+                                        @endif
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    @if ($actualizare->pontaje->first())
+                                        @php $dataInceput = Carbon::parse($actualizare->pontaje->sortBy('inceput')->first()->inceput ?? '') @endphp
+                                        <span title="{{ $dataInceput->isoFormat('DD.MM.YYYY') }}"> {{ $dataInceput->isoFormat('DD.MM') }} </span>
+                                        -
+                                        @php $dataSfarsit = Carbon::parse($actualizare->pontaje->sortByDesc('inceput')->first()->inceput ?? '') @endphp
+                                        <span title="{{ $dataSfarsit->isoFormat('DD.MM.YYYY') }}"> {{ $dataSfarsit->isoFormat('DD.MM') }} </span>
+                                        =
+                                        {{ Carbon::parse($dataInceput)->diffInDays($dataSfarsit) + 1 }}
+                                    @endif
+
+                                </td>
+                                <td class="text-end">
                                     {{ $actualizare->pret }}
                                 </td>
-                                <td class="">
-                                    {{ $actualizare->factura ? $actualizare->factura->path() : '' }}
+                                <td class="text-center">
+                                    @if($actualizare->factura)
+                                        <a href="{{ $actualizare->factura->path() }}/modifica" style="text-decoration: none">
+                                            @php $data = Carbon::parse($actualizare->factura->data) @endphp
+                                            <span title="{{ $data->isoFormat('DD.MM.YYYY') }}">
+                                                {{ $data->isoFormat('DD.MM') }}
+                                            </span>
+                                        </a>
+                                    @endif
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-end">
+                                        <a href="/apps/pontaje/{{ $actualizare->id ?? '' }}/deschide-nou" class="flex me-1">
+                                            <span class="badge bg-warning text-dark">Deschide pontaj</span>
+                                        </a>
                                         <a href="{{ $actualizare->path() }}" class="flex me-1">
                                             <span class="badge bg-success">Vizualizează</span>
                                         </a>

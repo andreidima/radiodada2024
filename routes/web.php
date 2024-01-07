@@ -33,9 +33,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/apps/actualizari', ActualizareController::class)->parameters(['actualizari' => 'actualizare']);
 
 
-    Route::get('/apps/pontaje/{pontaj}/inchide', [PontajController::class, 'inchide']);
-    Route::post('/apps/pontaje/adauga-resursa/{resursa}', [PontajController::class, 'adaugaResursa']);
+    Route::get('/apps/pontaje/{actualizare}/deschide-nou', [PontajController::class, 'deschideNou']);
+    Route::get('/apps/pontaje/inchide', [PontajController::class, 'inchide']);
+    Route::any('/apps/pontaje/adauga-resursa/{resursa}', [PontajController::class, 'adaugaResursa']);
     Route::resource('/apps/pontaje', PontajController::class)->parameters(['pontaje' => 'pontaj']);
 
     Route::resource('/apps/facturi', FacturaController::class)->parameters(['facturi' => 'factura']);
+
+    Route::view('/notificari', 'notificari.index');
 });

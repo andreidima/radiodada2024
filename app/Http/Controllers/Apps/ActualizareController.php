@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Apps\Actualizare;
 use App\Models\Apps\Aplicatie;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ActualizareController extends Controller
 {
@@ -23,8 +24,9 @@ class ActualizareController extends Controller
         $searchAplicatie = $request->searchAplicatie;
         $searchActualizare = $request->string('searchActualizare');
 
-        $query = Actualizare::
-            when($searchAplicatie, function ($query, $searchAplicatie) {
+        $query = Actualizare::with('aplicatie', 'pontaje', 'pontajeAzi', 'pontajeAziDeschise')
+            ->select('*', DB::raw('(select inceput from apps_pontaje where actualizare_id = apps_actualizari.id order by id desc limit 1) as ultimul_pontaj')  )
+            ->when($searchAplicatie, function ($query, $searchAplicatie) {
                 $query->whereHas('aplicatie', function ($query) use ($searchAplicatie) {
                     $query->where('nume', 'like', '%' . $searchAplicatie . '%');
                 });
@@ -32,7 +34,7 @@ class ActualizareController extends Controller
             ->when($searchActualizare, function ($query, $searchActualizare) {
                 $query->where('nume', 'like', '%' . $searchActualizare . '%');
             })
-            ->latest();
+            ->orderBy('ultimul_pontaj', 'desc');
 
         $actualizari = $query->simplePaginate(50);
 
@@ -126,7 +128,12 @@ class ActualizareController extends Controller
      */
     public function destroy(Request $request, Actualizare $actualizare)
     {
+        if ($actualizare->factura) {
+            return back()->with('error', 'Nu puteți șterge actualizarea „' . $actualizare->nume . '” pentru că are deja factură emisă. Ștergeți mai întâi factura.');
+        }
+
         $actualizare->delete();
+        $actualizare->pontaje()->delete();
 
         return back()->with('status', 'Actualizarea „' . $actualizare->nume . '” a fost ștearsă cu succes!');
     }

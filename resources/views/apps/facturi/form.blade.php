@@ -69,6 +69,36 @@
                 <small v-if="!aplicatie_id" class="ps-3">* Selectați o aplicație</small>
                 <small v-else class="ps-3 text-success">* Ați selectat aplicația</small>
             </div>
+            <div class="col-lg-2 mb-4 text-center">
+                <label for="confirmare_client" class="mb-0 ps-0">Confirmare client</label>
+                <vue-datepicker-next
+                    data-veche="{{ old('confirmare_client', $factura->confirmare_client) }}"
+                    nume-camp-db="confirmare_client"
+                    tip="date"
+                    value-type="YYYY-MM-DD"
+                    format="DD.MM.YYYY"
+                    :latime="{ width: '125px' }"
+                ></vue-datepicker-next>
+            </div>
+            <div class="col-lg-2 mb-4 text-center">
+                <label for="confirmare_validsoftware" class="mb-0 ps-0">Confirmare Validsoftware</label>
+                <vue-datepicker-next
+                    data-veche="{{ old('confirmare_validsoftware', $factura->confirmare_validsoftware) }}"
+                    nume-camp-db="confirmare_validsoftware"
+                    tip="date"
+                    value-type="YYYY-MM-DD"
+                    format="DD.MM.YYYY"
+                    :latime="{ width: '125px' }"
+                ></vue-datepicker-next>
+            </div>
+            <div class="col-lg-2 mb-4">
+                <label for="remunerare" class="mb-0 ps-3">Remunerare</label>
+                <select name="remunerare" class="form-select bg-white rounded-3 {{ $errors->has('remunerare') ? 'is-invalid' : '' }}">
+                    <option selected></option>
+                    <option value="1" {{ ((intval(old('remunerare', $factura->remunerare))) === 1) ? 'selected' : '' }}>Plătită</option>
+                    <option value="2" {{ ((intval(old('remunerare', $factura->remunerare))) === 2) ? 'selected' : '' }}>Pagubă</option>
+                </select>
+            </div>
         </div>
     </div>
     <div class="col-lg-12 px-4 py-2 mb-0">

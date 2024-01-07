@@ -23,11 +23,11 @@ class FacturaController extends Controller
 
         // $searchNume = $request->searchNume;
 
-        $facturi = Factura::
+        $facturi = Factura::with('actualizari.aplicatie')
             // when($searchNume, function ($query, $searchNume) {
             //     return $query->where('numar', $searchNume);
             // })
-            latest()
+            ->orderBy('data', 'desc')
             ->simplePaginate(50);
 
         return view('apps.facturi.index', compact('facturi'));
@@ -70,7 +70,7 @@ class FacturaController extends Controller
 
         Actualizare::whereIn('id', array_column($request->actualizariAdaugateLaFactura , 'id'))->update(['factura_id' => $factura->id]);
 
-        return redirect($request->session()->get('facturaReturnUrl') ?? ('/app/facturi'))->with('status', 'Factura „' . $factura->numar . '” a fost adăugată cu succes!');
+        return redirect($request->session()->get('facturaReturnUrl') ?? ('/app/facturi'))->with('status', 'Factura „' . $factura->seria . $factura->numar . '” a fost adăugată cu succes!');
     }
 
     /**
@@ -128,7 +128,7 @@ class FacturaController extends Controller
         // Actualizarile din request se ataseaza la factura
         Actualizare::whereIn('id', array_column($request->actualizariAdaugateLaFactura , 'id'))->update(['factura_id' => $factura->id]);
 
-        return redirect($request->session()->get('facturaReturnUrl') ?? ('/apps/facturi'))->with('status', 'Factura „' . $factura->numar . '” a fost modificată cu succes!');
+        return redirect($request->session()->get('facturaReturnUrl') ?? ('/apps/facturi'))->with('status', 'Factura „' . $factura->seria . $factura->numar . '” a fost modificată cu succes!');
     }
 
     /**
@@ -143,7 +143,7 @@ class FacturaController extends Controller
 
         Actualizare::where('factura_id', $factura->id)->update(['factura_id' => null]);
 
-        return back()->with('status', 'Factura „' . $factura->numar . '” a fost ștearsă cu succes!');
+        return back()->with('status', 'Factura „' . $factura->seria . $factura->numar . '” a fost ștearsă cu succes!');
     }
 
     /**
@@ -166,7 +166,8 @@ class FacturaController extends Controller
             [
                 'data' => 'required',
                 'actualizariAdaugateLaFactura' => 'required',
-                // 'seria' => 'nullable|max:10',
+                'confirmare_primire' => '',
+                'remunerare' => '',
                 // 'numar' => 'nullable|max:200',
                 // 'github_url' => 'nullable|max:200',
             ],

@@ -6,9 +6,7 @@
 
 <script type="application/javascript">
     aplicatii = {!! json_encode($aplicatii) !!}
-
-    // Daca aplicatia a fost adaugata din formularul de pontaj, se regaseste sub forma $pontaj->aplicatie_id
-    aplicatieIdVechi = {!! json_encode(old('aplicatie_id', ($pontaj->aplicatie_id ?? $pontaj->actualizare->aplicatie_id ?? "")) ?? "") !!}
+    aplicatieIdVechi = {!! json_encode(old('aplicatie_id', ($pontaj->actualizare->aplicatie_id ?? "")) ?? "") !!}
     actualizareIdVechi = {!! json_encode(old('actualizare_id', ($pontaj->actualizare_id ?? "")) ?? "") !!}
 </script>
 
