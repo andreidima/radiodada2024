@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::any('/apps/pontaje/adauga-resursa/{resursa}', [PontajController::class, 'adaugaResursa']);
     Route::resource('/apps/pontaje', PontajController::class)->parameters(['pontaje' => 'pontaj']);
 
+    Route::get('/apps/facturi/{factura}/export', [FacturaController::class, 'export']);
     Route::resource('/apps/facturi', FacturaController::class)->parameters(['facturi' => 'factura']);
 
     Route::view('/notificari', 'notificari.index');

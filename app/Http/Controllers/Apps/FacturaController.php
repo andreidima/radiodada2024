@@ -176,4 +176,11 @@ class FacturaController extends Controller
             ]
         );
     }
+
+    public function export(Factura $factura)
+    {
+        $request->session()->forget('facturaReturnUrl');
+
+        return view('apps.facturi.diverse.exportHtml', compact('factura'));
+    }
 }
