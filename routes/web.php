@@ -26,20 +26,4 @@ Route::redirect('/', '/acasa');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::view('/acasa', 'acasa');
-
-    Route::resource('/apps/aplicatii', AplicatieController::class)->parameters(['aplicatii' => 'aplicatie']);
-
-    Route::get('/apps/actualizari/axios', [ActualizareController::class, 'axios']);
-    Route::resource('/apps/actualizari', ActualizareController::class)->parameters(['actualizari' => 'actualizare']);
-
-
-    Route::get('/apps/pontaje/{actualizare}/deschide-nou', [PontajController::class, 'deschideNou']);
-    Route::get('/apps/pontaje/inchide', [PontajController::class, 'inchide']);
-    Route::any('/apps/pontaje/adauga-resursa/{resursa}', [PontajController::class, 'adaugaResursa']);
-    Route::resource('/apps/pontaje', PontajController::class)->parameters(['pontaje' => 'pontaj']);
-
-    Route::get('/apps/facturi/{factura}/export', [FacturaController::class, 'export']);
-    Route::resource('/apps/facturi', FacturaController::class)->parameters(['facturi' => 'factura']);
-
-    Route::view('/notificari', 'notificari.index');
 });

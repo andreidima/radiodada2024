@@ -56,18 +56,6 @@
                                         <i class="fa-solid fa-pen-to-square me-1"></i>Actualizări
                                     </a>
                                 </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="/apps/pontaje?searchData={{ \Carbon\Carbon::now()->toDateString(); }}">
-                                        <i class="fa-solid fa-clock me-1"></i>Pontaje
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="/apps/facturi">
-                                        <i class="fa-solid fa-file-invoice me-1"></i>Facturi
-                                    </a>
-                                </li>
                             </ul>
                         </li>
                     </ul>
