@@ -35,7 +35,7 @@
                                     @if ($artist->imagine)
                                         <div class="w-100">
                                             <a href="{{ env('APP_URL') . $artist->imagine->imagine_cale . $artist->imagine->imagine_nume }}" target="_blank">
-                                                <img src="{{ env('APP_URL') . $artist->imagine->imagine_cale . $artist->imagine->imagine_nume }}" alt="" width="">
+                                                <img src="{{ env('APP_URL') . $artist->imagine->imagine_cale . $artist->imagine->imagine_nume }}" alt="" style="max-width: 100%">
                                             </a>
                                         </div>
                                     @endif
