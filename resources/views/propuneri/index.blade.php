@@ -48,8 +48,8 @@
                                     <div style="flex" class="">
                                         <a
                                             href="#"
-                                            data-toggle="modal"
-                                            data-target="#stergePropunere{{ $propunere->id }}"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#stergePropunere{{ $propunere->id }}"
                                             title="Șterge Propunere"
                                             >
                                             <span class="badge bg-danger">Șterge</span>
@@ -80,7 +80,7 @@
                 <div class="modal-content">
                 <div class="modal-header bg-danger">
                     <h5 class="modal-title text-white" id="exampleModalLabel">Propunere: <b>{{ $propunere->titlu }}</b></h5>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close text-white" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -88,7 +88,7 @@
                     Ești sigur ca vrei să ștergi Propunerea?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Renunță</button>
 
                     <form method="POST" action="{{ $propunere->path() }}">
                         @method('DELETE')
