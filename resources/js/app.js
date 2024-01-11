@@ -44,230 +44,73 @@ import { createApp } from 'vue';
 import VueDatepickerNext from './components/DatePicker.vue';
 import VueTinyMCE from './components/TinyMCE.vue';
 
-
-// Click outside directive
-const clickOutside = {
-    beforeMount: (el, binding) => {
-        el.clickOutsideEvent = event => {
-            if (!(el == event.target || el.contains(event.target))) {
-                binding.value();
-            }
-        };
-        document.addEventListener("click", el.clickOutsideEvent);
-    },
-    unmounted: el => {
-        document.removeEventListener("click", el.clickOutsideEvent);
-    },
-};
-
-// App pentru DatePicker
-if (document.getElementById('datePicker') != null) {
-    const datePicker = createApp({});
-    datePicker.component('vue-datepicker-next', VueDatepickerNext);
-    datePicker.mount('#datePicker');
-}
-
-// App pentru TinyMCE
-if (document.getElementById('TinyMCE') != null) {
-    const TinyMCE = createApp({});
-    TinyMCE.component('tinymce-vue', VueTinyMCE);
-    TinyMCE.mount('#TinyMCE');
-}
-
-// Folosita la Apps
-const apps = createApp({
-    el: '#apps',
+const app1 = createApp({
+    el: '#app1',
     data() {
         return {
-            aplicatie_id: ((typeof aplicatieIdVechi !== 'undefined') ? aplicatieIdVechi : ''),
-            aplicatie_nume: '',
-            aplicatii: ((typeof aplicatii !== 'undefined') ? aplicatii : []),
-            aplicatiiListaAutocomplete: [],
+            international_piesa: '',
+            international_trupa: '',
+            international_titlu: '',
+            international_imagine: typeof internationalImagineInitiala !== 'undefined' ? internationalImagineInitiala : '',
+            international_descriere: '',
+            international_link_youtube: '',
+            international_link_interviu: '',
+            international_magazin_virtual: '',
+            romanesc_piesa: '',
+            romanesc_trupa: '',
+            romanesc_titlu: '',
+            romanesc_imagine: typeof romanescImagineInitiala !== 'undefined' ? romanescImagineInitiala : '',
+            romanesc_descriere: '',
+            romanesc_link_youtube: '',
+            romanesc_link_interviu: '',
+            romanesc_magazin_virtual: '',
+            veche_piesa: '',
+            veche_trupa: '',
+            veche_titlu: '',
+            veche_imagine: typeof vecheImagineInitiala !== 'undefined' ? vecheImagineInitiala : '',
+            veche_descriere: '',
+            veche_link_youtube: '',
+            veche_link_interviu: '',
+            veche_magazin_virtual: '',
 
-            arataCampActualizari: false,
-            actualizare_id: ((typeof actualizareIdVechi !== 'undefined') ? actualizareIdVechi : ''),
-            actualizare_nume: '',
-            actualizari: [],
-            actualizariListaAutocomplete: [],
-        }
-    },
-    watch: {
-        aplicatie_id: function () {
-            this.actualizare_id = '';
-            this.actualizare_nume = '';
-            this.actualizari = [];
-        }
-    },
-    created: function () {
-        if (this.aplicatie_id) {
-            for (var i = 0; i < this.aplicatii.length; i++) {
-                if (this.aplicatii[i].id == this.aplicatie_id) {
-                    this.aplicatie_nume = this.aplicatii[i].nume;
-                    break;
-                }
-            }
-        }
+            top_incarcat: '',
 
-        this.axiosCautaActualizari();
-    },
-    methods: {
-        autocompleteAplicatii() {
-            this.aplicatiiListaAutocomplete = [];
-            for (var i = 0; i < this.aplicatii.length; i++) {
-                if (this.aplicatii[i].nume) {
-                    if (this.aplicatii[i].nume.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(this.aplicatie_nume.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))) {
-                        this.aplicatiiListaAutocomplete.push(this.aplicatii[i]);
-                    }
-                }
-            }
-        },
-        axiosCautaActualizari() {
-            this.actualizari = [];
-            this.arataCampActualizari = false;
-            axios.get('/apps/actualizari/axios', {
-                    params: {
-                        aplicatie_id: this.aplicatie_id,
-                    }
-                })
-                .then(
-                    response => {
-                        this.actualizari = response.data.actualizari;
+            top_international_bg_color: 'bg-white',
+            top_international_text_color: 'text-black',
 
-                        if (this.actualizare_id) {
-                            for (var i = 0; i < this.actualizari.length; i++) {
-                                if (this.actualizari[i].id == this.actualizare_id) {
-                                    this.actualizare_nume = this.actualizari[i].nume;
-                                    break;
-                                }
-                            }
-                        }
-                        this.arataCampActualizari = true;
+            top_romanesc_bg_color: 'bg-white',
+            top_romanesc_text_color: 'text-black',
 
-                    }
-            );
-        },
-        autocompleteActualizari() {
-            this.actualizariListaAutocomplete = [];
-            for (var i = 0; i < this.actualizari.length; i++) {
-                if (this.actualizari[i].nume) {
-                    if (this.actualizari[i].nume.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(this.actualizare_nume.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))) {
-                        this.actualizariListaAutocomplete.push(this.actualizari[i]);
-                    }
-                }
-            }
-        },
-    }
-});
-apps.directive("clickOut", clickOutside);
-if (document.getElementById('apps') != null) {
-    apps.mount('#apps');
-}
-
-// Formular factura
-const facturaForm = createApp({
-    el: '#facturaForm',
-    data() {
-        return {
-            aplicatie_id: ((typeof aplicatieIdVechi !== 'undefined') ? aplicatieIdVechi : ''),
-            aplicatie_nume: '',
-            aplicatii: ((typeof aplicatii !== 'undefined') ? aplicatii : []),
-            aplicatiiListaAutocomplete: [],
-
-            actualizari: ((typeof actualizari !== 'undefined') ? actualizari : []),
-            actualizariVechi: ((typeof actualizariVechi !== 'undefined') ? actualizariVechi : []),
-            actualizariNefacturate: [],
-            actualizariAdaugateLaFactura: [],
-        }
-    },
-    watch: {
-        aplicatie_id: function () {
-            this.refacereListeActualizari();
-        },
-    },
-    created: function () {
-        if (this.aplicatie_id) {
-            for (var i = 0; i < this.aplicatii.length; i++) {
-                if (this.aplicatii[i].id == this.aplicatie_id) {
-                    this.aplicatie_nume = this.aplicatii[i].nume;
-                    break;
-                }
-            }
-            this.refacereListeActualizari();
-            if (this.actualizariVechi){
-                for (var i = this.actualizariNefacturate.length - 1; i >= 0; i--) {
-                    for (var j = 0; j < this.actualizariVechi.length; j++) {
-                        if (this.actualizariNefacturate[i].id == this.actualizariVechi[j].id) {
-                            this.actualizariAdaugateLaFactura.push(this.actualizariNefacturate[i]);
-                            this.actualizariNefacturate.splice(i, 1);
-                            break;
-                        }
-                    }
-                }
-                this.actualizariAdaugateLaFactura = this.sortareActualizari(this.actualizariAdaugateLaFactura);
-            }
+            top_veche_bg_color: 'bg-white',
+            top_veche_text_color: 'text-black'
         }
     },
     methods: {
-        autocompleteAplicatii() {
-            this.aplicatiiListaAutocomplete = [];
-            for (var i = 0; i < this.aplicatii.length; i++) {
-                if (this.aplicatii[i].nume) {
-                    if (this.aplicatii[i].nume.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(this.aplicatie_nume.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))) {
-                        this.aplicatiiListaAutocomplete.push(this.aplicatii[i]);
-                    }
-                }
+        schimbaCuloare: function (value) {
+            if (value == "top_international_danger") {
+                this.top_international_bg_color = "bg-danger";
+                this.top_international_text_color = "text-white";
+            } else if (value == "top_international_white") {
+                this.top_international_bg_color = "bg-white";
+                this.top_international_text_color = "text-black";
+            } else if (value == "top_romanesc_danger") {
+                this.top_romanesc_bg_color = "bg-danger";
+                this.top_romanesc_text_color = "text-white";
+            } else if (value == "top_romanesc_white") {
+                this.top_romanesc_bg_color = "bg-white";
+                this.top_romanesc_text_color = "text-black";
+            } else if (value == "top_veche_danger") {
+                this.top_veche_bg_color = "bg-danger";
+                this.top_veche_text_color = "text-white";
+            } else if (value == "top_veche_white") {
+                this.top_veche_bg_color = "bg-white";
+                this.top_veche_text_color = "text-black";
             }
-        },
-        refacereListeActualizari() {
-            this.actualizariNefacturate = [];
-            this.actualizariAdaugateLaFactura = [];
-
-            if (this.aplicatie_id) {
-                for (var i = 0; i < this.actualizari.length; i++) {
-                    if (this.actualizari[i].aplicatie_id == this.aplicatie_id) {
-                        this.actualizariNefacturate.push(this.actualizari[i]);
-                    }
-                }
-            }
-        },
-        sortareActualizariNefacturate(){
-
-        },
-        sortareActualizariAdaugateLaFactura() {
-            this.actualizariAdaugateLaFactura.sort((a, b) => {
-                let fa = a.nume.toLowerCase(),
-                    fb = b.nume.toLowerCase();
-
-                if (fa < fb) {
-                    return -1;
-                }
-                if (fa > fb) {
-                    return 1;
-                }
-                return 0;
-            });
-        },
-        sortareActualizari(array) {
-            array.sort((a, b) => {
-                let fa = a.nume.toLowerCase(),
-                    fb = b.nume.toLowerCase();
-
-                if (fa < fb) {
-                    return -1;
-                }
-                if (fa > fb) {
-                    return 1;
-                }
-                return 0;
-            });
-            return array;
         }
     }
 });
-facturaForm.directive("clickOut", clickOutside);
-facturaForm.component('vue-datepicker-next', VueDatepickerNext);
-if (document.getElementById('facturaForm') != null) {
-    facturaForm.mount('#facturaForm');
+if (document.getElementById('app1') != null) {
+    app1.mount('#app1');
 }
 
 

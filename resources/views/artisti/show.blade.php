@@ -3,53 +3,56 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-7">
             <div class="shadow-lg" style="border-radius: 40px 40px 40px 40px;">
-                <div class="culoare2 border border-secondary p-2" style="border-radius: 40px 40px 0px 0px;">
-                    <span class="badge text-light fs-5">
-                        <i class="fa-solid fa-bars me-1"></i>Aplicații / {{ $aplicatie->nume }}
-                    </span>
+                <div class="border border-secondary p-2" style="border-radius: 40px 40px 0px 0px; background-color:#e66800">
+                    <h6 class="ms-4 my-0" style="color:white"><i class="fas fa-users me-1"></i>Artisti / {{ $artist->nume }}</h6>
                 </div>
 
                 <div class="card-body py-2 border border-secondary"
                     style="border-radius: 0px 0px 40px 40px;"
+                    id="app1"
                 >
 
-            @include ('errors.errors')
+                @include ('errors.errors')
 
                     <div class="table-responsive col-md-12 mx-auto">
                         <table class="table table-striped table-hover"
                         >
                             <tr>
-                                <td class="pe-4">
-                                    Aplicatie
+                                <td>
+                                    Nume
                                 </td>
                                 <td>
-                                    {{ $aplicatie->nume }}
+                                    {{ $artist->nume }}
                                 </td>
                             </tr>
                             <tr>
-                                <td class="pe-4">
-                                    Local url
+                                <td>
+                                    Imagine
                                 </td>
                                 <td>
-                                    {{ $aplicatie->local_url }}
+                                    @if ($artist->imagine)
+                                        <a href="{{ env('APP_URL') . $artist->imagine->imagine_cale . $artist->imagine->imagine_nume }}" target="_blank">
+                                            <img src="{{ env('APP_URL') . $artist->imagine->imagine_cale . $artist->imagine->imagine_nume }}" alt="" width="100%">
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
-                                <td class="pe-4">
-                                    Online url
+                                <td>
+                                    Link
                                 </td>
                                 <td>
-                                    {{ $aplicatie->online_url }}
+                                    {{ $artist->link }}
                                 </td>
                             </tr>
                             <tr>
-                                <td class="pe-4">
-                                    Github url
+                                <td>
+                                    Descriere
                                 </td>
                                 <td>
-                                    {{ $aplicatie->github_url }}
+                                    {{ $artist->descriere }}
                                 </td>
                             </tr>
                         </table>
@@ -57,7 +60,7 @@
 
                     <div class="form-row mb-2 px-2">
                         <div class="col-lg-12 d-flex justify-content-center">
-                            <a class="btn btn-secondary text-white rounded-3" href="{{ Session::get('aplicatieReturnUrl') }}">Înapoi</a>
+                            <a class="btn btn-primary rounded-pill" href="/artisti">Pagină Artiști</a>
                         </div>
                     </div>
 
