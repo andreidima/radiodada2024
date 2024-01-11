@@ -40,9 +40,9 @@
                 <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
-                            <th>Nr. Crt.</th>
-                            <th>Nume</th>
-                            <th class="text-center">Acțiuni</th>
+                            <th class="text-white culoare2">Nr. Crt.</th>
+                            <th class="text-white culoare2">Nume</th>
+                            <th class="text-white culoare2 text-center">Acțiuni</th>
                         </tr>
                     </thead>
                     <tbody>

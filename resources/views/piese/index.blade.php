@@ -42,12 +42,12 @@
                 <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
-                            <th>Nr. Crt.</th>
-                            <th>Nume</th>
-                            <th>Artist</th>
-                            <th>Categorie</th>
-                            <th>Voturi</th>
-                            <th class="text-center">Acțiuni</th>
+                            <th class="text-white culoare2">Nr. Crt.</th>
+                            <th class="text-white culoare2">Nume</th>
+                            <th class="text-white culoare2">Artist</th>
+                            <th class="text-white culoare2">Categorie</th>
+                            <th class="text-white culoare2">Voturi</th>
+                            <th class="text-white culoare2 text-center">Acțiuni</th>
                         </tr>
                     </thead>
                     <tbody>

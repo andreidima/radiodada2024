@@ -33,9 +33,11 @@
                                 </td>
                                 <td>
                                     @if ($artist->imagine)
-                                        <a href="{{ env('APP_URL') . $artist->imagine->imagine_cale . $artist->imagine->imagine_nume }}" target="_blank">
-                                            <img src="{{ env('APP_URL') . $artist->imagine->imagine_cale . $artist->imagine->imagine_nume }}" alt="" width="100%">
-                                        </a>
+                                        <div class="w-100">
+                                            <a href="{{ env('APP_URL') . $artist->imagine->imagine_cale . $artist->imagine->imagine_nume }}" target="_blank">
+                                                <img src="{{ env('APP_URL') . $artist->imagine->imagine_cale . $artist->imagine->imagine_nume }}" alt="" width="">
+                                            </a>
+                                        </div>
                                     @endif
                                 </td>
                             </tr>
