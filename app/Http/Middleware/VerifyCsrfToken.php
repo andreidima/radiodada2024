@@ -13,6 +13,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        'https://radiodada.validsoftware.eu/voteaza-si-propune/adauga',
+        // 'https://radiodada.validsoftware.eu/voteaza-si-propune/adauga',
     ];
 }
