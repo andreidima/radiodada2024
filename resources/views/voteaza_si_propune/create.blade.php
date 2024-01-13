@@ -37,8 +37,8 @@
     vecheImagineInitiala={!!
         json_encode(
             env('APP_URL') .
-            ($piese->where('categorie', 'Top Cea mai bună muzică veche')->first()->artist->imagine->imagine_cale ?? '') .
-            ($piese->where('categorie', 'Top Cea mai bună muzică veche')->first()->artist->imagine->imagine_nume ?? '')
+            ($piese->where('categorie', 'Top Cea mai buna muzica veche')->first()->artist->imagine->imagine_cale ?? '') .
+            ($piese->where('categorie', 'Top Cea mai buna muzica veche')->first()->artist->imagine->imagine_nume ?? '')
         ) !!}
 </script>
 
