@@ -531,7 +531,7 @@
                     <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-12 mb-2">
-                                <img :src="romanesc_imagine" alt="" width="100%">
+                                <img :src="romanesc_imagine" alt="" style="max-width: 100%">
                             </div>
                             <div v-cloak class="col-lg-12 mb-2">
                                     @{{ romanesc_descriere }}
@@ -670,7 +670,7 @@
                     <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-12 mb-2">
-                                <img :src="veche_imagine" alt="" width="100%">
+                                <img :src="veche_imagine" alt="" style="max-width: 100%">
                             </div>
                             <div v-cloak class="col-lg-12 mb-2">
                                     @{{ veche_descriere }}
