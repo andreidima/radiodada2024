@@ -394,7 +394,7 @@
                     <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-12 mb-2">
-                                <img :src="international_imagine" alt="" width="100%">
+                                <img :src="international_imagine" alt="" style="max-width: 100%">
                             </div>
                             <div v-cloak class="col-lg-12 mb-2">
                                     @{{ international_descriere }}
