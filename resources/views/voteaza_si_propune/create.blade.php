@@ -312,7 +312,7 @@
                         <form class="needs-validation" novalidate method="POST" action="/voteaza-si-propune">
                         @csrf
 
-                            <div class="form-row">
+                            <div class="row">
                                 @foreach ($piese->where('categorie', 'Top International') as $piesa)
                                         <div class="col-lg-12">
                                             <div class="form-check">
@@ -335,12 +335,13 @@
                                             </div>
                                         </div>
                                 @endforeach
+                            </div>
 
+                            <div class="row">
                                 @foreach ($piese->where('categorie', 'Propunere Top International') as $piesa)
                                     @if ($loop->first)
-                                        <div class="col-lg-12 py-4 justify-content-center">
-                                            <p class="py-2"></p>
-                                            <h3 class="text-center">Propuneri</h3>
+                                        <div class="col-lg-12 px-3">
+                                            <b>Propuneri</b>
                                         </div>
                                     @endif
                                         <div class="col-lg-12">

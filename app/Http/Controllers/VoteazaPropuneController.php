@@ -16,8 +16,6 @@ class VoteazaPropuneController extends Controller
      */
     public function create()
     {
-        // config(['session.same_site' => 'none']);
-        // dd(config('session.same_site'));
         $piese = Piesa::with('artist')->orderByDesc('voturi')->get();
 
         return view('voteaza_si_propune.create', compact('piese'));
@@ -29,7 +27,6 @@ class VoteazaPropuneController extends Controller
      */
     public function store(Request $request)
     {
-        // dd(config('session.same_site'));
         switch ($request->input('action')) {
             case 'top_international_voteaza':
                 if ($request->session()->has('top_international_votat_deja_variabila_sesiune')) {
@@ -46,10 +43,7 @@ class VoteazaPropuneController extends Controller
 
                     $request->session()->put('top_international_votat_deja_variabila_sesiune', 'da');
 
-                    // $request->session()->flash('Voteaza', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
-
                     return back()->with('top_international_votat', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
-                    // return back();
                 }
                 break;
 
@@ -89,10 +83,7 @@ class VoteazaPropuneController extends Controller
 
                     $request->session()->put('top_romanesc_votat_deja_variabila_sesiune', 'da');
 
-                    // $request->session()->flash('Voteaza', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
-
                     return back()->with('top_romanesc_votat', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
-                    // return back();
                 }
                 break;
 
@@ -133,10 +124,7 @@ class VoteazaPropuneController extends Controller
 
                     $request->session()->put('top_veche_votat_deja_variabila_sesiune', 'da');
 
-                    // $request->session()->flash('Voteaza', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
-
                     return back()->with('top_veche_votat', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
-                    // return back();
                 }
                 break;
 
