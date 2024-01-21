@@ -2,10 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Apps\AplicatieController;
-use App\Http\Controllers\Apps\ActualizareController;
-use App\Http\Controllers\Apps\PontajController;
-use App\Http\Controllers\Apps\FacturaController;
+use App\Http\Controllers\VoteazaPropuneController;
 
 // use App\Http\Controllers\Apps\AppsAplicatieController;
 /*
@@ -23,15 +20,13 @@ Auth::routes(['register' => false, 'password.request' => false, 'reset' => false
 
 Route::redirect('/', '/acasa');
 
-
-
-// Route::get('voteaza_si_propune/mesaj', [App\Http\Controllers\VoteazaPropuneController::class, 'mesaj']);
-
 Route::resource('voteaza-si-propune', App\Http\Controllers\VoteazaPropuneController::class)->only([
     'create', 'store'
 ]);
+Route::get('voteaza-si-propune/inregistrare-tombola-pasul-1', [App\Http\Controllers\VoteazaPropuneController::class, 'inregistrareTombolaPasul1']);
+Route::post('voteaza-si-propune/inregistrare-tombola-pasul-1', [App\Http\Controllers\VoteazaPropuneController::class, 'postInregistrareTombolaPasul1']);
+Route::get('voteaza-si-propune/inregistrare-tombola-pasul-2', [App\Http\Controllers\VoteazaPropuneController::class, 'inregistrareTombolaPasul2'])->name('inregistrareTombolaPasul2');
 
-// Route::any('voteaza-si-propune/adauga', [App\Http\Controllers\VoteazaPropuneController::class, 'voteazaPropune']);
 
 Route::middleware(['auth'])->group(function () {
     // Route::get('/', function () {

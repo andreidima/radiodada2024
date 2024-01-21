@@ -1,25 +1,6 @@
-<!doctype html>
-<html class="h-100" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends ('voteaza_si_propune.layout')
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
-    <!-- Font Awesome links -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-</head>
-
+@section('content')
 
 <script type="application/javascript">
     internationalImagineInitiala={!!
@@ -42,8 +23,6 @@
         ) !!}
 </script>
 
-
-<body class="d-flex flex-column h-100">
 <div class="container" id="app1">
 
 
@@ -305,11 +284,11 @@
                 <div class="row px-4">
                     <div class="col-lg-6">
 
-                        <h2 class="py-2 px-3">
-                            <b>Cea mai 9 muzică bună</b>
+                        <h2 class="" style="font-weight: bold">
+                            Cea mai 9 muzică bună
                         </h2>
 
-                        <form class="needs-validation" novalidate method="POST" action="/voteaza-si-propune">
+                        <form class="needs-validation mb-4" novalidate method="POST" action="/voteaza-si-propune">
                         @csrf
 
                             <div class="row">
@@ -340,7 +319,7 @@
                             <div class="row">
                                 @foreach ($piese->where('categorie', 'Propunere Top International') as $piesa)
                                     @if ($loop->first)
-                                        <div class="col-lg-12 px-3">
+                                        <div class="col-lg-12">
                                             <b>Propuneri</b>
                                         </div>
                                     @endif
@@ -369,7 +348,7 @@
 
 
                                 <div class="col-lg-12 mb-3 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-danger border border-dark rounded-pill" name="action" value="top_international_voteaza">
+                                    <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_international_voteaza">
                                         Votează
                                     </button>
                                 </div>
@@ -381,13 +360,12 @@
                             <div class="form-row">
                                 <div class="col-lg-12 justify-content-center">
                                     <label for="top_international_propunere" class="form-label">
-                                        Adauga o noua propunere. Propunerea va intra in lista de mai sus numai dupa acordul Directorului Muzical
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Adaugă o nouă propunere. Propunerea va intra în lista de mai sus numai după acordul Directorului Muzical
                                     </label>
-                                    <input type="text" class="form-control"  name="top_international_propunere" id="top_international_propunere" aria-describedby="top_international_propunere">
-                                </div>
-
-                                <div class="col-lg-12 mb-3 py-3 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-danger border border-dark rounded-pill"  name="action" value="top_international_propunere">Propune</button>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-white"  name="top_international_propunere" id="top_international_propunere" aria-describedby="top_international_propunere" placeholder="Propunere">
+                                        <button type="submit" class="btn btn-danger border border-dark" name="action" value="top_international_propunere" id="top_international_propunere">Propune</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -443,14 +421,14 @@
                 <div class="row px-4">
                     <div class="col-lg-6">
 
-                        <h2 class="py-2 px-3">
-                            <b>Românești de azi</b>
+                        <h2 class="" style="font-weight: bold">
+                            Românești de azi
                         </h2>
 
-                        <form class="needs-validation" novalidate method="POST" action="/voteaza-si-propune">
+                        <form class="needs-validation mb-4" novalidate method="POST" action="/voteaza-si-propune">
                         @csrf
 
-                            <div class="form-row">
+                            <div class="row">
                                 @foreach ($piese->where('categorie', 'Top Romanesc') as $piesa)
                                         <div class="col-lg-12">
                                             <div class="form-check">
@@ -474,12 +452,13 @@
                                             </div>
                                         </div>
                                 @endforeach
+                            </div>
+                            <div class="row">
 
                                 @foreach ($piese->where('categorie', 'Propunere Top Romanesc') as $piesa)
                                     @if ($loop->first)
-                                        <div class="col-lg-12 py-4 justify-content-center">
-                                            <p class="py-2"></p>
-                                            <h3 class="text-center">Propuneri</h3>
+                                        <div class="col-lg-12">
+                                            <b>Propuneri</b>
                                         </div>
                                     @endif
                                         <div class="col-lg-12">
@@ -506,7 +485,7 @@
                                 @endforeach
 
                                 <div class="col-lg-12 mb-3 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-danger border border-dark rounded-pill" name="action" value="top_romanesc_voteaza">
+                                    <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_romanesc_voteaza">
                                         Votează
                                     </button>
                                 </div>
@@ -518,13 +497,12 @@
                             <div class="form-row">
                                 <div class="col-lg-12 justify-content-center">
                                     <label for="top_romanesc_propunere" class="form-label">
-                                        Adauga o noua propunere. Propunerea va intra in lista de mai sus numai dupa acordul Directorului Muzical
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Adaugă o nouă propunere. Propunerea va intra în lista de mai sus numai după acordul Directorului Muzical
                                     </label>
-                                    <input type="text" class="form-control"  name="top_romanesc_propunere" id="top_romanesc_propunere" aria-describedby="top_romanesc_propunere">
-                                </div>
-
-                                <div class="col-lg-12 mb-3 py-3 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-danger border border-dark rounded-pill"  name="action" value="top_romanesc_propunere">Propune</button>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-white"  name="top_romanesc_propunere" id="top_romanesc_propunere" aria-describedby="top_romanesc_propunere" placeholder="Propunere">
+                                        <button type="submit" class="btn btn-danger border border-dark" name="action" value="top_romanesc_propunere" id="top_romanesc_propunere">Propune</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -582,11 +560,11 @@
                 <div class="row px-4">
                     <div class="col-lg-6">
 
-                        <h2 class="py-2 px-3">
-                            <b>Cea mai bună muzică veche</b>
+                        <h2 class="" style="font-weight: bold">
+                            Cea mai bună muzică veche
                         </h2>
 
-                        <form class="needs-validation" novalidate method="POST" action="/voteaza-si-propune">
+                        <form class="needs-validation mb-4" novalidate method="POST" action="/voteaza-si-propune">
                         @csrf
 
                             <div class="form-row">
@@ -613,12 +591,12 @@
                                             </div>
                                         </div>
                                 @endforeach
-
+                            </div>
+                            <div class="row">
                                 @foreach ($piese->where('categorie', 'Propunere Top Cea mai buna muzica veche') as $piesa)
                                     @if ($loop->first)
-                                        <div class="col-lg-12 py-4 justify-content-center">
-                                            <p class="py-2"></p>
-                                            <h3 class="text-center">Propuneri</h3>
+                                        <div class="col-lg-12">
+                                            <b>Propuneri</b>
                                         </div>
                                     @endif
                                         <div class="col-lg-12">
@@ -645,7 +623,7 @@
                                 @endforeach
 
                                 <div class="col-lg-12 mb-3 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-danger border border-dark rounded-pill" name="action" value="top_veche_voteaza">
+                                    <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_veche_voteaza">
                                         Votează
                                     </button>
                                 </div>
@@ -657,13 +635,12 @@
                             <div class="form-row">
                                 <div class="col-lg-12 justify-content-center">
                                     <label for="top_veche_propunere" class="form-label">
-                                        Adaugă o nouă propunere. Propunerea va intra în lista de mai sus numai după acordul Directorului Muzical
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Adaugă o nouă propunere. Propunerea va intra în lista de mai sus numai după acordul Directorului Muzical
                                     </label>
-                                    <input type="text" class="form-control"  name="top_veche_propunere" id="top_veche_propunere" aria-describedby="top_veche_propunere">
-                                </div>
-
-                                <div class="col-lg-12 mb-3 py-3 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-danger border border-dark rounded-pill"  name="action" value="top_veche_propunere">Propune</button>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-white"  name="top_veche_propunere" id="top_veche_propunere" aria-describedby="top_veche_propunere" placeholder="Propunere">
+                                        <button type="submit" class="btn btn-danger border border-dark" name="action" value="top_veche_propunere" id="top_veche_propunere">Propune</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -708,5 +685,5 @@
     @endif
 
 </div>
-</body>
-</html>
+
+@endsection

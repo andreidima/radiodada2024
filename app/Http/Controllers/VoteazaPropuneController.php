@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Models\Piesa;
 use App\Models\Propunere;
+use App\Models\Tombola;
 
+use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+
 
 class VoteazaPropuneController extends Controller
 {
@@ -16,6 +19,9 @@ class VoteazaPropuneController extends Controller
      */
     public function create()
     {
+        session()->forget('inregistrareTombolaLaTop'); // cheie pentru pasul 1 unde se face inregistrarea
+        session()->forget('tombola'); // modelul transmis de la pasul 1 la pasul 2
+
         $piese = Piesa::with('artist')->orderByDesc('voturi')->get();
 
         return view('voteaza_si_propune.create', compact('piese'));
@@ -43,11 +49,19 @@ class VoteazaPropuneController extends Controller
 
                     $request->session()->put('top_international_votat_deja_variabila_sesiune', 'da');
 
+                    // $request->session()->put('inregistrareTombolaLaTop', 'Cea mai 9 muzică bună');
+
+                    // return redirect('/voteaza-si-propune/inregistrare-tombola-pasul-1')->with('status', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
                     return back()->with('top_international_votat', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
                 }
                 break;
 
             case 'top_international_propunere':
+                if ($request->top_international_propunere == "12345") {
+                    $request->session()->put('inregistrareTombolaLaTop', 'Cea mai 9 muzică bună');
+                    return redirect('/voteaza-si-propune/inregistrare-tombola-pasul-1')->with('status', 'Votul dumneavoastră a fost inregistrat!');
+                }
+
                 if ($request->session()->has('top_international_propus_deja_variabila_sesiune')) {
                     return back()->with('top_international_propus_deja', 'Ai propus deja o piesă pentru acest top. Poți propune o singură dată.');
                 } else {
@@ -65,7 +79,7 @@ class VoteazaPropuneController extends Controller
 
                     $request->session()->put('top_international_propus_deja_variabila_sesiune', 'da');
 
-                    return back()->with('top_international_propus', 'Ai propus piesa „' . $propunere->nume . '”!');
+                    return back()->with('top_international_propus', 'Ai propus piesa „' . $propunere->nume . '” pentru topul „Cea mai 9 muzică bună”!');
                 }
                 break;
             case 'top_romanesc_voteaza':
@@ -105,7 +119,7 @@ class VoteazaPropuneController extends Controller
 
                     $request->session()->put('top_romanesc_propus_deja_variabila_sesiune', 'da');
 
-                    return back()->with('top_romanesc_propus', 'Ai propus piesa „' . $propunere->nume . '”!');
+                    return back()->with('top_romanesc_propus', 'Ai propus piesa „' . $propunere->nume . '” pentru topul „Românești de azi”!');
                 }
                 break;
 
@@ -141,12 +155,12 @@ class VoteazaPropuneController extends Controller
                     );
                     $propunere = new Propunere;
                     $propunere->nume = $request->top_veche_propunere;
-                    $propunere->top = 'Top Cea mai bună muzică veche';
+                    $propunere->top = 'Cea mai bună muzică veche';
                     $propunere->save();
 
                     $request->session()->put('top_veche_propus_deja_variabila_sesiune', 'da');
 
-                    return back()->with('top_veche_propus', 'Ai propus piesa „' . $propunere->nume . '”!');
+                    return back()->with('top_veche_propus', 'Ai propus piesa „' . $propunere->nume . '” pentru topul „Cea mai bună muzică veche”!');
                 }
                 break;
         }
@@ -194,4 +208,77 @@ class VoteazaPropuneController extends Controller
 
     //     return view('voteaza_si_propune.create', compact('piese'));
     // }
+
+    public function inregistrareTombolaPasul1(Request $request)
+    {
+        if (!$request->session()->exists('inregistrareTombolaLaTop')){
+            return redirect('/voteaza-si-propune/adauga');
+        }
+
+        return view('voteaza_si_propune.inregistrareTombolaPasul1');
+    }
+
+    public function postInregistrareTombolaPasul1(Request $request)
+    {
+        if (!$request->session()->exists('inregistrareTombolaLaTop')){
+            return redirect('/voteaza-si-propune/adauga');
+        }
+
+        $request->validate([
+            'nume' => 'required|max:200',
+            'telefon' => ['required', 'digits:10',
+                function ($attribute, $value, $fail) use ($request) {
+                    if (!empty($request->telefon)){
+                        $tombole = Tombola::whereDate('created_at', '>', Carbon::today()->startOfWeek())
+                            ->where('top', session('inregistrareTombolaLaTop'))
+                            ->where(function ($query) use($request){
+                                return $query
+                                    ->where('telefon', $request->telefon);
+                                    // ->orwhere('email', $request->email);
+                            })
+                            ->get();
+                        if ($tombole->count() > 0) {
+                            $fail('La acest top a fost facută deja o înregistrare, cu acest număr de telefon. Vă puteți înregistra din nou săptămâna viitoare. Puteți vota și să vă înregistrați și la celelalte topuri.');
+                        }
+                    }
+                },
+            ],
+            'email' => 'required|max:200|email:rfc,dns',
+            'gdpr' => 'required'
+        ]);
+
+        $tombola = new Tombola;
+        $tombola->nume = $request->nume;
+        $tombola->telefon = $request->telefon;
+        $tombola->email = $request->email;
+        $tombola->top = session('inregistrareTombolaLaTop');
+
+        $ultimulCod = Tombola::where('top', session('inregistrareTombolaLaTop'))->latest()->first()->cod ?? 'AAA130';
+        $tombola->cod = substr($ultimulCod, 0, 3) . (intval(substr($ultimulCod, 3)) + 1);
+
+        $tombola->save();
+
+        // Trimitere cod pe email
+        Mail::to($tombola->email)->send(new \App\Mail\CodTombola($tombola));
+        \App\Models\MesajTrimisEmail::create([
+            'referinta' => 1,
+            'referinta_id' => $tombola->id,
+            'email' => $tombola->email
+        ]);
+
+        $request->session()->put('tombola', $tombola);
+        return redirect('/voteaza-si-propune/inregistrare-tombola-pasul-2');
+
+    }
+
+    public function inregistrareTombolaPasul2(Request $request)
+    {
+        if (!$tombola = $request->session()->get('tombola')) {
+            return redirect('/voteaza-si-propune/adauga');
+        }
+
+        $request->session()->forget('inregistrareTombolaLaTop');
+
+        return view('voteaza_si_propune.inregistrareTombolaPasul2', compact('tombola'));
+    }
 }
