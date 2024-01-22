@@ -229,7 +229,7 @@ class VoteazaPropuneController extends Controller
             'telefon' => ['required', 'digits:10',
                 function ($attribute, $value, $fail) use ($request) {
                     if (!empty($request->telefon)){
-                        $tombole = Tombola::whereDate('created_at', '>', Carbon::today()->startOfWeek())
+                        $tombole = Tombola::whereDate('created_at', '>=', Carbon::today()->startOfWeek())
                             ->where('top', session('inregistrareTombolaLaTop'))
                             ->where(function ($query) use($request){
                                 return $query
