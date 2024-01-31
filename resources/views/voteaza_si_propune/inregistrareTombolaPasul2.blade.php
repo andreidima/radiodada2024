@@ -18,20 +18,30 @@
                 <div class="p-2"
                     style="
                         border-radius: 40px 40px 0px 0px;
-                        border:5px solid #B0413E;
+                        border:5px solid #1a1a18;
                         color: #ffffff;
-                        background-color:#B0413E;
+                        background-color:#1a1a18;
                     "
                 >
                     <div class="row">
                         <div class="col-lg-12 text-center">
-                            <h4 class="mb-0" style="color:#ffffff">
+                            @switch($tombola->top)
+                                @case("Cea mai 9 muzică bună")
+                                    <img src="{{ url('/images/tombola/tombola-header-cea-mai-9-muzica-buna.jpg') }}" style="max-width: 100%; background-color:#1a1a18;">
+                                    @break
+                                @case("Românești de azi")
+                                    <img src="{{ url('/images/tombola/tombola-header-romanesti-de-azi.jpg') }}" style="max-width: 100%; background-color:#1a1a18;">
+                                    @break
+                                @case("Cea mai bună muzică veche")
+                                    <img src="{{ url('/images/tombola/tombola-header-cea-mai-buna-muzica-veche.jpg') }}" style="max-width: 100%; background-color:#1a1a18;">
+                                    @break
+                                @default
+                            @endswitch
+                            {{-- <h4 class="mb-0" style="color:#ffffff">
                                 Tombolă
                                 <br>
                                 {{ $tombola->top }}
-                                {{-- <br><br>
-                                Mulțumim pentru înregistrare --}}
-                            </h4>
+                            </h4> --}}
                         </div>
                     </div>
                 </div>
@@ -40,13 +50,13 @@
                     style="
                         color:rgb(0, 0, 0);
                         background-color:#ffffff;
-                        border:5px solid #B0413E;
-                        border-radius: 0px 0px 40px 40px
+                        border:5px solid #1a1a18;
+                        border-radius: 0px 0px 0px 0px
                     "
                 >
 
-                    <div class="row">
-                        <div class="col-lg-7 mb-2 mx-auto">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7 mb-2">
                             @if (!session()->has('status'))
                                 @include ('errors')
                             @endif
@@ -57,15 +67,15 @@
                                     Mulțumim pentru înregistrare!
                                     <br>
                                     Codul tău este <span style="font-weight: bold; font-size:200%">{{ $tombola->cod }}</span>
-                                    <br>
+                                    {{-- <br>
                                     Îți poți nota acest cod, dar pentru siguranță, noi ți l-am trimis și pe email.
                                     <br>
-                                    Vom anunța codul câștigător în emisiune și va fi publicat și pe site-ul Radio Dada.
+                                    Vom anunța codul câștigător în emisiune și va fi publicat și pe site-ul Radio Dada. --}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-7 py-0 mx-auto">
-                            <div class="row g-2 p-3 rounded-3 align-items-center mb-4" style="background-color: #ffd4d2">
+                        <div class="col-lg-6 py-0">
+                            <div class="row g-2 mx-4 p-3 rounded-3 align-items-center mb-4 text-dark" style="background-color: #e4e4e4">
                                 <div class="col-lg-3">
                                     <label for="nume" class="col-form-label py-0">Nume</label>
                                 </div>
@@ -87,7 +97,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-12">
+                        {{-- <div class="col-lg-12">
                             <div class="row g-3 justify-content-center mb-4">
                                 <div class="col-lg-12 text-center">
                                     * Numărul de telefon va fi verificat la înmânarea premiului.
@@ -96,7 +106,7 @@
                                     Fiecare top are câte o tombolă săptămânală.
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="col-lg-12">
                             <div class="row g-3 justify-content-center">
@@ -105,6 +115,18 @@
                                 </div>
                             </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+                <div style="
+                        border-radius: 0px 0px 40px 40px;
+                        border:5px solid #1a1a18;
+                        color: #ffffff;
+                        background-color:#1a1a18;
+                    ">
+                    <div class="row">
+                        <div class="col-lg-12 py-0 text-center">
+                            <img src="{{ url('/images/tombola/tombola-footer.jpg') }}" style="padding:0px 40px; max-width: 100%; background-color:#1a1a18;">
                         </div>
                     </div>
                 </div>

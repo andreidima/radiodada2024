@@ -18,21 +18,33 @@
                 <div class="p-2"
                     style="
                         border-radius: 40px 40px 0px 0px;
-                        border:5px solid #B0413E;
+                        border:5px solid #1a1a18;
                         color: #ffffff;
-                        background-color:#B0413E;
+                        background-color:#1a1a18;
                     "
                 >
                     <div class="row">
                         <div class="col-lg-12 py-0 text-center">
-                            <h4 class="mb-4" style="color:#ffffff">
+                            {{-- <h4 class="mb-4" style="color:#ffffff">
                                 Tombolă
                                 <br>
                                 {{ session('inregistrareTombolaLaTop') }}
                             </h4>
                                 Vă invităm să vă înregistrați la tombola Radio Dada. În urma înregistrării veți primi un cod, care va fi transmis și pe email.
                                 <br>
-                                Vom anunța codul câștigător în emisiune și va fi publicat și pe site-ul Radio Dada.
+                                Vom anunța codul câștigător în emisiune și va fi publicat și pe site-ul Radio Dada. --}}
+                            @switch(session('inregistrareTombolaLaTop'))
+                                @case("Cea mai 9 muzică bună")
+                                    <img src="{{ url('/images/tombola/tombola-header-cea-mai-9-muzica-buna.jpg') }}" style="max-width: 100%; background-color:#1a1a18;">
+                                    @break
+                                @case("Românești de azi")
+                                    <img src="{{ url('/images/tombola/tombola-header-romanesti-de-azi.jpg') }}" style="max-width: 100%; background-color:#1a1a18;">
+                                    @break
+                                @case("Cea mai bună muzică veche")
+                                    <img src="{{ url('/images/tombola/tombola-header-cea-mai-buna-muzica-veche.jpg') }}" style="max-width: 100%; background-color:#1a1a18;">
+                                    @break
+                                @default
+                            @endswitch
                         </div>
                     </div>
                 </div>
@@ -41,8 +53,8 @@
                     style="
                         color:rgb(0, 0, 0);
                         background-color:#ffffff;
-                        border:5px solid #B0413E;
-                        border-radius: 0px 0px 40px 40px
+                        border:5px solid #1a1a18;
+                        border-radius: 0px 0px 0px 0px
                     "
                 >
 
@@ -113,6 +125,18 @@
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+                <div style="
+                        border-radius: 0px 0px 40px 40px;
+                        border:5px solid #1a1a18;
+                        color: #ffffff;
+                        background-color:#1a1a18;
+                    ">
+                    <div class="row">
+                        <div class="col-lg-12 py-0 text-center">
+                            <img src="{{ url('/images/tombola/tombola-footer.jpg') }}" style="padding:0px 40px; max-width: 100%; background-color:#1a1a18;">
                         </div>
                     </div>
                 </div>
