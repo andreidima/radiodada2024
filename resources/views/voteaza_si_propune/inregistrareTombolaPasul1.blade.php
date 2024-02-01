@@ -128,17 +128,23 @@
                         </div>
                     </div>
                 </div>
-                <div style="
+                <div class="px-5"
+                    style="
                         border-radius: 0px 0px 40px 40px;
                         border:5px solid #1a1a18;
                         color: #ffffff;
                         background-color:#1a1a18;
                     ">
-                    <div class="row">
-                        <div class="col-lg-12 py-0 text-center">
-                            <img src="{{ url('/images/tombola/tombola-footer.jpg') }}" style="padding:0px 40px; max-width: 100%; background-color:#1a1a18;">
-                        </div>
-                    </div>
+                    {{-- <div class="row"> --}}
+                        {{-- <div class="col-lg-12 px-2 py-0 text-center"> --}}
+                            {{-- <img src="{{ url('/images/tombola/tombola-footer.jpg') }}" style="padding:0px 40px; max-width: 100%; background-color:#1a1a18;"> --}}
+                        {{-- </div> --}}
+                    {{-- </div> --}}
+                    În urma înregistrării vi se va aloca automat un cod, care va fi transmis și pe email.
+                    În fiecare săptămână computerul alege aleatoriu codul câștigător care va fi anunțat de către realizatorul topului în timpul emisiunii și va fi publicat pe site.
+
+                    Ascultătorul care are codul câștigător este rugat să trimită un mesaj către redacție (<span style="color:rgb(0, 223, 26)"><i class="fa-brands fa-whatsapp me-1"></i>0722.100.670</span>)
+                    folosind telefonul înregistrat în care să menționeze mărimea dorită pentru tricou și adresa la care să-l trimitem.
                 </div>
             </div>
         </div>

@@ -27,7 +27,8 @@ class CodTombola extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Radio Dada - cod tombolă  „' . $this->tombola->top . '”',
+            // subject: 'Radio Dada - cod tombolă  „' . $this->tombola->top . '”',
+            subject: 'Tichet Top Radiodada',
         );
     }
 
