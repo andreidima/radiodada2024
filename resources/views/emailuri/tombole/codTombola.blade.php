@@ -8,7 +8,7 @@
             <br><br>
             <b>Tichet înscriere top „{{ $tombola->top }}”.</b>
             <br>
-            Codul tău pentru extragerea de săptămâna asta este: <span style="font-weight: bold; font-size:200%">{{ $tombola->cod }}</span>.
+            Codul tău pentru extragerea de săptămâna asta este: <span style="font-weight: bold; font-size:200%">{{ $tombola->cod }}</span>
 
             <br><br><br>
             Acesta este un mesaj automat. Te rugăm să nu răspunzi la acest e-mail.
