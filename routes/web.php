@@ -27,6 +27,7 @@ Route::get('voteaza-si-propune/inregistrare-tombola-pasul-1', [App\Http\Controll
 Route::post('voteaza-si-propune/inregistrare-tombola-pasul-1', [App\Http\Controllers\VoteazaPropuneController::class, 'postInregistrareTombolaPasul1']);
 Route::get('voteaza-si-propune/inregistrare-tombola-pasul-2', [App\Http\Controllers\VoteazaPropuneController::class, 'inregistrareTombolaPasul2'])->name('inregistrareTombolaPasul2');
 
+Route::get('/cronjobs/extragere-castigator-tombola/{key}', [App\Http\Controllers\CronJobController::class, 'extragereCastigatorTombola']);
 
 Route::middleware(['auth'])->group(function () {
     // Route::get('/', function () {
@@ -43,5 +44,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/piese/categorie/{categorie}', [App\Http\Controllers\PiesaController::class, 'index']);
 
-    // Route::post('/voteaza-si-propune', [App\Http\Controllers\VoteazaPropuneController::class, 'store']);
+    Route::resource('tombole', App\Http\Controllers\TombolaController::class,  ['parameters' => ['tombole' => 'tombola']]);
 });

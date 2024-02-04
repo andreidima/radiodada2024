@@ -44,6 +44,13 @@ import { createApp } from 'vue';
 import VueDatepickerNext from './components/DatePicker.vue';
 import VueTinyMCE from './components/TinyMCE.vue';
 
+// App pentru DatePicker
+const datePicker = createApp({});
+datePicker.component('vue-datepicker-next', VueDatepickerNext);
+if (document.getElementById('datePicker') != null) {
+    datePicker.mount('#datePicker');
+}
+
 const app1 = createApp({
     el: '#app1',
     data() {

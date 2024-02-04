@@ -49,18 +49,17 @@ class VoteazaPropuneController extends Controller
 
                     $request->session()->put('top_international_votat_deja_variabila_sesiune', 'da');
 
-                    // $request->session()->put('inregistrareTombolaLaTop', 'Cea mai 9 muzică bună');
-
-                    // return redirect('/voteaza-si-propune/inregistrare-tombola-pasul-1')->with('status', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
-                    return back()->with('top_international_votat', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
+                    // return back()->with('top_international_votat', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
+                    $request->session()->put('inregistrareTombolaLaTop', 'Cea mai 9 muzică bună');
+                    return redirect('/voteaza-si-propune/inregistrare-tombola-pasul-1')->with('status', 'Votul dumneavoastră a fost inregistrat!');
                 }
                 break;
 
             case 'top_international_propunere':
-                if ($request->top_international_propunere == "12345") {
-                    $request->session()->put('inregistrareTombolaLaTop', 'Cea mai 9 muzică bună');
-                    return redirect('/voteaza-si-propune/inregistrare-tombola-pasul-1')->with('status', 'Votul dumneavoastră a fost inregistrat!');
-                }
+                // if ($request->top_international_propunere == "12345") {
+                //     $request->session()->put('inregistrareTombolaLaTop', 'Cea mai 9 muzică bună');
+                //     return redirect('/voteaza-si-propune/inregistrare-tombola-pasul-1')->with('status', 'Votul dumneavoastră a fost inregistrat!');
+                // }
 
                 if ($request->session()->has('top_international_propus_deja_variabila_sesiune')) {
                     return back()->with('top_international_propus_deja', 'Ai propus deja o piesă pentru acest top. Poți propune o singură dată.');
@@ -97,15 +96,17 @@ class VoteazaPropuneController extends Controller
 
                     $request->session()->put('top_romanesc_votat_deja_variabila_sesiune', 'da');
 
-                    return back()->with('top_romanesc_votat', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
+                    // return back()->with('top_romanesc_votat', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
+                    $request->session()->put('inregistrareTombolaLaTop', 'Românești de azi');
+                    return redirect('/voteaza-si-propune/inregistrare-tombola-pasul-1')->with('status', 'Votul dumneavoastră a fost inregistrat!');
                 }
                 break;
 
             case 'top_romanesc_propunere':
-                if ($request->top_romanesc_propunere == "12345") {
-                    $request->session()->put('inregistrareTombolaLaTop', 'Românești de azi');
-                    return redirect('/voteaza-si-propune/inregistrare-tombola-pasul-1')->with('status', 'Votul dumneavoastră a fost inregistrat!');
-                }
+                // if ($request->top_romanesc_propunere == "12345") {
+                //     $request->session()->put('inregistrareTombolaLaTop', 'Românești de azi');
+                //     return redirect('/voteaza-si-propune/inregistrare-tombola-pasul-1')->with('status', 'Votul dumneavoastră a fost inregistrat!');
+                // }
 
                 if ($request->session()->has('top_romanesc_propus_deja_variabila_sesiune')) {
                     return back()->with('top_romanesc_propus_deja', 'Ai propus deja o piesă pentru acest top. Poți propune o singură dată.');
@@ -143,15 +144,17 @@ class VoteazaPropuneController extends Controller
 
                     $request->session()->put('top_veche_votat_deja_variabila_sesiune', 'da');
 
-                    return back()->with('top_veche_votat', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
+                    // return back()->with('top_veche_votat', 'Votul dumneavoastră pentru „' . ($piesa->artist->nume ?? '') . ' - ' . $piesa->nume . '” a fost inregistrat!');
+                    $request->session()->put('inregistrareTombolaLaTop', 'Cea mai bună muzică veche');
+                    return redirect('/voteaza-si-propune/inregistrare-tombola-pasul-1')->with('status', 'Votul dumneavoastră a fost inregistrat!');
                 }
                 break;
 
             case 'top_veche_propunere':
-                if ($request->top_veche_propunere == "12345") {
-                    $request->session()->put('inregistrareTombolaLaTop', 'Cea mai bună muzică veche');
-                    return redirect('/voteaza-si-propune/inregistrare-tombola-pasul-1')->with('status', 'Votul dumneavoastră a fost inregistrat!');
-                }
+                // if ($request->top_veche_propunere == "12345") {
+                //     $request->session()->put('inregistrareTombolaLaTop', 'Cea mai bună muzică veche');
+                //     return redirect('/voteaza-si-propune/inregistrare-tombola-pasul-1')->with('status', 'Votul dumneavoastră a fost inregistrat!');
+                // }
 
                 if ($request->session()->has('top_veche_propus_deja_variabila_sesiune')) {
                     return back()->with('top_veche_propus_deja', 'Ai propus deja o piesă pentru acest top. Poți propune o singură dată.');

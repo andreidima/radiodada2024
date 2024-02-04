@@ -29,6 +29,12 @@
     {{-- Alegere Topuri --}}
 
     <div class="row justify-content-center">
+        <div class="col-md-12">
+            {{-- Banner tombole --}}
+            <img src="{{url('/images/tombola/banner.jpg')}}"
+                style="padding:0px 0px; width: 100%;"
+            >
+        </div>
         <div class="col-md-4 text-center mb-1">
             <a href="#top_international" class="text-dark btn"
                 v-on:mouseover="schimbaCuloare('top_international_danger')"

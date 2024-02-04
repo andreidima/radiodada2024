@@ -94,6 +94,11 @@
                                 <i class="fas fa-users me-1"></i>Propuneri de aprobat
                             </a>
                         </li>
+                        <li class="nav-item me-3">
+                            <a class="nav-link active" aria-current="page" href="{{ route('tombole.index') }}">
+                                <i class="fa-solid fa-bars me-1"></i>Tombole
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
