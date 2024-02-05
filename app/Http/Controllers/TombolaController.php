@@ -43,6 +43,7 @@ class TombolaController extends Controller
                 $sfarsit = Carbon::parse(strtok( '' ))->endOfDay();
                 return $query->whereBetween('created_at', [$inceput, $sfarsit]);
             })
+            ->where('id', '>', 16) // Cele de inceput cu Andrei Dima
             ->latest()
             ->simplePaginate(25);
 
