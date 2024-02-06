@@ -574,7 +574,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="row">
                                         <div class="col-lg-12 mb-3 d-flex justify-content-center">
                                             <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_romanesc_voteaza">
@@ -718,7 +718,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="row">
                                         <div class="col-lg-12 mb-3 d-flex justify-content-center">
                                             <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_veche_voteaza">
