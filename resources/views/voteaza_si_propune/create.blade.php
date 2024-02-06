@@ -331,7 +331,7 @@
                 {{-- @include ('errors.errors') --}}
 
                 <div class="row px-4">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
 
                         <h2 class="" style="font-weight: bold">
                             Cea mai 9 muzică bună
@@ -341,73 +341,109 @@
                         @csrf
 
                             <div class="row">
-                                @foreach ($piese->where('categorie', 'Top International') as $piesa)
-                                        <div class="col-lg-12">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="top_international_piesa" id="top_international_piesa{{ $piesa->id }}" value="{{ $piesa->id }}"
-                                                    v-on:click="
-                                                        international_trupa = '{{ addslashes($piesa->artist->nume ?? "") }}';
-                                                        international_titlu = '{{ addslashes($piesa->nume) }}';
-                                                        international_imagine = '{{ addslashes(env('APP_URL')) .
-                                                            addslashes($piesa->artist->imagine->imagine_cale ?? "") .
-                                                            addslashes($piesa->artist->imagine->imagine_nume ?? "") }}';
-                                                        international_descriere = {{ json_encode($piesa->artist->descriere ?? "") }};
-                                                        international_link_youtube = '{{ addslashes($piesa->link_youtube) }}';
-                                                        international_link_interviu = '{{ addslashes($piesa->link_interviu) }}';
-                                                        international_magazin_virtual = '{{ addslashes($piesa->artist->magazin_virtual ?? "") }}'
-                                                    "
-                                                >
-                                                <label class="form-check-label" for="top_international_piesa{{ $piesa->id }}">
-                                                    {{ $loop->iteration }}. {{ $piesa->artist->nume ?? "" }} - {{ $piesa->nume }}
-                                                </label>
-                                            </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        @foreach ($piese->where('categorie', 'Top International') as $piesa)
+                                                <div class="col-lg-12">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="top_international_piesa" id="top_international_piesa{{ $piesa->id }}" value="{{ $piesa->id }}"
+                                                            v-on:click="
+                                                                international_trupa = '{{ addslashes($piesa->artist->nume ?? "") }}';
+                                                                international_titlu = '{{ addslashes($piesa->nume) }}';
+                                                                international_imagine = '{{ addslashes(env('APP_URL')) .
+                                                                    addslashes($piesa->artist->imagine->imagine_cale ?? "") .
+                                                                    addslashes($piesa->artist->imagine->imagine_nume ?? "") }}';
+                                                                international_descriere = {{ json_encode($piesa->artist->descriere ?? "") }};
+                                                                international_link_youtube = '{{ addslashes($piesa->link_youtube) }}';
+                                                                international_link_interviu = '{{ addslashes($piesa->link_interviu) }}';
+                                                                international_magazin_virtual = '{{ addslashes($piesa->artist->magazin_virtual ?? "") }}'
+                                                            "
+                                                        >
+                                                        <label class="form-check-label" for="top_international_piesa{{ $piesa->id }}">
+                                                            {{ $loop->iteration }}. {{ $piesa->artist->nume ?? "" }} - {{ $piesa->nume }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                        @endforeach
+                                    </div>
+
+                                    <div class="row">
+                                        @foreach ($piese->where('categorie', 'Propunere Top International') as $piesa)
+                                            @if ($loop->first)
+                                                <div class="col-lg-12">
+                                                    <b>Propuneri</b>
+                                                </div>
+                                            @endif
+                                                <div class="col-lg-12">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="top_international_piesa" id="top_international_piesa{{ $piesa->id }}" value="{{ $piesa->id }}"
+                                                            v-on:click="
+                                                                international_trupa = '{{ addslashes($piesa->artist->nume ?? "") }}';
+                                                                international_titlu = '{{ addslashes($piesa->nume) }}';
+                                                                international_imagine = '{{ addslashes(env('APP_URL')) .
+                                                                    addslashes($piesa->artist->imagine->imagine_cale ?? "") .
+                                                                    addslashes($piesa->artist->imagine->imagine_nume ?? "") }}';
+                                                                international_descriere = {{ json_encode($piesa->artist->descriere ?? "") }};
+                                                                international_link_youtube = '{{ addslashes($piesa->link_youtube) }}';
+                                                                international_link_interviu = '{{ addslashes($piesa->link_interviu) }}';
+                                                                international_magazin_virtual = '{{ addslashes($piesa->artist->magazin_virtual ?? "") }}'
+                                                            "
+                                                        >
+                                                        <label class="form-check-label" for="top_international_piesa{{ $piesa->id }}">
+                                                            {{ $loop->iteration }}. {{ $piesa->artist->nume ?? "" }} - {{ $piesa->nume }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12 mb-2">
+                                            <img :src="international_imagine" alt="" style="max-width: 100%">
                                         </div>
-                                @endforeach
-                            </div>
-
-                            <div class="row">
-                                @foreach ($piese->where('categorie', 'Propunere Top International') as $piesa)
-                                    @if ($loop->first)
-                                        <div class="col-lg-12">
-                                            <b>Propuneri</b>
+                                        <div v-cloak class="col-lg-12 mb-2">
+                                                @{{ international_descriere }}
                                         </div>
-                                    @endif
-                                        <div class="col-lg-12">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="top_international_piesa" id="top_international_piesa{{ $piesa->id }}" value="{{ $piesa->id }}"
-                                                    v-on:click="
-                                                        international_trupa = '{{ addslashes($piesa->artist->nume ?? "") }}';
-                                                        international_titlu = '{{ addslashes($piesa->nume) }}';
-                                                        international_imagine = '{{ addslashes(env('APP_URL')) .
-                                                            addslashes($piesa->artist->imagine->imagine_cale ?? "") .
-                                                            addslashes($piesa->artist->imagine->imagine_nume ?? "") }}';
-                                                        international_descriere = {{ json_encode($piesa->artist->descriere ?? "") }};
-                                                        international_link_youtube = '{{ addslashes($piesa->link_youtube) }}';
-                                                        international_link_interviu = '{{ addslashes($piesa->link_interviu) }}';
-                                                        international_magazin_virtual = '{{ addslashes($piesa->artist->magazin_virtual ?? "") }}'
-                                                    "
-                                                >
-                                                <label class="form-check-label" for="top_international_piesa{{ $piesa->id }}">
-                                                    {{ $loop->iteration }}. {{ $piesa->artist->nume ?? "" }} - {{ $piesa->nume }}
-                                                </label>
-                                            </div>
+                                        <div v-cloak v-if="international_link_youtube !== ''" class="col-lg-6">
+                                            <a :href="international_link_youtube" target="_blank">
+                                                <h3>
+                                                    <i class="fab fa-youtube me-1"></i>Youtube
+                                                </h3>
+                                            </a>
                                         </div>
-                                @endforeach
-
-
-
-                                <div class="col-lg-12 mb-3 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_international_voteaza">
-                                        Votează
-                                    </button>
+                                        <div v-cloak v-if="international_link_interviu !== ''"  class="col-lg-6">
+                                            <a :href="international_link_interviu" target="_blank">
+                                                <h3>
+                                                    <i class="fas fa-microphone-alt me-1"></i>Interviu
+                                                </h3>
+                                            </a>
+                                        </div>
+                                        <div v-cloak v-if="international_magazin_virtual !== ''"  class="col-lg-12 my-2">
+                                            <a :href="international_magazin_virtual" target="_blank">
+                                                <h3>
+                                                    <i class="fas fa-shopping-cart me-1"></i>Magazin Virtual
+                                                </h3>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12 mb-3 d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_international_voteaza">
+                                                Votează
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
 
                         <form class="needs-validation" novalidate method="POST" action="/voteaza-si-propune">
                         @csrf
-                            <div class="form-row">
-                                <div class="col-lg-12 justify-content-center">
+                            <div class="row">
+                                <div class="col-lg-6 justify-content-center">
                                     <label for="top_international_propunere" class="form-label">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Adaugă o nouă propunere. Propunerea va intra în lista de mai sus numai după acordul Directorului Muzical
                                     </label>
@@ -418,37 +454,6 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="row">
-                            <div class="col-lg-12 mb-2">
-                                <img :src="international_imagine" alt="" style="max-width: 100%">
-                            </div>
-                            <div v-cloak class="col-lg-12 mb-2">
-                                    @{{ international_descriere }}
-                            </div>
-                            <div v-cloak v-if="international_link_youtube !== ''" class="col-lg-6">
-                                <a :href="international_link_youtube" target="_blank">
-                                    <h3>
-                                        <i class="fab fa-youtube me-1"></i>Youtube
-                                    </h3>
-                                </a>
-                            </div>
-                            <div v-cloak v-if="international_link_interviu !== ''"  class="col-lg-6">
-                                <a :href="international_link_interviu" target="_blank">
-                                    <h3>
-                                        <i class="fas fa-microphone-alt me-1"></i>Interviu
-                                    </h3>
-                                </a>
-                            </div>
-                            <div v-cloak v-if="international_magazin_virtual !== ''"  class="col-lg-12 my-2">
-                                <a :href="international_magazin_virtual" target="_blank">
-                                    <h3>
-                                        <i class="fas fa-shopping-cart me-1"></i>Magazin Virtual
-                                    </h3>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
