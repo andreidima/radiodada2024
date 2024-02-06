@@ -24,7 +24,10 @@ class VoteazaPropuneController extends Controller
 
         $piese = Piesa::with('artist')->orderByDesc('voturi')->get();
 
-        return view('voteaza_si_propune.create', compact('piese'));
+        $coduriCastigatoareSaptamanaTrecuta = Tombola::whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()])
+            ->where('castigator', 1)->get();
+
+        return view('voteaza_si_propune.create', compact('piese', 'coduriCastigatoareSaptamanaTrecuta'));
     }
 
 
