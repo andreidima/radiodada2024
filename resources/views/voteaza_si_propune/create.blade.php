@@ -474,7 +474,7 @@
                 <div></div>
 
                 <div class="row px-4">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
 
                         <h2 class="" style="font-weight: bold">
                             Românești de azi
@@ -484,65 +484,103 @@
                         @csrf
 
                             <div class="row">
-                                @foreach ($piese->where('categorie', 'Top Romanesc') as $piesa)
-                                        <div class="col-lg-12">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="top_romanesc_piesa" id="top_romanesc_piesa{{ $piesa->id }}" value="{{ $piesa->id }}"
-                                                    v-on:click="
-                                                        romanesc_trupa = '{{ addslashes($piesa->artist->nume ?? "") }}';
-                                                        romanesc_titlu = '{{ addslashes($piesa->nume) }}';
-                                                        romanesc_imagine = '{{ addslashes(env('APP_URL')) .
-                                                            addslashes($piesa->artist->imagine->imagine_cale ?? "") .
-                                                            addslashes($piesa->artist->imagine->imagine_nume ?? "") }}';
-                                                        romanesc_descriere = {{ json_encode($piesa->artist->descriere ?? "") }};
-                                                        romanesc_link_youtube = '{{ addslashes($piesa->link_youtube) }}';
-                                                        romanesc_link_interviu = '{{ addslashes($piesa->link_interviu) }}';
-                                                        romanesc_magazin_virtual = '{{ addslashes($piesa->artist->magazin_virtual ?? "") }}'
-                                                    "
-                                                >
-                                                <label class="form-check-label" for="top_romanesc_piesa{{ $piesa->id }}">
-                                                    {{ $loop->iteration }}. {{ $piesa->artist->nume ?? "" }} - {{ $piesa->nume }}
-                                                     {{-- - {{ $piesa->voturi ?? 0 }} --}}
-                                                </label>
-                                            </div>
-                                        </div>
-                                @endforeach
-                            </div>
-                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        @foreach ($piese->where('categorie', 'Top Romanesc') as $piesa)
+                                                <div class="col-lg-12">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="top_romanesc_piesa" id="top_romanesc_piesa{{ $piesa->id }}" value="{{ $piesa->id }}"
+                                                            v-on:click="
+                                                                romanesc_trupa = '{{ addslashes($piesa->artist->nume ?? "") }}';
+                                                                romanesc_titlu = '{{ addslashes($piesa->nume) }}';
+                                                                romanesc_imagine = '{{ addslashes(env('APP_URL')) .
+                                                                    addslashes($piesa->artist->imagine->imagine_cale ?? "") .
+                                                                    addslashes($piesa->artist->imagine->imagine_nume ?? "") }}';
+                                                                romanesc_descriere = {{ json_encode($piesa->artist->descriere ?? "") }};
+                                                                romanesc_link_youtube = '{{ addslashes($piesa->link_youtube) }}';
+                                                                romanesc_link_interviu = '{{ addslashes($piesa->link_interviu) }}';
+                                                                romanesc_magazin_virtual = '{{ addslashes($piesa->artist->magazin_virtual ?? "") }}'
+                                                            "
+                                                        >
+                                                        <label class="form-check-label" for="top_romanesc_piesa{{ $piesa->id }}">
+                                                            {{ $loop->iteration }}. {{ $piesa->artist->nume ?? "" }} - {{ $piesa->nume }}
+                                                            {{-- - {{ $piesa->voturi ?? 0 }} --}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="row">
 
-                                @foreach ($piese->where('categorie', 'Propunere Top Romanesc') as $piesa)
-                                    @if ($loop->first)
-                                        <div class="col-lg-12">
-                                            <b>Propuneri</b>
+                                        @foreach ($piese->where('categorie', 'Propunere Top Romanesc') as $piesa)
+                                            @if ($loop->first)
+                                                <div class="col-lg-12">
+                                                    <b>Propuneri</b>
+                                                </div>
+                                            @endif
+                                                <div class="col-lg-12">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="top_romanesc_piesa" id="top_romanesc_piesa{{ $piesa->id }}" value="{{ $piesa->id }}"
+                                                            v-on:click="
+                                                                romanesc_trupa = '{{ addslashes($piesa->artist->nume ?? "") }}';
+                                                                romanesc_titlu = '{{ addslashes($piesa->nume) }}';
+                                                                romanesc_imagine = '{{ addslashes(env('APP_URL')) .
+                                                                    addslashes($piesa->artist->imagine->imagine_cale ?? "") .
+                                                                    addslashes($piesa->artist->imagine->imagine_nume ?? "") }}';
+                                                                romanesc_descriere = {{ json_encode($piesa->artist->descriere ?? "") }};
+                                                                romanesc_link_youtube = '{{ addslashes($piesa->link_youtube) }}';
+                                                                romanesc_link_interviu = '{{ addslashes($piesa->link_interviu) }}';
+                                                                romanesc_magazin_virtual = '{{ addslashes($piesa->artist->magazin_virtual ?? "") }}'
+                                                            "
+                                                        >
+                                                        <label class="form-check-label" for="top_romanesc_piesa{{ $piesa->id }}">
+                                                            {{ $loop->iteration }}. {{ $piesa->artist->nume ?? "" }} - {{ $piesa->nume }}
+                                                            {{-- - {{ $piesa->voturi ?? 0 }} --}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12 mb-2">
+                                            <img :src="romanesc_imagine" alt="" style="max-width: 100%">
                                         </div>
-                                    @endif
-                                        <div class="col-lg-12">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="top_romanesc_piesa" id="top_romanesc_piesa{{ $piesa->id }}" value="{{ $piesa->id }}"
-                                                    v-on:click="
-                                                        romanesc_trupa = '{{ addslashes($piesa->artist->nume ?? "") }}';
-                                                        romanesc_titlu = '{{ addslashes($piesa->nume) }}';
-                                                        romanesc_imagine = '{{ addslashes(env('APP_URL')) .
-                                                            addslashes($piesa->artist->imagine->imagine_cale ?? "") .
-                                                            addslashes($piesa->artist->imagine->imagine_nume ?? "") }}';
-                                                        romanesc_descriere = {{ json_encode($piesa->artist->descriere ?? "") }};
-                                                        romanesc_link_youtube = '{{ addslashes($piesa->link_youtube) }}';
-                                                        romanesc_link_interviu = '{{ addslashes($piesa->link_interviu) }}';
-                                                        romanesc_magazin_virtual = '{{ addslashes($piesa->artist->magazin_virtual ?? "") }}'
-                                                    "
-                                                >
-                                                <label class="form-check-label" for="top_romanesc_piesa{{ $piesa->id }}">
-                                                    {{ $loop->iteration }}. {{ $piesa->artist->nume ?? "" }} - {{ $piesa->nume }}
-                                                     {{-- - {{ $piesa->voturi ?? 0 }} --}}
-                                                </label>
-                                            </div>
+                                        <div v-cloak class="col-lg-12 mb-2">
+                                                @{{ romanesc_descriere }}
                                         </div>
-                                @endforeach
-
-                                <div class="col-lg-12 mb-3 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_romanesc_voteaza">
-                                        Votează
-                                    </button>
+                                        <div v-cloak v-if="romanesc_link_youtube !== ''" class="col-lg-6">
+                                            <a :href="romanesc_link_youtube" target="_blank">
+                                                <h3>
+                                                    <i class="fab fa-youtube me-1"></i>Youtube
+                                                </h3>
+                                            </a>
+                                        </div>
+                                        <div v-cloak v-if="romanesc_link_interviu !== ''"  class="col-lg-6">
+                                            <a :href="romanesc_link_interviu" target="_blank">
+                                                <h3>
+                                                    <i class="fas fa-microphone-alt me-1"></i>Interviu
+                                                </h3>
+                                            </a>
+                                        </div>
+                                        <div v-cloak v-if="romanesc_magazin_virtual !== ''"  class="col-lg-12 my-2">
+                                            <a :href="romanesc_magazin_virtual" target="_blank">
+                                                <h3>
+                                                    <i class="fas fa-shopping-cart me-1"></i>Magazin Virtual
+                                                </h3>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12 mb-3 d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_romanesc_voteaza">
+                                                Votează
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -550,7 +588,7 @@
                         <form class="needs-validation" novalidate method="POST" action="/voteaza-si-propune">
                         @csrf
                             <div class="form-row">
-                                <div class="col-lg-12 justify-content-center">
+                                <div class="col-lg-6 justify-content-center">
                                     <label for="top_romanesc_propunere" class="form-label">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Adaugă o nouă propunere. Propunerea va intra în lista de mai sus numai după acordul Directorului Muzical
                                     </label>
@@ -562,40 +600,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="row">
-                            <div class="col-lg-12 mb-2">
-                                <img :src="romanesc_imagine" alt="" style="max-width: 100%">
-                            </div>
-                            <div v-cloak class="col-lg-12 mb-2">
-                                    @{{ romanesc_descriere }}
-                            </div>
-                            <div v-cloak v-if="romanesc_link_youtube !== ''" class="col-lg-6">
-                                <a :href="romanesc_link_youtube" target="_blank">
-                                    <h3>
-                                        <i class="fab fa-youtube me-1"></i>Youtube
-                                    </h3>
-                                </a>
-                            </div>
-                            <div v-cloak v-if="romanesc_link_interviu !== ''"  class="col-lg-6">
-                                <a :href="romanesc_link_interviu" target="_blank">
-                                    <h3>
-                                        <i class="fas fa-microphone-alt me-1"></i>Interviu
-                                    </h3>
-                                </a>
-                            </div>
-                            <div v-cloak v-if="romanesc_magazin_virtual !== ''"  class="col-lg-12 my-2">
-                                <a :href="romanesc_magazin_virtual" target="_blank">
-                                    <h3>
-                                        <i class="fas fa-shopping-cart me-1"></i>Magazin Virtual
-                                    </h3>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -614,7 +619,7 @@
                 <div></div>
 
                 <div class="row px-4">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
 
                         <h2 class="" style="font-weight: bold">
                             Cea mai bună muzică veche
@@ -623,65 +628,103 @@
                         <form class="needs-validation mb-4" novalidate method="POST" action="/voteaza-si-propune">
                         @csrf
 
-                            <div class="form-row">
-                                @foreach ($piese->where('categorie', 'Top Cea mai buna muzica veche') as $piesa)
-                                        <div class="col-lg-12">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="top_veche_piesa" id="top_veche_piesa{{ $piesa->id }}" value="{{ $piesa->id }}"
-                                                    v-on:click="
-                                                        veche_trupa = '{{ addslashes($piesa->artist->nume ?? "") }}';
-                                                        veche_titlu = '{{ addslashes($piesa->nume) }}';
-                                                        veche_imagine = '{{ addslashes(env('APP_URL')) .
-                                                            addslashes($piesa->artist->imagine->imagine_cale ?? "") .
-                                                            addslashes($piesa->artist->imagine->imagine_nume ?? "") }}';
-                                                        veche_descriere = {{ json_encode($piesa->artist->descriere ?? "") }};
-                                                        veche_link_youtube = '{{ addslashes($piesa->link_youtube) }}';
-                                                        veche_link_interviu = '{{ addslashes($piesa->link_interviu) }}';
-                                                        veche_magazin_virtual = '{{ addslashes($piesa->artist->magazin_virtual ?? "") }}'
-                                                    "
-                                                >
-                                                <label class="form-check-label" for="top_veche_piesa{{ $piesa->id }}">
-                                                    {{ $loop->iteration }}. {{ $piesa->artist->nume ?? "" }} - {{ $piesa->nume }}
-                                                     {{-- - {{ $piesa->voturi ?? 0 }} --}}
-                                                </label>
-                                            </div>
-                                        </div>
-                                @endforeach
-                            </div>
                             <div class="row">
-                                @foreach ($piese->where('categorie', 'Propunere Top Cea mai buna muzica veche') as $piesa)
-                                    @if ($loop->first)
-                                        <div class="col-lg-12">
-                                            <b>Propuneri</b>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        @foreach ($piese->where('categorie', 'Top Cea mai buna muzica veche') as $piesa)
+                                                <div class="col-lg-12">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="top_veche_piesa" id="top_veche_piesa{{ $piesa->id }}" value="{{ $piesa->id }}"
+                                                            v-on:click="
+                                                                veche_trupa = '{{ addslashes($piesa->artist->nume ?? "") }}';
+                                                                veche_titlu = '{{ addslashes($piesa->nume) }}';
+                                                                veche_imagine = '{{ addslashes(env('APP_URL')) .
+                                                                    addslashes($piesa->artist->imagine->imagine_cale ?? "") .
+                                                                    addslashes($piesa->artist->imagine->imagine_nume ?? "") }}';
+                                                                veche_descriere = {{ json_encode($piesa->artist->descriere ?? "") }};
+                                                                veche_link_youtube = '{{ addslashes($piesa->link_youtube) }}';
+                                                                veche_link_interviu = '{{ addslashes($piesa->link_interviu) }}';
+                                                                veche_magazin_virtual = '{{ addslashes($piesa->artist->magazin_virtual ?? "") }}'
+                                                            "
+                                                        >
+                                                        <label class="form-check-label" for="top_veche_piesa{{ $piesa->id }}">
+                                                            {{ $loop->iteration }}. {{ $piesa->artist->nume ?? "" }} - {{ $piesa->nume }}
+                                                            {{-- - {{ $piesa->voturi ?? 0 }} --}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="row">
+                                        @foreach ($piese->where('categorie', 'Propunere Top Cea mai buna muzica veche') as $piesa)
+                                            @if ($loop->first)
+                                                <div class="col-lg-12">
+                                                    <b>Propuneri</b>
+                                                </div>
+                                            @endif
+                                                <div class="col-lg-12">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="top_veche_piesa" id="top_veche_piesa{{ $piesa->id }}" value="{{ $piesa->id }}"
+                                                            v-on:click="
+                                                                veche_trupa = '{{ addslashes($piesa->artist->nume ?? "") }}';
+                                                                veche_titlu = '{{ addslashes($piesa->nume) }}';
+                                                                veche_imagine = '{{ addslashes(env('APP_URL')) .
+                                                                    addslashes($piesa->artist->imagine->imagine_cale ?? "") .
+                                                                    addslashes($piesa->artist->imagine->imagine_nume ?? "") }}';
+                                                                veche_descriere = {{ json_encode($piesa->artist->descriere ?? "") }};
+                                                                veche_link_youtube = '{{ addslashes($piesa->link_youtube) }}';
+                                                                veche_link_interviu = '{{ addslashes($piesa->link_interviu) }}';
+                                                                veche_magazin_virtual = '{{ addslashes($piesa->artist->magazin_virtual ?? "") }}'
+                                                            "
+                                                        >
+                                                        <label class="form-check-label" for="top_veche_piesa{{ $piesa->id }}">
+                                                            {{ $loop->iteration }}. {{ $piesa->artist->nume ?? "" }} - {{ $piesa->nume }}
+                                                            {{-- - {{ $piesa->voturi ?? 0 }} --}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12 mb-2">
+                                            <img :src="veche_imagine" alt="" style="max-width: 100%">
                                         </div>
-                                    @endif
-                                        <div class="col-lg-12">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="top_veche_piesa" id="top_veche_piesa{{ $piesa->id }}" value="{{ $piesa->id }}"
-                                                    v-on:click="
-                                                        veche_trupa = '{{ addslashes($piesa->artist->nume ?? "") }}';
-                                                        veche_titlu = '{{ addslashes($piesa->nume) }}';
-                                                        veche_imagine = '{{ addslashes(env('APP_URL')) .
-                                                            addslashes($piesa->artist->imagine->imagine_cale ?? "") .
-                                                            addslashes($piesa->artist->imagine->imagine_nume ?? "") }}';
-                                                        veche_descriere = {{ json_encode($piesa->artist->descriere ?? "") }};
-                                                        veche_link_youtube = '{{ addslashes($piesa->link_youtube) }}';
-                                                        veche_link_interviu = '{{ addslashes($piesa->link_interviu) }}';
-                                                        veche_magazin_virtual = '{{ addslashes($piesa->artist->magazin_virtual ?? "") }}'
-                                                    "
-                                                >
-                                                <label class="form-check-label" for="top_veche_piesa{{ $piesa->id }}">
-                                                    {{ $loop->iteration }}. {{ $piesa->artist->nume ?? "" }} - {{ $piesa->nume }}
-                                                     {{-- - {{ $piesa->voturi ?? 0 }} --}}
-                                                </label>
-                                            </div>
+                                        <div v-cloak class="col-lg-12 mb-2">
+                                                @{{ veche_descriere }}
                                         </div>
-                                @endforeach
-
-                                <div class="col-lg-12 mb-3 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_veche_voteaza">
-                                        Votează
-                                    </button>
+                                        <div v-cloak v-if="veche_link_youtube !== ''" class="col-lg-6">
+                                            <a :href="veche_link_youtube" target="_blank">
+                                                <h3>
+                                                    <i class="fab fa-youtube me-1"></i>Youtube
+                                                </h3>
+                                            </a>
+                                        </div>
+                                        <div v-cloak v-if="veche_link_interviu !== ''"  class="col-lg-6">
+                                            <a :href="veche_link_interviu" target="_blank">
+                                                <h3>
+                                                    <i class="fas fa-microphone-alt me-1"></i>Interviu
+                                                </h3>
+                                            </a>
+                                        </div>
+                                        <div v-cloak v-if="veche_magazin_virtual !== ''"  class="col-lg-12 my-2">
+                                            <a :href="veche_magazin_virtual" target="_blank">
+                                                <h3>
+                                                    <i class="fas fa-shopping-cart me-1"></i>Magazin Virtual
+                                                </h3>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12 mb-3 d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_veche_voteaza">
+                                                Votează
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -689,7 +732,7 @@
                         <form class="needs-validation" novalidate method="POST" action="/voteaza-si-propune">
                         @csrf
                             <div class="form-row">
-                                <div class="col-lg-12 justify-content-center">
+                                <div class="col-lg-6 justify-content-center">
                                     <label for="top_veche_propunere" class="form-label">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Adaugă o nouă propunere. Propunerea va intra în lista de mai sus numai după acordul Directorului Muzical
                                     </label>
@@ -701,40 +744,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="row">
-                            <div class="col-lg-12 mb-2">
-                                <img :src="veche_imagine" alt="" style="max-width: 100%">
-                            </div>
-                            <div v-cloak class="col-lg-12 mb-2">
-                                    @{{ veche_descriere }}
-                            </div>
-                            <div v-cloak v-if="veche_link_youtube !== ''" class="col-lg-6">
-                                <a :href="veche_link_youtube" target="_blank">
-                                    <h3>
-                                        <i class="fab fa-youtube me-1"></i>Youtube
-                                    </h3>
-                                </a>
-                            </div>
-                            <div v-cloak v-if="veche_link_interviu !== ''"  class="col-lg-6">
-                                <a :href="veche_link_interviu" target="_blank">
-                                    <h3>
-                                        <i class="fas fa-microphone-alt me-1"></i>Interviu
-                                    </h3>
-                                </a>
-                            </div>
-                            <div v-cloak v-if="veche_magazin_virtual !== ''"  class="col-lg-12 my-2">
-                                <a :href="veche_magazin_virtual" target="_blank">
-                                    <h3>
-                                        <i class="fas fa-shopping-cart me-1"></i>Magazin Virtual
-                                    </h3>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-
             </div>
         </div>
     </div>
