@@ -431,6 +431,7 @@
                                 <div class="col-lg-12">
                                     <div class="row">
                                         <div class="col-lg-12 mb-4 d-flex justify-content-center">
+                                            <br>
                                             <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_international_voteaza">
                                                 Votează
                                             </button>
