@@ -324,7 +324,7 @@
 
             {{-- Linie despartitoare --}}
             {{-- <hr class="my-5" style="height:5px; color:black; background-color:black"> --}}
-            <br><br><br>
+            <br><br>
 
             <div class="mb-2" style="border-radius: 40px 40px 40px 40px;">
 
@@ -468,7 +468,7 @@
 
             {{-- Linie despartitoare --}}
             {{-- <hr class="my-5" style="height:5px; color:black; background-color:black"> --}}
-            <br><br><br>
+            <br><br>
 
             <div class="mb-2" style="border-radius: 40px 40px 40px 40px;">
                 <div></div>
@@ -613,7 +613,7 @@
 
             {{-- Linie despartitoare --}}
             {{-- <hr class="my-5" style="height:5px; color:black; background-color:black"> --}}
-            <br><br><br>
+            <br><br>
 
             <div class="mb-2" style="border-radius: 40px 40px 40px 40px;">
                 <div></div>
