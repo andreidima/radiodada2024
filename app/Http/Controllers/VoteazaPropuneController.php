@@ -16,7 +16,7 @@ class VoteazaPropuneController extends Controller
 {
     public function verificareSistemDeOperare()
     {
-        dd(request()->userAgent());
+        echo $_SERVER['HTTP_USER_AGENT'];
     }
 
 
