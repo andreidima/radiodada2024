@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Mail;
 
 class VoteazaPropuneController extends Controller
 {
+    public function verificareSistemDeOperare()
+    {
+        dd(request()->userAgent());
+    }
+
+
     /**
      * Formular de votare piesa sau propunere piesa
      */

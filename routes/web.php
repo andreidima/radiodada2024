@@ -20,6 +20,8 @@ Auth::routes(['register' => false, 'password.request' => false, 'reset' => false
 
 Route::redirect('/', '/acasa');
 
+Route::get('voteaza-si-propune/verificare-sistem-de-operare', [App\Http\Controllers\VoteazaPropuneController::class, 'verificareSistemDeOperare']);
+
 Route::resource('voteaza-si-propune', App\Http\Controllers\VoteazaPropuneController::class)->only([
     'create', 'store'
 ]);
