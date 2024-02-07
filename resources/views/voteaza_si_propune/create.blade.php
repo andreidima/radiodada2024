@@ -1,5 +1,9 @@
 @extends ('voteaza_si_propune.layout')
 
+@php
+    use \Carbon\Carbon;
+@endphp
+
 @section('content')
 
 <script type="application/javascript">
@@ -84,17 +88,19 @@
                     </div>
                 </div>
             </a>
-            <br><br>
-            <div class="d-flex justify-content-center align-items-center">
-                <img class="me-3" src="{{url('/images/tombola/iconTricouCastigator.jpg')}}"style="padding:0px 0px; width: 15%;">
-                <h2 class="m-0" style="color:#ff0000; font-weight:bold;">{{ $coduriCastigatoareSaptamanaTrecuta->where('top', 'Cea mai 9 muzică bună')->first()->cod ?? '' }}</h2>
-            </div>
-            <div class="d-md-none">
-                {{-- hide on screens wider than md --}}
-                <hr style="opacity:unset">
-                CODUL CĂȘTIGĂTOR LA EXTRAGEREA DE SĂPTĂMÂNA TRECUTĂ
-                <br><br><br>
-            </div>
+            @if (Carbon::now()->gt(Carbon::parse('2024-02-12 00:30')))
+                <br><br>
+                <div class="d-flex justify-content-center align-items-center">
+                    <img class="me-3" src="{{url('/images/tombola/iconTricouCastigator.jpg')}}"style="padding:0px 0px; width: 15%;">
+                    <h2 class="m-0" style="color:#ff0000; font-weight:bold;">{{ $coduriCastigatoareSaptamanaTrecuta->where('top', 'Cea mai 9 muzică bună')->first()->cod ?? '' }}</h2>
+                </div>
+                <div class="d-md-none">
+                    {{-- hide on screens wider than md --}}
+                    <hr style="opacity:unset">
+                    CODUL CĂȘTIGĂTOR LA EXTRAGEREA DE SĂPTĂMÂNA TRECUTĂ
+                    <br><br><br>
+                </div>
+            @endif
         </div>
 
 
@@ -147,17 +153,19 @@
                     </div>
                 </div>
             </a>
-            <br><br>
-            <div class="d-flex justify-content-center align-items-center">
-                <img class="me-3" src="{{url('/images/tombola/iconTricouCastigator.jpg')}}"style="padding:0px 0px; width: 15%;">
-                <h2 class="m-0" style="color:#ff0000; font-weight:bold;">{{ $coduriCastigatoareSaptamanaTrecuta->where('top', 'Românești de azi')->first()->cod ?? '' }}</h2>
-            </div>
-            <div class="d-md-none">
-                {{-- hide on screens wider than md --}}
-                <hr style="opacity:unset">
-                CODUL CĂȘTIGĂTOR LA EXTRAGEREA DE SĂPTĂMÂNA TRECUTĂ
-                <br><br><br>
-            </div>
+            @if (Carbon::now()->gt(Carbon::parse('2024-02-12 00:30')))
+                <br><br>
+                <div class="d-flex justify-content-center align-items-center">
+                    <img class="me-3" src="{{url('/images/tombola/iconTricouCastigator.jpg')}}"style="padding:0px 0px; width: 15%;">
+                    <h2 class="m-0" style="color:#ff0000; font-weight:bold;">{{ $coduriCastigatoareSaptamanaTrecuta->where('top', 'Românești de azi')->first()->cod ?? '' }}</h2>
+                </div>
+                <div class="d-md-none">
+                    {{-- hide on screens wider than md --}}
+                    <hr style="opacity:unset">
+                    CODUL CĂȘTIGĂTOR LA EXTRAGEREA DE SĂPTĂMÂNA TRECUTĂ
+                    <br><br><br>
+                </div>
+            @endif
         </div>
 
         @if($piese->where('categorie', 'Top Cea mai buna muzica veche')->count() > 0)
@@ -210,25 +218,29 @@
                     </div>
                 </div>
             </a>
-            <br><br>
-            <div class="d-flex justify-content-center align-items-center">
-                <img class="me-3" src="{{url('/images/tombola/iconTricouCastigator.jpg')}}"style="padding:0px 0px; width: 15%;">
-                <h2 class="m-0" style="color:#ff0000; font-weight:bold;">{{ $coduriCastigatoareSaptamanaTrecuta->where('top', 'Cea mai bună muzică veche')->first()->cod ?? '' }}</h2>
-            </div>
-            <div class="d-md-none">
-                {{-- hide on screens wider than md --}}
-                <hr style="opacity:unset">
-                CODUL CĂȘTIGĂTOR LA EXTRAGEREA DE SĂPTĂMÂNA TRECUTĂ
-                <br><br><br>
-            </div>
+            @if (Carbon::now()->gt(Carbon::parse('2024-02-12 00:30')))
+                <br><br>
+                <div class="d-flex justify-content-center align-items-center">
+                    <img class="me-3" src="{{url('/images/tombola/iconTricouCastigator.jpg')}}"style="padding:0px 0px; width: 15%;">
+                    <h2 class="m-0" style="color:#ff0000; font-weight:bold;">{{ $coduriCastigatoareSaptamanaTrecuta->where('top', 'Cea mai bună muzică veche')->first()->cod ?? '' }}</h2>
+                </div>
+                <div class="d-md-none">
+                    {{-- hide on screens wider than md --}}
+                    <hr style="opacity:unset">
+                    CODUL CĂȘTIGĂTOR LA EXTRAGEREA DE SĂPTĂMÂNA TRECUTĂ
+                    <br><br><br>
+                </div>
+            @endif
         </div>
         @endif
 
-        <div class="col-md-12 d-none d-md-block text-center">
-            {{-- hide on screens smaller than lg --}}
-            <hr style="opacity:unset">
-            CODURILE CĂȘTIGĂTOARE LA EXTRAGEREA DE SĂPTĂMÂNA TRECUTĂ
-        </div>
+        @if (Carbon::now()->gt(Carbon::parse('2024-02-12 00:30')))
+            <div class="col-md-12 d-none d-md-block text-center">
+                {{-- hide on screens smaller than lg --}}
+                <hr style="opacity:unset">
+                CODURILE CĂȘTIGĂTOARE LA EXTRAGEREA DE SĂPTĂMÂNA TRECUTĂ
+            </div>
+        @endif
     </div>
 
     <div class="row">
