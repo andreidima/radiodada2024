@@ -350,7 +350,7 @@
                         </h2>
 
                         <form class="needs-validation mb-4" novalidate method="POST" action="/voteaza-si-propune">
-                        @csrf
+                        {{-- @csrf --}}
 
                             <div class="row">
                                 <div class="col-lg-6">
@@ -454,7 +454,7 @@
                         </form>
 
                         <form class="needs-validation" novalidate method="POST" action="/voteaza-si-propune">
-                        @csrf
+                        {{-- @csrf --}}
                             <div class="row">
                                 <div class="col-lg-6 justify-content-center">
                                     <label for="top_international_propunere" class="form-label">
@@ -494,7 +494,7 @@
                         </h2>
 
                         <form class="needs-validation mb-4" novalidate method="POST" action="/voteaza-si-propune">
-                        @csrf
+                        {{-- @csrf --}}
 
                             <div class="row">
                                 <div class="col-lg-6">
@@ -599,7 +599,7 @@
                         </form>
 
                         <form class="needs-validation" novalidate method="POST" action="/voteaza-si-propune">
-                        @csrf
+                        {{-- @csrf --}}
                             <div class="form-row">
                                 <div class="col-lg-6 justify-content-center">
                                     <label for="top_romanesc_propunere" class="form-label">
@@ -639,7 +639,7 @@
                         </h2>
 
                         <form class="needs-validation mb-4" novalidate method="POST" action="/voteaza-si-propune">
-                        @csrf
+                        {{-- @csrf --}}
 
                             <div class="row">
                                 <div class="col-lg-6">
@@ -743,7 +743,7 @@
                         </form>
 
                         <form class="needs-validation" novalidate method="POST" action="/voteaza-si-propune">
-                        @csrf
+                        {{-- @csrf --}}
                             <div class="form-row">
                                 <div class="col-lg-6 justify-content-center">
                                     <label for="top_veche_propunere" class="form-label">
