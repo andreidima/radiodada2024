@@ -142,8 +142,7 @@ return [
     |
     */
 
-    // 'path' => '/',
-    'path' => env('APP_ENV') === 'local' ? '/' : '/;samesite=none',
+    'path' => '/',
 
     /*
     |--------------------------------------------------------------------------
@@ -169,8 +168,9 @@ return [
     |
     */
 
+    // Modificare Andrei
     // 'secure' => env('SESSION_SECURE_COOKIE'),
-    'secure' => env('APP_ENV') === 'local' ? false : true,
+    'secure' => env('SESSION_SECURE_COOKIE', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -198,7 +198,9 @@ return [
     |
     */
 
+    // Modificare Andrei
     // 'same_site' => 'lax',
-    'same_site' => env('APP_ENV') === 'local' ? 'lax' : 'none',
+    // 'same_site' => env('APP_ENV') === 'local' ? 'lax' : 'none',
+    'same_site' => env('APP_ENV') === 'local' ? 'lax' : null,
 
 ];
