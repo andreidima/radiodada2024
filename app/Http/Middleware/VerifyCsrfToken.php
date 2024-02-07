@@ -14,6 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
         // 'https://radiodada.validsoftware.eu/voteaza-si-propune/*',
-        // 'https://radiodada.ro/*',
+        'https://radiodada.ro/*',
     ];
 }
