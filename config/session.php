@@ -142,7 +142,9 @@ return [
     |
     */
 
-    'path' => '/',
+    // Modificare Andrei
+    // 'path' => '/',
+    'path' => '/;samesite=none',
 
     /*
     |--------------------------------------------------------------------------
@@ -169,7 +171,7 @@ return [
     */
 
     // Modificare Andrei
-    'secure' => env('SESSION_SECURE_COOKIE'),
+    'secure' => env('SESSION_SECURE_COOKIE', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -199,6 +201,6 @@ return [
 
     // Modificare Andrei
     // 'same_site' => 'lax',
-    'same_site' => env('APP_ENV') === 'local' ? 'lax' : 'none',
+    'same_site' => env('APP_ENV') === 'local' ? "lax" : 'none',
 
 ];
