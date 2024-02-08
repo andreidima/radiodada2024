@@ -19,9 +19,12 @@ class VoteazaPropuneController extends Controller
         echo $_SERVER['HTTP_USER_AGENT'];
         echo '<br><br>';
         if (stripos($_SERVER['HTTP_USER_AGENT'],"Android") || stripos($_SERVER['HTTP_USER_AGENT'],"Windows")){
+            // dd('win');
+            return redirect('/voteaza-si-propune/adauga');
+            // $this->create();
             // deschide in Iframe
         } else {
-            // deschide in tab nou
+            // echo "<script>window.open('https://www.radiodada.ro/voteaza-si-propune/adauga', '_blank')</script>";
         }
     }
 
