@@ -200,7 +200,7 @@ return [
     */
 
     // Modificare Andrei
-    'same_site' => 'lax',
-    // 'same_site' => env('APP_ENV') === 'local' ? "lax" : 'none',
+    // 'same_site' => 'lax',
+    'same_site' => env('APP_ENV') === 'local' ? "lax" : 'none',
 
 ];
