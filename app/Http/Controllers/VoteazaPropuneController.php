@@ -17,6 +17,12 @@ class VoteazaPropuneController extends Controller
     public function verificareSistemDeOperare()
     {
         echo $_SERVER['HTTP_USER_AGENT'];
+        echo '<br><br>';
+        if (stripos($_SERVER['HTTP_USER_AGENT'],"Android") || stripos($_SERVER['HTTP_USER_AGENT'],"Windows")){
+            echo 'Este Android sau Windows';
+        } else {
+            echo 'NU Este Android sau Windows';
+        }
     }
 
 

@@ -13,7 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        'https://www.radiodada.ro/topuri/',
-        'https://radiodada.ro/*',
+        // 'https://www.radiodada.ro/topuri/',
+        // 'https://radiodada.ro/*',
     ];
 }
