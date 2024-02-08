@@ -144,7 +144,7 @@ return [
 
     // Modificare Andrei
     // 'path' => '/',
-    'path' => '/;samesite=none',
+    'path' => '/;samesite=None; Secure',
 
     /*
     |--------------------------------------------------------------------------
