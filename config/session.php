@@ -199,6 +199,6 @@ return [
 
     // Modificare Andrei
     // 'same_site' => 'lax',
-    'same_site' => env('APP_ENV') === 'local' ? 'lax' : 'None; Secure',
+    'same_site' => env('APP_ENV') === 'local' ? 'lax' : 'none',
 
 ];
