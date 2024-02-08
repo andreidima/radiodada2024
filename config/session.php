@@ -143,8 +143,8 @@ return [
     */
 
     // Modificare Andrei
-    // 'path' => '/',
-    'path' => '/;samesite=None; Secure',
+    'path' => '/',
+    // 'path' => '/;samesite=None; Secure',
 
     /*
     |--------------------------------------------------------------------------
