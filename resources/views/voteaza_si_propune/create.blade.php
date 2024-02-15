@@ -564,6 +564,17 @@
                                                     </div>
                                                 </div>
                                         @endforeach
+
+                                        <div class="col-lg-12 mb-2">
+                                            <div class="row">
+                                                <div class="d-none d-lg-block col-lg-12 mb-4 text-center d-flex justify-content-center">
+                                                    <br>
+                                                    <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_romanesc_voteaza">
+                                                        Votează
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -599,7 +610,8 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="row">
-                                        <div class="col-lg-12 mb-3 d-flex justify-content-center">
+                                        <div class="col-lg-12 d-lg-none mb-4 d-flex justify-content-center">
+                                            <br>
                                             <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_romanesc_voteaza">
                                                 Votează
                                             </button>
@@ -708,6 +720,17 @@
                                                     </div>
                                                 </div>
                                         @endforeach
+
+                                        <div class="col-lg-12 mb-2">
+                                            <div class="row">
+                                                <div class="d-none d-lg-block col-lg-12 mb-4 text-center d-flex justify-content-center">
+                                                    <br>
+                                                    <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_veche_voteaza">
+                                                        Votează
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -743,7 +766,8 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="row">
-                                        <div class="col-lg-12 mb-3 d-flex justify-content-center">
+                                        <div class="col-lg-12 d-lg-none mb-4 d-flex justify-content-center">
+                                            <br>
                                             <button type="submit" class="btn btn-lg btn-danger border border-dark rounded-pill" name="action" value="top_veche_voteaza">
                                                 Votează
                                             </button>
