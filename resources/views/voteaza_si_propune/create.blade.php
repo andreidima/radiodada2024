@@ -39,8 +39,8 @@
                 style="padding:0px 0px; width: 100%;"
             >
         </div>
-        {{-- <div class="col-md-4 text-center mb-1"> --}}
-        <div v-cloak :class="[{ 'd-none d-md-block': ((top_incarcat == 'top_romanesc') || (top_incarcat == 'top_veche')) }, 'col-md-4 text-center mb-1' ]">
+        <div class="col-md-4 text-center mb-1">
+        {{-- <div v-cloak :class="[{ 'd-none d-md-block': ((top_incarcat == 'top_romanesc') || (top_incarcat == 'top_veche')) }, 'col-md-4 text-center mb-1' ]"> --}}
             <a href="#top_international" class="text-dark btn"
                 v-on:mouseover="schimbaCuloare('top_international_danger')"
                 v-on:mouseleave="schimbaCuloare('top_international_white')"
@@ -104,8 +104,8 @@
         </div>
 
 
-        {{-- <div class="col-md-4 text-center mb-1"> --}}
-        <div v-cloak :class="[{ 'd-none d-md-block': ((top_incarcat == 'top_international') || (top_incarcat == 'top_veche')) }, 'col-md-4 text-center mb-1' ]">
+        <div class="col-md-4 text-center mb-1">
+        {{-- <div v-cloak :class="[{ 'd-none d-md-block': ((top_incarcat == 'top_international') || (top_incarcat == 'top_veche')) }, 'col-md-4 text-center mb-1' ]"> --}}
             <a href="#top_romanesc" class="text-dark btn"
                 v-on:mouseover="schimbaCuloare('top_romanesc_danger')"
                 v-on:mouseleave="schimbaCuloare('top_romanesc_white')"
@@ -169,8 +169,8 @@
         </div>
 
         @if($piese->where('categorie', 'Top Cea mai buna muzica veche')->count() > 0)
-        {{-- <div class="col-md-4 text-center mb-1"> --}}
-        <div v-cloak :class="[{ 'd-none d-md-block': ((top_incarcat == 'top_international') || (top_incarcat == 'top_romanesc')) }, 'col-md-4 text-center mb-1' ]">
+        <div class="col-md-4 text-center mb-1">
+        {{-- <div v-cloak :class="[{ 'd-none d-md-block': ((top_incarcat == 'top_international') || (top_incarcat == 'top_romanesc')) }, 'col-md-4 text-center mb-1' ]"> --}}
             <a href="#top_veche" class="text-dark btn"
                 v-on:mouseover="schimbaCuloare('top_veche_danger')"
                 v-on:mouseleave="schimbaCuloare('top_veche_white')"
