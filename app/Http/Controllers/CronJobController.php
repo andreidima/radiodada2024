@@ -26,7 +26,7 @@ class CronJobController extends Controller
             ->cc(['office@dadamusic.ro'])
             ->bcc(['andrei.dima@usm.ro'])
             ->send(new \App\Mail\AnuntareCastigator($tombola));
-        // return;
+        return;
 
         // Sterge castigatorii pentru a putea extrage din nou
         // $tombole = Tombola::
