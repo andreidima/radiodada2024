@@ -294,6 +294,7 @@ class VoteazaPropuneController extends Controller
         \App\Models\MesajTrimisEmail::create([
             'referinta' => 1,
             'referinta_id' => $tombola->id,
+            'tip' => 1, // inscriere la tombola
             'email' => $tombola->email
         ]);
 
