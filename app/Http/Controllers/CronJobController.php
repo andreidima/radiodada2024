@@ -17,6 +17,18 @@ class CronJobController extends Controller
             return ;
         }
 
+
+
+        $tombola = Tombola::where('id', 51)->get()->first();
+
+
+        Mail::to(['andrei.dima@usm.ro'])
+            // ->cc(['office@radiodada.ro'])
+            // ->bcc(['andrei.dima@usm.ro'])
+            ->send(new \App\Mail\AnuntareCastigator($tombola));
+
+        return;
+
         // Sterge castigatorii pentru a putea extrage din nou
         // $tombole = Tombola::
         //     whereBetween('created_at', [Carbon::today()->subDays(7), Carbon::today()->subDays(1)->endofDay()])
@@ -55,11 +67,6 @@ class CronJobController extends Controller
             ->get();
 
         foreach($tombole as $tombola){
-            // echo $tombola->top;
-            // echo '<br>';
-            // echo $tombola->nume;
-            // echo '<br><br>';
-
             Mail::to($tombola->email)
                 ->cc(['office@radiodada.ro'])
                 ->bcc(['andrei.dima@usm.ro'])
