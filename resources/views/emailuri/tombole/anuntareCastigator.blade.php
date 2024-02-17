@@ -11,12 +11,12 @@
             Tichetul tău <b>{{ $tombola->cod }}</b> la topul „{{ $tombola->top }}” a ieșit câștigător la extragerea de săptămâna trecută.
             <br><br>
             Te rugăm să ne trimiți un mesaj pe <b>Whatsapp 0722.100.670</b>, folosind telefonul cu care te-ai înregistrat, în care să menționezi:
-            <br>
-            <b>Mărimea tricoului: __________________</b>
-            <br>
-            <b>Adresa la care trebuie trimis tricoul: ______________________________</b>
             <br><br>
-            Tricoul se trimite prin courier. Durata de producție a tricoului este de 7 zile lucrătoare.
+            &nbsp;&nbsp;&nbsp;<b> - Mărimea tricoului</b>
+            <br><br>
+            &nbsp;&nbsp;&nbsp;<b> - Adresa la care trebuie trimis tricoul</b>
+            <br><br><br>
+            Tricoul se trimite prin curier. Durata de producție a tricoului este de 7 zile lucrătoare.
             <br><br>
             Îți dorim o săptămână perfectă.
 

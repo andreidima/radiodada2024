@@ -19,13 +19,13 @@ class CronJobController extends Controller
 
 
         // Testare email castigator
-        // $tombola = Tombola::where('id', 53)->get()->first();
+        $tombola = Tombola::where('id', 53)->get()->first();
         // Mail::to(['andrei.dima@usm.ro'])
         //     ->send(new \App\Mail\AnuntareCastigator($tombola));
-        // Mail::to($tombola->email)
-        //     ->cc(['office@radiodada.ro'])
-        //     ->bcc(['andrei.dima@usm.ro'])
-        //     ->send(new \App\Mail\AnuntareCastigator($tombola));
+        Mail::to($tombola->email)
+            ->cc(['office@dadamusic.ro'])
+            ->bcc(['andrei.dima@usm.ro'])
+            ->send(new \App\Mail\AnuntareCastigator($tombola));
         // return;
 
         // Sterge castigatorii pentru a putea extrage din nou
