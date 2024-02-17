@@ -14,7 +14,7 @@
             <br>
             <b>Mărimea tricoului: __________________</b>
             <br>
-            <b>Adresa la care trebuie trimis tricoul: _____________________________________________</b>
+            <b>Adresa la care trebuie trimis tricoul: ______________________________</b>
             <br><br>
             Tricoul se trimite prin courier. Durata de producție a tricoului este de 7 zile lucrătoare.
             <br><br>
