@@ -258,21 +258,20 @@ class VoteazaPropuneController extends Controller
         $request->validate([
             'nume' => 'required|max:200',
             'telefon' => ['required', 'digits:10',
-                function ($attribute, $value, $fail) use ($request) {
-                    if (!empty($request->telefon)){
-                        $tombole = Tombola::whereDate('created_at', '>=', Carbon::today()->startOfWeek())
-                            ->where('top', session('inregistrareTombolaLaTop'))
-                            ->where(function ($query) use($request){
-                                return $query
-                                    ->where('telefon', $request->telefon);
-                                    // ->orwhere('email', $request->email);
-                            })
-                            ->get();
-                        if ($tombole->count() > 0) {
-                            $fail('La acest top a fost facută deja o înregistrare, cu acest număr de telefon. Vă puteți înregistra din nou săptămâna viitoare. Puteți vota și să vă înregistrați și la celelalte topuri.');
-                        }
-                    }
-                },
+                // function ($attribute, $value, $fail) use ($request) {
+                //     if (!empty($request->telefon)){
+                //         $tombole = Tombola::whereDate('created_at', '>=', Carbon::today()->startOfWeek())
+                //             ->where('top', session('inregistrareTombolaLaTop'))
+                //             ->where(function ($query) use($request){
+                //                 return $query
+                //                     ->where('telefon', $request->telefon);
+                //             })
+                //             ->get();
+                //         if ($tombole->count() > 0) {
+                //             $fail('La acest top a fost facută deja o înregistrare, cu acest număr de telefon. Vă puteți înregistra din nou săptămâna viitoare. Puteți vota și să vă înregistrați și la celelalte topuri.');
+                //         }
+                //     }
+                // },
             ],
             'email' => 'required|max:200|email:rfc,dns',
             'gdpr' => 'required'
