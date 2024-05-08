@@ -61,22 +61,22 @@ class CronJobController extends Controller
 
 
         // Trimitere emailuri la castigatori
-        // $tombole = Tombola::where('castigator', 1)
-        //     ->whereBetween('created_at', [Carbon::today()->subDays(7), Carbon::today()->subDays(1)->endofDay()])
-        //     ->get();
+        $tombole = Tombola::where('castigator', 1)
+            ->whereBetween('created_at', [Carbon::today()->subDays(7), Carbon::today()->subDays(1)->endofDay()])
+            ->get();
 
-        // foreach($tombole as $tombola){
-        //     Mail::to($tombola->email)
-        //         ->cc(['office@dadamusic.ro'])
-        //         // ->bcc(['andrei.dima@usm.ro'])
-        //         ->send(new \App\Mail\AnuntareCastigator($tombola));
+        foreach($tombole as $tombola){
+            Mail::to($tombola->email)
+                ->cc(['office@dadamusic.ro'])
+                // ->bcc(['andrei.dima@usm.ro'])
+                ->send(new \App\Mail\AnuntareCastigator($tombola));
 
-        //     \App\Models\MesajTrimisEmail::create([
-        //         'referinta' => 1,
-        //         'referinta_id' => $tombola->id,
-        //         'tip' => 2, // anuntare castigator tombola
-        //         'email' => $tombola->email
-        //     ]);
-        // }
+            \App\Models\MesajTrimisEmail::create([
+                'referinta' => 1,
+                'referinta_id' => $tombola->id,
+                'tip' => 2, // anuntare castigator tombola
+                'email' => $tombola->email
+            ]);
+        }
     }
 }
