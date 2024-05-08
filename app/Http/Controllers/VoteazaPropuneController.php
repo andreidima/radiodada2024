@@ -54,7 +54,7 @@ class VoteazaPropuneController extends Controller
         switch ($request->input('action')) {
             case 'top_international_voteaza':
                 if ($request->session()->has('top_international_votat_deja_variabila_sesiune')) {
-                    return back()->with('top_international_votat_deja', 'Ai votat deja pentru o piesă din acest top. La fiecare top poți vota o singură dată pe zi.');
+                    return back()->with('top_international_votat_deja', 'Ai votat deja o piesă din acest top. La fiecare top poți vota o singură dată pe zi.');
                 } else {
                     request()->validate(
                         ['top_international_piesa' => 'required|integer'],
@@ -101,7 +101,7 @@ class VoteazaPropuneController extends Controller
                 break;
             case 'top_romanesc_voteaza':
                 if ($request->session()->has('top_romanesc_votat_deja_variabila_sesiune')) {
-                    return back()->with('top_romanesc_votat_deja', 'Ai votat deja pentru o piesă din acest top. La fiecare top poți vota o singură dată pe zi.');
+                    return back()->with('top_romanesc_votat_deja', 'Ai votat deja o piesă din acest top. La fiecare top poți vota o singură dată pe zi.');
                 } else {
                     request()->validate(
                         ['top_romanesc_piesa' => 'required|integer'],
@@ -149,7 +149,7 @@ class VoteazaPropuneController extends Controller
 
             case 'top_veche_voteaza':
                 if ($request->session()->has('top_veche_votat_deja_variabila_sesiune')) {
-                    return back()->with('top_veche_votat_deja', 'Ai votat deja pentru o piesă din acest top. La fiecare top poți vota o singură dată pe zi.');
+                    return back()->with('top_veche_votat_deja', 'Ai votat deja o piesă din acest top. La fiecare top poți vota o singură dată pe zi.');
                 } else {
                     request()->validate(
                         ['top_veche_piesa' => 'required|integer'],
@@ -208,7 +208,7 @@ class VoteazaPropuneController extends Controller
     //     switch ($request->input('action')) {
     //         case 'Voteaza':
     //             if ($request->session()->has('votat_deja')) {
-    //                 return back()->with('error', 'Ai votat deja pentru o piesă din acest top. La fiecare top poți vota o singură dată pe zi.');
+    //                 return back()->with('error', 'Ai votat deja o piesă din acest top. La fiecare top poți vota o singură dată pe zi.');
     //             } else {
     //                 $piesa = Piesa::find($request->voteazaPiesa);
     //                 $piesa->voturi ++ ;
