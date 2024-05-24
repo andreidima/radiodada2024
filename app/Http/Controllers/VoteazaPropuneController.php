@@ -223,6 +223,7 @@ class VoteazaPropuneController extends Controller
 
         // If the formSubmissionToken doesn't match, we stop the function, to prevent multiple form submision
         if ($request->formSubmissionToken !== $request->session()->get('formSubmissionToken')){ return; }
+        session()->forget('formSubmissionToken');
 
         $request->validate([
             'nume' => 'required|max:200',
