@@ -120,4 +120,16 @@ if (document.getElementById('app1') != null) {
     app1.mount('#app1');
 }
 
+// Disable submit button to prevent multiple form submissions
+const disableSubmitButton = createApp({
+    el: '#app1',
+    data() {
+        return {
+            disableSubmitButton: false,
+        }
+    },
+});
+if (document.getElementById('disableSubmitButton') != null) {
+    disableSubmitButton.mount('#disableSubmitButton');
+}
 

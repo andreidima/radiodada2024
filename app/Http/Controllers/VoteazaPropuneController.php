@@ -209,10 +209,10 @@ class VoteazaPropuneController extends Controller
         }
 
         // To prevent multiple button presses, and multiple form submision
-        $formSubmissionToken = uniqid();
-        $request->session()->put('formSubmissionToken', $formSubmissionToken);
+        // $formSubmissionToken = uniqid();
+        // $request->session()->put('formSubmissionToken', $formSubmissionToken);
 
-        return view('voteaza_si_propune.inregistrareTombolaPasul1', compact('formSubmissionToken'));
+        return view('voteaza_si_propune.inregistrareTombolaPasul1');
     }
 
     public function postInregistrareTombolaPasul1(Request $request)
@@ -222,8 +222,8 @@ class VoteazaPropuneController extends Controller
         }
 
         // If the formSubmissionToken doesn't match, we stop the function, to prevent multiple form submision
-        if ($request->formSubmissionToken !== $request->session()->get('formSubmissionToken')){ return; }
-        session()->forget('formSubmissionToken');
+        // if ($request->formSubmissionToken !== $request->session()->get('formSubmissionToken')){ return; }
+        // session()->forget('formSubmissionToken');
 
         $request->validate([
             'nume' => 'required|max:200',

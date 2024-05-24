@@ -68,7 +68,7 @@
                             <form  class="mb-0 needs-validation" novalidate method="POST" action="/voteaza-si-propune/inregistrare-tombola-pasul-1">
                                 @csrf
 
-                                <input type="hidden" name="formSubmissionToken" value="{{ $formSubmissionToken }}">
+                                {{-- <input type="hidden" name="formSubmissionToken" value="{{ $formSubmissionToken }}"> --}}
 
                                 <div class="row g-3 align-items-center mb-4">
                                     <div class="col-lg-3">
@@ -119,11 +119,21 @@
                                 </div>
 
                                 <div class="row g-3 py-2 justify-content-center">
-                                    <div class="col-lg-6 py-2 d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-lg btn-success me-3 rounded-3">
+                                    <div class="col-lg-6 py-2 d-flex justify-content-center" id="disableSubmitButton">
+                                        <button type="submit" class="btn btn-lg btn-success me-3 rounded-3"
+                                            v-on:click="disableSubmitButton = true"
+                                            :hidden="disableSubmitButton ? true : false"
+                                        >
                                             Înregistrează
                                         </button>
-                                        <a class="btn btn-lg btn-secondary rounded-3" href="/voteaza-si-propune/adauga">Renunță</a>
+                                        <a class="btn btn-lg btn-secondary rounded-3" href="/voteaza-si-propune/adauga"
+                                            :hidden="disableSubmitButton ? true : false"
+                                        >
+                                            Renunță
+                                        </a>
+                                        <span class="text-center"
+                                            :hidden="disableSubmitButton ? false : true"
+                                        >Datele se salvează</span>
                                     </div>
                                 </div>
                             </form>
