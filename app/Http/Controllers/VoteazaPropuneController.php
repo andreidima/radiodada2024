@@ -202,51 +202,17 @@ class VoteazaPropuneController extends Controller
         return view('voteaza_si_propune.mesaj');
     }
 
-    // De sters 01.03.2024
-    // public function voteazaPropune(Request $request)
-    // {
-    //     switch ($request->input('action')) {
-    //         case 'Voteaza':
-    //             if ($request->session()->has('votat_deja')) {
-    //                 return back()->with('error', 'Ai votat deja o piesă din acest top. La fiecare top poți vota o singură dată pe zi.');
-    //             } else {
-    //                 $piesa = Piesa::find($request->voteazaPiesa);
-    //                 $piesa->voturi ++ ;
-    //                 $piesa->save();
-
-    //                 $request->session()->put('votat_deja', 'da');
-
-    //                 return back()->with('status', 'Votul dumneavoastră pentru „' . $piesa->autor->nume . ' - ' . $piesa->nume . '” a fost inregistrat!');
-    //             }
-    //             break;
-
-    //         case 'Propunere':
-    //             if ($request->session()->has('propus_deja')) {
-    //                 return back()->with('error', 'Ai propus deja o piesă pentru acest top. Poți propune o singură dată.');
-    //             } else {
-    //                 $propunere = new Propunere;
-    //                 $propunere->nume = $request->propunere;
-    //                 $propunere->save();
-
-    //                 $request->session()->put('propus_deja', 'da');
-
-    //                 return back()->with('status', 'Ai propus piesa „' . $propunere->nume . '”!');
-    //             }
-    //             break;
-    //     }
-
-    //     $piese = Piesa::with('artist')->orderByDesc('voturi')->get();
-
-    //     return view('voteaza_si_propune.create', compact('piese'));
-    // }
-
     public function inregistrareTombolaPasul1(Request $request)
     {
         if (!$request->session()->exists('inregistrareTombolaLaTop')){
             return redirect('/voteaza-si-propune/adauga');
         }
 
-        return view('voteaza_si_propune.inregistrareTombolaPasul1');
+        // To prevent multiple button presses, and multiple form submision
+        $formSubmissionToken = uniqid();
+        $request->session()->put('formSubmissionToken', $formSubmissionToken);
+
+        return view('voteaza_si_propune.inregistrareTombolaPasul1', compact('formSubmissionToken'));
     }
 
     public function postInregistrareTombolaPasul1(Request $request)
@@ -254,6 +220,9 @@ class VoteazaPropuneController extends Controller
         if (!$request->session()->exists('inregistrareTombolaLaTop')){
             return redirect('/voteaza-si-propune/adauga');
         }
+
+        // If the formSubmissionToken doesn't match, we stop the function, to prevent multiple form submision
+        if ($request->formSubmissionToken !== $request->session()->get('formSubmissionToken')){ return; }
 
         $request->validate([
             'nume' => 'required|max:200',
