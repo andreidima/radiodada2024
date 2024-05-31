@@ -208,10 +208,6 @@ class VoteazaPropuneController extends Controller
             return redirect('/voteaza-si-propune/adauga');
         }
 
-        // To prevent multiple button presses, and multiple form submision
-        // $formSubmissionToken = uniqid();
-        // $request->session()->put('formSubmissionToken', $formSubmissionToken);
-
         return view('voteaza_si_propune.inregistrareTombolaPasul1');
     }
 
@@ -220,10 +216,6 @@ class VoteazaPropuneController extends Controller
         if (!$request->session()->exists('inregistrareTombolaLaTop')){
             return redirect('/voteaza-si-propune/adauga');
         }
-
-        // If the formSubmissionToken doesn't match, we stop the function, to prevent multiple form submision
-        // if ($request->formSubmissionToken !== $request->session()->get('formSubmissionToken')){ return; }
-        // session()->forget('formSubmissionToken');
 
         $request->validate([
             'nume' => 'required|max:200',

@@ -68,8 +68,6 @@
                             <form  class="mb-0 needs-validation" novalidate method="POST" action="/voteaza-si-propune/inregistrare-tombola-pasul-1">
                                 @csrf
 
-                                {{-- <input type="hidden" name="formSubmissionToken" value="{{ $formSubmissionToken }}"> --}}
-
                                 <div class="row g-3 align-items-center mb-4">
                                     <div class="col-lg-3">
                                         <label for="nume" class="col-form-label py-0">Nume<span class="text-danger">*</span></label>

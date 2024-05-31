@@ -133,3 +133,54 @@ if (document.getElementById('disableSubmitButton') != null) {
     disableSubmitButton.mount('#disableSubmitButton');
 }
 
+const artistAutocomplete = createApp({
+    el: '#artistAutocomplete',
+    data() {
+        return {
+            artist_nume: '',
+            // artist_telefon: '',
+            // artist_localitate: '',
+            artisti: artisti,
+            artistiListaAutocomplete: [],
+
+            propuneri: propuneri,
+            afiseazaPropuneri: false
+        }
+    },
+    created: function () {
+    },
+    methods: {
+        autocompleteArtisti() {
+            this.artistiListaAutocomplete = [];
+
+            for (var i = 0; i < this.artisti.length; i++) {
+                if (this.artisti[i].nume) {
+                    var nume = this.artisti[i].nume;
+                    if (nume.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(this.artist_nume.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))) {
+                        this.artistiListaAutocomplete.push(this.artisti[i]);
+                    }
+                }
+            }
+        },
+    }
+});
+const clickOutside = {
+    beforeMount: (el, binding) => {
+        el.clickOutsideEvent = event => {
+            if (!(el == event.target || el.contains(event.target))) {
+                binding.value();
+            }
+        };
+        document.addEventListener("click", el.clickOutsideEvent);
+    },
+    unmounted: el => {
+        document.removeEventListener("click", el.clickOutsideEvent);
+    },
+};
+
+artistAutocomplete.directive("clickOut", clickOutside);
+
+if (document.getElementById('artistAutocomplete') != null) {
+    artistAutocomplete.mount('#artistAutocomplete');
+}
+

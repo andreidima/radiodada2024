@@ -31,6 +31,8 @@ Route::get('voteaza-si-propune/inregistrare-tombola-pasul-2', [App\Http\Controll
 
 Route::get('/cronjobs/extragere-castigator-tombola/{key}', [App\Http\Controllers\CronJobController::class, 'extragereCastigatorTombola']);
 
+Route::get('/site/dada-music/artisti/{artist?}', [App\Http\Controllers\SiteDadaMusicController::class, 'afisareArtisti']);
+
 Route::middleware(['auth'])->group(function () {
     // Route::get('/', function () {
     //     return view('piese');
