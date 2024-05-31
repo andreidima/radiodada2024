@@ -15,6 +15,7 @@ class SiteDadaMusicController extends Controller
         $artisti = Artist::select('id', 'nume')->orderBy('nume')->get();
 
         // Search this artist in the „propuneri” table, because if any mach is founded, it will be desplayed a link to them in the view
+        $propuneri = [];
         if ($artist && $artist->nume){
             $propuneri = Propunere::select('id', 'nume')
                 ->where('nume', 'like', $artist->nume . '%')
