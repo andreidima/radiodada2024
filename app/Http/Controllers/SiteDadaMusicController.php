@@ -13,7 +13,7 @@ class SiteDadaMusicController extends Controller
 {
     public function afisareArtisti(Artist $artist = null)
     {
-        $artistiDeAfisatInGalerie = Artist::with('imagine')->has('imagine')->select('id', 'nume')->orderBy('nume')->simplePaginate(18);
+        $artistiDeAfisatInGalerie = Artist::with('imagine')->has('imagine')->select('id', 'nume')->orderBy('nume')->simplePaginate(20);
 
         $artisti = Artist::select('id', 'nume')->orderBy('nume')->get();
 
