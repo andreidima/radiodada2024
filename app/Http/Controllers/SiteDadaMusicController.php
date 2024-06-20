@@ -24,7 +24,7 @@ class SiteDadaMusicController extends Controller
                 ->whereHas('artist', function (Builder $query) use ($artist) {
                     $query->where('nume', 'like', $artist->nume);
                 })
-                ->where('categorie', 'like', 'Propunere' . '%')
+                // ->where('categorie', 'like', 'Propunere' . '%')
             ->get();
             // foreach ($propuneri as $propunere){
             //     if (str_contains($propunere->nume, $artist->nume)) {
