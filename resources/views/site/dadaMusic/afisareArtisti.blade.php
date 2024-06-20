@@ -56,8 +56,8 @@
                                         src="{{ env('APP_URL') . $artist->imagine->imagine_cale . $artist->imagine->imagine_nume }}"
                                         title="{{ $artist->nume }}"
                                         style="
-                                            width: 200px;
-                                            height: 200px;
+                                            width: 165px;
+                                            height: 110px;
                                             object-fit: cover;
                                         "
                                         {{-- onerror="this.remove()" --}}
