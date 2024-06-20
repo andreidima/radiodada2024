@@ -127,7 +127,7 @@
                     @endif
                     @if ($artist->magazin_virtual)
                         <div class="mx-3">
-                            <a href="{{ $artist->magazin_virtual }}" style="color: black">
+                            <a href="{{ $artist->magazin_virtual }}" target="_top" style="color: black">
                                 <i class="fa-solid fa-cart-shopping fa-3x"></i>
                             </a>
                         </div>
