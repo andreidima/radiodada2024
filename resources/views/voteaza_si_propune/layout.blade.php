@@ -27,19 +27,15 @@
             {{-- <div class="container"> --}}
             <div class="row mb-2">
                 <div class="col-lg-12" style="text-align: center">
-                        <img class="rounded-3 m-0"
-                            src="{{url('/images/headerSiteMeniu.png')}}"
-                            style="
-                                max-width: 100%;
-                            "
-                            >
+                    <img class="rounded-3 m-0"
+                        src="{{url('/images/headerSiteMeniu2.png')}}"
+                        style="width:1213px; max-width: 100%;"
+                        >
                 </div>
                 <div class="col-gl-12 bg-black" style="text-align: center">
                         <img class="rounded-3 m-0"
                             src="{{url('/images/headerSiteBanner.png')}}"
-                            style="
-                                max-width: 100%;
-                            "
+                            style="width:1143px; max-width: 100%;"
                             >
                 </div>
             </div>
