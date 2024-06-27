@@ -22,7 +22,30 @@
 
 <body class="d-flex flex-column h-100">
 
-    <main class="flex-shrink-0 py-4">
+    <main class="flex-shrink-0 py-0">
+        <a href="https://www.radiodada.ro" target="_top">
+            {{-- <div class="container"> --}}
+            <div class="row mb-2">
+                <div class="col-lg-12" style="text-align: center">
+                        <img class="rounded-3 m-0"
+                            src="{{url('/images/headerSiteMeniu.png')}}"
+                            style="
+                                max-width: 100%;
+                            "
+                            >
+                </div>
+                <div class="col-gl-12 bg-black" style="text-align: center">
+                        <img class="rounded-3 m-0"
+                            src="{{url('/images/headerSiteBanner.png')}}"
+                            style="
+                                max-width: 100%;
+                            "
+                            >
+                </div>
+            </div>
+            {{-- </div> --}}
+        </a>
+
         @yield('content')
     </main>
 </body>
