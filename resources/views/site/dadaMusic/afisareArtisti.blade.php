@@ -100,23 +100,6 @@
                     {{ $artist->descriere }}
                 </p>
 
-                <div v-if="afiseazaPropuneri" class="m-0 mb-4 rounded-3 px-3 text-center" style="">
-                    <p class="m-0 rounded-3 py-0 px-2 text-center" style="">
-                        PROPUNERI
-                    </p>
-                    @foreach ($propuneri as $propunere)
-                        <p class="m-0 mb-3 rounded-3 px-2" style="">
-                                @if ($propunere->link_youtube)
-                                    <a href="{{ $propunere->link_youtube }}" target="_blank" style="text-decoration:none">
-                                        {{ $propunere->nume }}
-                                    </a>
-                                @else
-                                    {{ $propunere->nume }}
-                                @endif
-                        </p>
-                    @endforeach
-                </div>
-
                 <div class="d-flex justify-content-center">
                     @if ($artist->link)
                         <div class="mx-3">
@@ -137,9 +120,26 @@
                         <div class="mx-3">
                             <a
                                 v-on:click="afiseazaPropuneri = !afiseazaPropuneri"
-                            style="color: black">
+                                style="color: black; cursor:pointer">
                                 <i class="fa-solid fa-headphones fa-3x"></i>
                             </a>
+                        </div>
+
+                        <div v-if="afiseazaPropuneri" class="mx-3 mb-4 rounded-3 px-3 text-center" style="">
+                            <p class="m-0 rounded-3 py-0 px-2 text-center" style="">
+                                PIESE PROMOVATE
+                            </p>
+                            @foreach ($propuneri as $propunere)
+                                <p class="m-0 mb-3 rounded-3 px-2" style="">
+                                        @if ($propunere->link_youtube)
+                                            <a href="{{ $propunere->link_youtube }}" target="_blank" style="text-decoration:none">
+                                                {{ $propunere->nume }}
+                                            </a>
+                                        @else
+                                            {{ $propunere->nume }}
+                                        @endif
+                                </p>
+                            @endforeach
                         </div>
                     @endif
                 </div>
