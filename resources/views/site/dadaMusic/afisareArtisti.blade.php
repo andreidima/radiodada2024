@@ -1,4 +1,4 @@
-@extends ('voteaza_si_propune.layout')
+@extends ('site.dadaMusic.layout')
 
 <script type="application/javascript">
     artisti = {!! json_encode($artisti) !!}
