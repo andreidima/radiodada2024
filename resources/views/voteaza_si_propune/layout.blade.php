@@ -25,7 +25,7 @@
     <main class="flex-shrink-0 py-0">
         <a href="https://www.radiodada.ro" target="_top">
             {{-- <div class="container"> --}}
-            <div class="row mb-2">
+            <div class="row mb-2 ">
                 <div class="col-lg-12" style="text-align: center">
                     <img class="rounded-3 m-0"
                         src="{{url('/images/headerSiteMeniu2.png')}}"
@@ -35,7 +35,7 @@
                 <div class="col-gl-12 bg-black" style="text-align: center">
                         <img class="rounded-3 m-0"
                             src="{{url('/images/headerSiteBanner.png')}}"
-                            style="width:1143px; max-width: 100%;"
+                            style="width:930px; max-width: 100%;"
                             >
                 </div>
             </div>
