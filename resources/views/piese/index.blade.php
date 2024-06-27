@@ -5,7 +5,7 @@
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
                 <p class="rounded-3 px-2 culoare1 fs-5">
-                    <i class="fas fa-music me-1"></i>{{ $piese->first()->categorie ?? '' }}
+                    <i class="fas fa-music me-1"></i>{{ $categorie ?? 'Piese' }}
                 </p>
             </div>
             <div class="col-lg-6">

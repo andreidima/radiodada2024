@@ -17,7 +17,7 @@ class SiteDadaMusicController extends Controller
 
         $artisti = Artist::select('id', 'nume')->orderBy('nume')->get();
 
-        // Search this artist in the „propuneri” table, because if any mach is founded, it will be desplayed a link to them in the view
+        // Search this artist in the „piese” table, because if any mach is founded, it will be desplayed a link to them in the view
         $propuneri = [];
         if ($artist && $artist->nume){
             $propuneri = Piesa::with('artist')->select('id', 'nume', 'link_youtube')
