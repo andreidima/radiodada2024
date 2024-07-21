@@ -16,7 +16,8 @@
             <br><br>
             &nbsp;&nbsp;&nbsp;<b> - Adresa la care trebuie trimis tricoul</b>
             <br><br><br>
-            Tricoul se trimite prin curier. Durata de producție a tricoului este de 7 zile lucrătoare.
+            {{-- Tricoul se trimite prin curier. Durata de producție a tricoului este de 7 zile lucrătoare. --}}
+            Tricoul se trimite prin curier. Dacă nu este un model de tricou aflat în magazinul nostru online, durata de proiectare și producție a acestuia este de 30 zile de la data la care ați transmis datele de mai sus.
             <br><br>
             Îți dorim o săptămână perfectă.
 
