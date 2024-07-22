@@ -68,7 +68,7 @@ class CronJobController extends Controller
         foreach($tombole as $tombola){
             Mail::to($tombola->email)
                 ->cc(['office@dadamusic.ro'])
-                ->bcc(['andrei.dima@usm.ro'])
+                // ->bcc(['andrei.dima@usm.ro'])
                 ->send(new \App\Mail\AnuntareCastigator($tombola));
 
             \App\Models\MesajTrimisEmail::create([
