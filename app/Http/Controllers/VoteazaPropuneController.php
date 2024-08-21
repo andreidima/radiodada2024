@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Piesa;
 use App\Models\Propunere;
 use App\Models\Tombola;
+use App\Models\Variabila;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -239,14 +240,29 @@ class VoteazaPropuneController extends Controller
             'gdpr' => 'required'
         ]);
 
+        switch(session('inregistrareTombolaLaTop')) {
+            case "Românești de azi":
+                $ultimulCod = Variabila::where('nume', 'ultimul_cod_tombola_romanesti_de_azi')->first();
+                break;
+            case 'Cea mai 9 muzică bună':
+                $ultimulCod = Variabila::where('nume', 'ultimul_cod_tombola_cea_mai_9_muzica_buna')->first();
+                break;
+            case 'Cea mai bună muzică veche':
+                $ultimulCod = Variabila::where('nume', 'ultimul_cod_tombola_cea_mai_buna_muzica_veche')->first();
+                break;
+        }
+        $ultimulCod->valoare = substr($ultimulCod->valoare, 0, 3) . (intval(substr($ultimulCod->valoare, 3)) + 1);
+        $ultimulCod->save();
+
         $tombola = new Tombola;
         $tombola->nume = $request->nume;
         $tombola->telefon = $request->telefon;
         $tombola->email = $request->email;
         $tombola->top = session('inregistrareTombolaLaTop');
 
-        $ultimulCod = Tombola::where('top', session('inregistrareTombolaLaTop'))->latest()->first()->cod ?? 'AAA130';
-        $tombola->cod = substr($ultimulCod, 0, 3) . (intval(substr($ultimulCod, 3)) + 1);
+        // $ultimulCod = Tombola::where('top', session('inregistrareTombolaLaTop'))->latest()->first()->cod ?? 'AAA130';
+        // $tombola->cod = substr($ultimulCod, 0, 3) . (intval(substr($ultimulCod, 3)) + 1);
+        $tombola->cod = $ultimulCod->valoare;
 
         $tombola->save();
 
